@@ -1,15 +1,13 @@
-# ==== Linear diffusion experiment (R -> Python) ====
+# ========= Linear diffusion (R -> Python, 原版 Gaussian 对照) =========
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import sparse
 from scipy.sparse.linalg import spsolve
-import gpytorch
-from gpytorch.kernels import GridInterpolationKernel, ScaleKernel, RBFKernel, MaternKernel
-from gpytorch.constraints import GreaterThan
-from pydmd import DMD
 
-import torch, qpytorch
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import RBF, Matern, ConstantKernel as C, WhiteKernel
+
 
 def _ensure_finite(arr, tag="", cap=1e6):
     import numpy as np
@@ -369,308 +367,178 @@ def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mea
     fig.suptitle(suptitle, fontweight="bold")
     plt.tight_layout()
     plt.show()
-    
 
-def fit_qep_1d(y_1d,
-               kernel_type="rbf", q_power=2.0,
-               train_iters=50, lr=0.05,
-               length_scale=0.2,  # 1D input has been normalized to [0,1]
-               nu=1.5,
-               jitter=1e-3,
-               device="cpu"):
+
+# ---------- 1) “observation mean” reality：same as R code :ReacTran + deSolve ----------
+def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0):
     """
-    y_1d: shape (T,)
-    返回：posterior mean, shape (T,)
-    """
-    torch.set_default_dtype(torch.float64)
-    T = len(y_1d)
-
-    # normalization
-    x = np.linspace(0.0, 1.0, T, dtype=np.float64)
-    y = np.asarray(y_1d, dtype=np.float64)
-
-    # standardization
-    y_mean = y.mean()
-    y_std  = y.std() + 1e-12
-    y_targ = (y - y_mean) / y_std
-
-    train_x = torch.from_numpy(x).unsqueeze(-1).to(device=device, dtype=torch.get_default_dtype())  # (T,1)
-    train_y = torch.from_numpy(y_targ).to(device=device, dtype=torch.get_default_dtype())
-    POWER   = float(q_power)
-
-    class QEP1D(qpytorch.models.ExactQEP):
-        def __init__(self, tx, ty, likelihood):
-            super().__init__(tx, ty, likelihood)
-            self.power = torch.tensor(POWER, dtype=tx.dtype, device=tx.device)
-            self.mean_module = qpytorch.means.ConstantMean()
-            # 1D kernel
-            if kernel_type.lower() in ("rbf", "exp"):
-                base_k = qpytorch.kernels.RBFKernel(ard_num_dims=1)
-            elif kernel_type.lower() == "matern":
-                try:
-                    base_k = qpytorch.kernels.MaternKernel(nu=nu, ard_num_dims=1)
-                except AttributeError:
-                    base_k = qpytorch.kernels.RBFKernel(ard_num_dims=1)
-            else:
-                raise ValueError("kernel_type must be 'rbf/exp' or 'matern'")
-            base_k.lengthscale = torch.tensor([float(length_scale)], dtype=tx.dtype, device=tx.device)
-            self.covar_module = gpytorch.kernels.ScaleKernel(base_k)
-            self._jitter = float(jitter)
-
-        def forward(self, x):
-            m = self.mean_module(x)
-            K = self.covar_module(x).add_jitter(self._jitter)
-            return qpytorch.distributions.MultivariateQExponential(m, K, power=self.power)
-
-    like  = qpytorch.likelihoods.QExponentialLikelihood(power=torch.tensor(POWER, dtype=train_x.dtype, device=train_x.device))
-    model = QEP1D(train_x, train_y, like).to(device)
-
-    model.train(); like.train()
-    opt = torch.optim.Adam(model.parameters(), lr=lr)
-    mll = qpytorch.mlls.ExactMarginalLogLikelihood(like, model)
-
-    with gpytorch.settings.cholesky_jitter(jitter), \
-         gpytorch.settings.max_preconditioner_size(50), \
-         gpytorch.settings.max_cg_iterations(500), \
-         gpytorch.settings.cg_tolerance(1e-5):
-        for _ in range(train_iters):
-            opt.zero_grad()
-            out = model(train_x)
-            loss = -mll(out, train_y)
-            if not torch.isfinite(loss):
-                model._jitter = min(model._jitter * 10.0, 1e-1)
-                continue
-            loss.backward()
-            opt.step()
-
-    model.eval(); like.eval()
-    with torch.no_grad(), gpytorch.settings.fast_pred_var():
-        pred = like(model(train_x)).mean.detach().cpu().numpy()
-
-    # 反标准化
-    pred = pred * y_std + y_mean
-    return pred
-
-def fit_qep_separable_2d(obs,
-                         kernel_type="rbf", q_power=2.0,
-                         train_iters_row=50, train_iters_col=50,
-                         lr=0.05,
-                         length_scale_row=0.2, length_scale_col=0.2,
-                         nu=1.5,
-                         jitter=1e-3,
-                         device="cpu"):
-    """
-    1D QEP by row first，then by col，return (H,W)
-    avoid to constructing 4e4×4e4 kernel matrix
-    """
-    H, W = obs.shape
-    # 1) smoothing by row
-    after_rows = np.empty_like(obs, dtype=np.float64)
-    for i in range(H):
-        after_rows[i, :] = fit_qep_1d(
-            obs[i, :],
-            kernel_type=kernel_type, q_power=q_power,
-            train_iters=train_iters_row, lr=lr,
-            length_scale=length_scale_row, nu=nu,
-            jitter=jitter, device=device
-        )
-    # 2) smoothing by column
-    after_cols = np.empty_like(obs, dtype=np.float64)
-    for j in range(W):
-        after_cols[:, j] = fit_qep_1d(
-            after_rows[:, j],
-            kernel_type=kernel_type, q_power=q_power,
-            train_iters=train_iters_col, lr=lr,
-            length_scale=length_scale_col, nu=nu,
-            jitter=jitter, device=device
-        )
-    return after_cols
-
-
-
-
-
-def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0,
-                              C_left=0.0, C_right=1.0,
-                              clip_bounds=(0.0, 1.0)):
-    """
-    stable 1D diffusion: Crank–Nicolson ，Dirichlet bound.
-    return reality: shape (k, n), one time step each column
+    1D diffusion: u_t = D * u_xx；implicited Euler
+    bound：left:Dirichlet=C_left(=0)，right: Dirichlet=C_right(=1)
+    return: reality shape (k, n)
     """
     dx = L / k
     dt = T / (n - 1)
-    r = D * dt / (dx * dx)
+    main = np.full(k, 2.0)
+    off  = np.full(k - 1, -1.0)
+    Lap = sparse.diags([off, main, off], [-1, 0, 1], shape=(k, k), format="csr") / (dx * dx)
 
-    # Laplacian
-    main = np.full(k, 2.0, dtype=np.float64)
-    off  = np.full(k - 1, -1.0, dtype=np.float64)
-    Lap  = sparse.diags([off, main, off], [-1, 0, 1], shape=(k, k), format="csr")
-
-    # CN： (I - r/2 * L) u^{t+1} = (I + r/2 * L) u^{t}
-    I = sparse.eye(k, format="csr", dtype=np.float64)
-    A = (I - 0.5 * r * Lap).tolil()
-    B = (I + 0.5 * r * Lap).tocsr()
-
-    # Dirichlet bound condition
-    for M in (A, B):
-        M[0, :] = 0.0;  M[0, 0] = 1.0
-        M[-1,:] = 0.0;  M[-1,-1] = 1.0
+    A = sparse.eye(k, format="csr") - dt * D * Lap  # implicited Euler matirx
+    A = A.tolil()
+    # Dirichlet bounds
+    A[0, :] = 0.0;  A[0, 0] = 1.0
+    A[-1, :] = 0.0; A[-1, -1] = 1.0
     A = A.tocsr()
 
-    # initial condition
-    u = np.zeros(k, dtype=np.float64)
+    u = np.zeros(k)
     u[0]  = C_left
     u[-1] = C_right
 
-    reality = np.zeros((k, n), dtype=np.float64)
-    reality[:, 0] = u
-
+    reality = np.zeros((k, n))
+    reality[:, 0] = u.copy()
     for t in range(1, n):
-        rhs = B @ reality[:, t-1]
-        # bounds
+        rhs = reality[:, t-1].copy()
         rhs[0]  = C_left
         rhs[-1] = C_right
         u_next = spsolve(A, rhs)
-
-        if clip_bounds is not None:
-            lo, hi = clip_bounds
-            u_next = np.clip(u_next, lo, hi)
-
-        # secure clearing
-        u_next = np.nan_to_num(u_next, nan=0.0, posinf=hi if clip_bounds else 1e6,
-                               neginf=lo if clip_bounds else -1e6)
-
         reality[:, t] = u_next
-
-    # global clearing before return
-    reality = np.nan_to_num(reality, nan=0.0, posinf=1.0, neginf=0.0)
     return reality
 
+# ---------- 2) Gaussian Process on 2D grid ----------
+def lattice_alg_gaussian(y, kernel_type="exp", length_scale=10.0, noise_var=1e-3):
+    """
+    equivalent: R code lattice_alg(...)：Gaussian process regression on (i, j) 2D grids。
+    y: (k, n) matirx；return pred_mean, same shape with y
+    kernel_type: "exp" -> RBF, "matern" -> Matern(nu=1.5)
+    noise_var: observation noise variance（R : param_ini/optim , here we use sklearn）
+    """
+    H, W = y.shape
+    xs = np.arange(H)
+    ys = np.arange(W)
+    X1, X2 = np.meshgrid(xs, ys, indexing="ij")
+    X = np.column_stack([X1.ravel(), X2.ravel()])
+    targ = y.ravel()
 
-# ===== hyperparameters =====
+    if kernel_type == "exp":
+        kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=(length_scale, length_scale),
+                                           length_scale_bounds=(1e-3, 1e4)) \
+                 + WhiteKernel(noise_level=max(noise_var, 1e-10),
+                               noise_level_bounds=(1e-12, 1e1))
+    elif kernel_type == "matern":
+        kernel = C(1.0, (1e-3, 1e3)) * Matern(length_scale=(length_scale, length_scale),
+                                              length_scale_bounds=(1e-3, 1e4), nu=1.5) \
+                 + WhiteKernel(noise_level=max(noise_var, 1e-10),
+                               noise_level_bounds=(1e-12, 1e1))
+    else:
+        raise ValueError("kernel_type must be 'exp' or 'matern'")
+
+    gpr = GaussianProcessRegressor(kernel=kernel, alpha=0.0, normalize_y=True,
+                                   n_restarts_optimizer=1, copy_X_train=False, random_state=0)
+    gpr.fit(X, targ)
+    pred = gpr.predict(X)
+    return pred.reshape(H, W)
+
+# ---------- 3) hyperparameters ----------
 k = 200
 n = 200
-sigma0_list = [0.05, 0.1, 0.3]
 num_repetition = 10
+sigma0_list = [0.05, 0.1, 0.3]
 
-# “observation mean” reality（k x n）
+# “observation” reality
 reality = generate_linear_diffusion(k=k, n=n, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0)
-reality = _ensure_finite(reality, tag="reality")
-assert np.isfinite(reality).all(), "reality has non-finite values"
 
-# —— tool functions：
-# fmou_predictive_mean(obs, d, ...)
-# choose_rank_via_criterion(output_mat)
-# pca_reconstruct(obs, d)
-# dmd_reconstruct(obs, r)
-# rmse(a,b)
-# make_violin_plot(...); plot_triplet(...)
-
-# result container
+# ---------- 4) results ----------
 def _alloc(R, S): return np.full((R, S), np.nan)
-rmse_qep_rbf     = _alloc(num_repetition, len(sigma0_list))   # lattice_exp in R
-rmse_qep_matern  = _alloc(num_repetition, len(sigma0_list))   # lattice_matern in R
-rmse_fmou        = _alloc(num_repetition, len(sigma0_list))
-rmse_pca         = _alloc(num_repetition, len(sigma0_list))
-rmse_dmd         = _alloc(num_repetition, len(sigma0_list))
+rmse_lattice_exp     = _alloc(num_repetition, len(sigma0_list))
+rmse_lattice_matern  = _alloc(num_repetition, len(sigma0_list))
+rmse_fmou            = _alloc(num_repetition, len(sigma0_list))
+rmse_pca             = _alloc(num_repetition, len(sigma0_list))
+rmse_dmd             = _alloc(num_repetition, len(sigma0_list))
 
-y_record                     = [None]*len(sigma0_list)
-pred_qep_rbf_record          = [None]*len(sigma0_list)
-pred_qep_matern_record       = [None]*len(sigma0_list)
-pred_fmou_record             = [None]*len(sigma0_list)
-pred_pca_record              = [None]*len(sigma0_list)
-pred_dmd_record              = [None]*len(sigma0_list)
-est_d_record                 = np.full((num_repetition, len(sigma0_list)), np.nan, dtype=int)
+y_record                       = [None]*len(sigma0_list)
+pred_mean_lattice_exp_record   = [None]*len(sigma0_list)
+pred_mean_lattice_matern_record= [None]*len(sigma0_list)
+pred_mean_fmou_record          = [None]*len(sigma0_list)
+pred_mean_pca_record           = [None]*len(sigma0_list)
+pred_mean_dmd_record           = [None]*len(sigma0_list)
 
-# ===== main iteration =====
+est_d_record                   = np.full((num_repetition, len(sigma0_list)), np.nan, dtype=int)
+
+# ---------- 5) main iterations ----------
 for j, sigma0 in enumerate(sigma0_list):
     for it in range(num_repetition):
         np.random.seed(it+1)
-        y_obs = reality + np.random.normal(scale=sigma0, size=reality.shape)
-        y_obs = _ensure_finite(y_obs, tag = f"y_obs (sigma={sigma0}, it = {it})")
+        # observation with noise
+        y = reality + np.random.normal(scale=sigma0, size=reality.shape)
         if it == 0:
-            y_record[j] = y_obs   
+            y_record[j] = y
 
-        # QEP-RBF（ R: lattice_exp）
-        # length_scale  0.1~0.5
-        pred_rbf = fit_qep_separable_2d(
-            y_obs, kernel_type="rbf", q_power=2.5,
-            train_iters_row=50, train_iters_col=50, lr=0.05,
-            length_scale_row=0.2, length_scale_col=0.2,
-            device="cpu"
-        )
-        pred_rbf = _ensure_finite(pred_rbf, tag = f"pred_rbf (sigma={sigma0}, it={it})")
+        # Lattice - exp kernel （Gaussian RBF）
+        ls = max(5, min(k, n))
+        pred_exp = lattice_alg_gaussian(y, kernel_type="exp",
+                                        length_scale=ls, noise_var=sigma0**2)
+        rmse_lattice_exp[it, j] = np.sqrt(np.mean((reality - pred_exp)**2))
+        if it == 0: pred_mean_lattice_exp_record[j] = pred_exp
 
-        # pred_rbf = fit_qep_on_grid_linear(y, kernel_type="rbf", q_power=2.0,
-        #                           train_iters=200, lr=0.02,
-        #                           length_scale=0.2, device="cpu",
-        #                           inducing_per_dim=(64, 64))
+        # Lattice - matern kernel （Gaussian Matern ν=1.5）
+        pred_mat = lattice_alg_gaussian(y, kernel_type="matern",
+                                        length_scale=ls, noise_var=sigma0**2)
+        rmse_lattice_matern[it, j] = np.sqrt(np.mean((reality - pred_mat)**2))
+        if it == 0: pred_mean_lattice_matern_record[j] = pred_mat
 
-
-        rmse_qep_rbf[it, j] = np.sqrt(np.mean((reality - pred_rbf)**2))
-        if it == 0: pred_qep_rbf_record[j] = pred_rbf
-
-        # QEP-Matern（R: lattice_matern）
-        pred_mat = fit_qep_separable_2d(
-            y_obs, kernel_type="matern", q_power=2.5,
-            train_iters_row=50, train_iters_col=50, lr=0.05,
-            length_scale_row=0.2, length_scale_col=0.2,
-            nu=1.5, device="cpu"
-        )
-        pred_mat = _ensure_finite(pred_mat, tag=f"pred_mat (sigma={sigma0}, it={it})")
-        rmse_qep_matern[it, j] = np.sqrt(np.mean((reality - pred_mat)**2))
-        if it == 0: pred_qep_matern_record[j] = pred_mat
-        
-        assert np.isfinite(y_obs).all(), "y_obs contains NaN/Inf before SVD rank selection"
-        # avoid extreme value
-        # y_for_svd = np.clip(y_obs, -1e6, 1e6)
-        y_for_svd = _ensure_finite(y_obs.copy(), tag=f"before SVD (sigma={sigma0}, it={it})")
-        # estimate rank d
-        d_hat = choose_rank_via_criterion(y_for_svd)
+        # ranks
+        d_hat = choose_rank_via_criterion(y)
         est_d_record[it, j] = d_hat
 
         # FMOU
-        fmou_out = fmou_predictive_mean(y_obs, d_hat, M=100, threshold=1e-6, est_U0=True, est_sigma0_2=True)
+        fmou_out = fmou_predictive_mean(y, d_hat, M=100, threshold=1e-6,
+                                        est_U0=True, est_sigma0_2=True)
         pred_fmou = fmou_out['mean_obs']
         rmse_fmou[it, j] = np.sqrt(np.mean((reality - pred_fmou)**2))
-        if it == 0: pred_fmou_record[j] = pred_fmou
+        if it == 0: pred_mean_fmou_record[j] = pred_fmou
 
-        # PCA
-        pred_pca = pca_reconstruct(y_obs, d_hat)
+        # PCA（U[:,1:d] U^T y）
+        pred_pca = pca_reconstruct(y, d_hat)
         rmse_pca[it, j] = np.sqrt(np.mean((reality - pred_pca)**2))
-        if it == 0: pred_pca_record[j] = pred_pca
+        if it == 0: pred_mean_pca_record[j] = pred_pca
 
-        # DMD
-        pred_dmd = dmd_reconstruct(y_obs, r=d_hat)
-        # DMD in R: cbind(y[,1], in_sample_pred)
+        # DMD（R: cbind(y[,1], in_sample_pred)）
+        pred_dmd = dmd_reconstruct(y, r=d_hat)
         pred_dmd_with_first = pred_dmd.copy()
-        pred_dmd_with_first[:, 0] = y_obs[:, 0]
+        pred_dmd_with_first[:, 0] = y[:, 0]
         rmse_dmd[it, j] = np.sqrt(np.mean((pred_dmd_with_first - reality)**2))
-        if it == 0: pred_dmd_record[j] = pred_dmd_with_first
+        if it == 0: pred_mean_dmd_record[j] = pred_dmd_with_first
 
-# ======= RMSE Summary=======
+# ---------- 6) RMSE ----------
 rmse_summary = pd.DataFrame({
-    0.05: [np.nanmean(rmse_qep_rbf[:,0]), np.nanmean(rmse_qep_matern[:,0]),
-           np.nanmean(rmse_fmou[:,0]),    np.nanmean(rmse_pca[:,0]), np.nanmean(rmse_dmd[:,0])],
-    0.10: [np.nanmean(rmse_qep_rbf[:,1]), np.nanmean(rmse_qep_matern[:,1]),
-           np.nanmean(rmse_fmou[:,1]),    np.nanmean(rmse_pca[:,1]), np.nanmean(rmse_dmd[:,1])],
-    0.30: [np.nanmean(rmse_qep_rbf[:,2]), np.nanmean(rmse_qep_matern[:,2]),
-           np.nanmean(rmse_fmou[:,2]),    np.nanmean(rmse_pca[:,2]), np.nanmean(rmse_dmd[:,2])],
-}, index=["qep_rbf","qep_matern","fmou","pca","dmd"])
-print("\n=== RMSE summary (Linear diffusion) ===\n", rmse_summary)
+    0.05: [np.nanmean(rmse_lattice_exp[:,0]),
+           np.nanmean(rmse_lattice_matern[:,0]),
+           np.nanmean(rmse_fmou[:,0]),
+           np.nanmean(rmse_pca[:,0]),
+           np.nanmean(rmse_dmd[:,0])],
+    0.10: [np.nanmean(rmse_lattice_exp[:,1]),
+           np.nanmean(rmse_lattice_matern[:,1]),
+           np.nanmean(rmse_fmou[:,1]),
+           np.nanmean(rmse_pca[:,1]),
+           np.nanmean(rmse_dmd[:,1])],
+    0.30: [np.nanmean(rmse_lattice_exp[:,2]),
+           np.nanmean(rmse_lattice_matern[:,2]),
+           np.nanmean(rmse_fmou[:,2]),
+           np.nanmean(rmse_pca[:,2]),
+           np.nanmean(rmse_dmd[:,2])],
+}, index=["lattice_exp","lattice_matern","fmou","pca","dmd"])
+print("\n=== RMSE summary (Gaussian baseline, Linear diffusion) ===\n", rmse_summary)
 
-# ======= Figure (B) violin plot =======
-method_order = ["QEP-Mat","PCA","FMOU","DMD","QEP-RBF"]
+# ---------- 7) (B) violin plot ----------
+method_order = ["Fast-Mat","PCA","FMOU","DMD","Fast-Exp"]
 def _reorder(arrs):
-    # [rbf, mat, fmou, pca, dmd] -> ["QEP-Mat","PCA","FMOU","DMD","QEP-RBF"]
-    mapping = {"QEP-Mat":1, "PCA":3, "FMOU":2, "DMD":4, "QEP-RBF":0}
+    # [exp, mat, fmou, pca, dmd] -> ["Fast-Mat","PCA","FMOU","DMD","Fast-Exp"]
+    mapping = {"Fast-Mat":1, "PCA":3, "FMOU":2, "DMD":4, "Fast-Exp":0}
     return [arrs[mapping[m]] for m in method_order]
 
-make_violin_plot(_reorder([rmse_qep_rbf, rmse_qep_matern, rmse_fmou, rmse_pca, rmse_dmd]),
-                 method_order, sigma0_list, title="(B) Linear diffusion")
+make_violin_plot(_reorder([rmse_lattice_exp, rmse_lattice_matern, rmse_fmou, rmse_pca, rmse_dmd]),
+                 method_order, sigma0_list, title="(B) Linear diffusion (Gaussian)")
 
-# ======= Figure 6(B)：（observation mean、observation with noise、Matern estimation）=======
-# sigma0=0.3, same with R code
-plot_triplet(reality, y_record[2], pred_qep_matern_record[2],
+# ---------- 8) triplots ----------
+plot_triplet(reality, y_record[2], pred_mean_lattice_matern_record[2],
              title_left="(D) Observation mean", title_mid="(E) Noisy observation",
-             title_right="(F) Predictive mean", suptitle="Linear diffusion")
+             title_right="(F) Predictive mean", suptitle="Linear diffusion (Gaussian)")

@@ -5,8 +5,6 @@ import pandas as pd
 from PIL import Image
 import imageio.v2 as imageio
 import matplotlib.pyplot as plt
-import torch
-import qpytorch
 
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, Matern, ConstantKernel as C, WhiteKernel
@@ -250,81 +248,34 @@ def choose_rank_via_criterion(output_mat):
         losses.append(crit)
     est_d = 1 + int(np.argmin(losses))
     return est_d
-# ---- New: QEP on grid (QePyTorch) ----
 
-def fit_qep_on_grid(obs, kernel_type="exp", q_power=1.0,  
-                    train_iters=200, lr=0.1, length_scale=10.0, nu=1.5,
-                    device="cpu"):
+def fit_gpr_on_grid(obs, kernel_type="exp", noise_level=1e-3, length_scale=10.0, nu=1.5):
     """
-    use QePyTorch to train Q-Exponential Process and predict on the same grid。
-    obs: 2D numpy array (H, W)
-    return: 2D numpy array (H, W) – predictive mean
+    fitting GPR on 2d-grid：input:grid coordinates，target: obs[i,j]
     """
-    torch.set_default_dtype(torch.float64)  
     H, W = obs.shape
-    xs = np.arange(H, dtype=np.float64)
-    ys = np.arange(W, dtype=np.float64)
+    # construct 2D-grid input
+    xs = np.arange(H)
+    ys = np.arange(W)
     X1, X2 = np.meshgrid(xs, ys, indexing="ij")
-    X = np.column_stack([X1.ravel(), X2.ravel()])           # (N, 2)
-    y = obs.ravel()                                         # (N,)
+    X = np.column_stack([X1.ravel(), X2.ravel()])
+    y = obs.ravel()
 
-    train_x = torch.from_numpy(X).to(device = device, dtype=torch.get_default_dtype())
-    train_y = torch.from_numpy(y).to(device = device, dtype=torch.get_default_dtype())
+    if kernel_type == "exp":
+        # C * RBF + WhiteKernel ,apporximate the exp kernel in r code
+        kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=(length_scale, length_scale), length_scale_bounds=(1e-1, 1e3)) \
+                 + WhiteKernel(noise_level=max(noise_level, 1e-6), noise_level_bounds=(1e-10, 1e1))
+    elif kernel_type == "matern":
+        kernel = C(1.0, (1e-3, 1e3)) * Matern(length_scale=(length_scale, length_scale),
+                                              length_scale_bounds=(1e-1, 1e3), nu=nu) \
+                 + WhiteKernel(noise_level=max(noise_level, 1e-6), noise_level_bounds=(1e-10, 1e1))
+    else:
+        raise ValueError("kernel_type must be 'exp' or 'matern'")
 
-    #  ExactQEP 
-    POWER = float(q_power)  # q=2 → Gaussian
-    class ExactQEPModel(qpytorch.models.ExactQEP):
-        def __init__(self, train_x, train_y, likelihood):
-            super().__init__(train_x, train_y, likelihood)
-            self.power = torch.tensor(POWER, dtype=train_x.dtype, device=train_x.device)
-            self.mean_module = qpytorch.means.ConstantMean()
-            
-            ls = float(length_scale)
-            if kernel_type == "exp":
-                base_k = qpytorch.kernels.RBFKernel(ard_num_dims=2)
-                base_k.lengthscale = torch.tensor([ls, ls], 
-                                                  dtype=train_x.dtype, device=train_x.device)
-            
-            elif kernel_type == "matern":
-                base_k = qpytorch.kernels.MaternKernel(nu=nu, ard_num_dims=2)
-                base_k.lengthscale = torch.tensor([ls,ls], 
-                                                  dtype=train_x.dtype, device=train_x.device)
-
-            else:
-                raise ValueError("kernel_type must be 'rbf/exp' or 'matern'")
-
-            self.covar_module = qpytorch.kernels.ScaleKernel(base_k)
-
-        def forward(self, x):
-            mean_x = self.mean_module(x)
-            covar_x = self.covar_module(x)
-            return qpytorch.distributions.MultivariateQExponential(
-                mean_x, covar_x, power=self.power
-            )
-
-    likelihood = qpytorch.likelihoods.QExponentialLikelihood(power=torch.tensor(POWER, dtype=train_x.dtype, device=device))
-    model = ExactQEPModel(train_x, train_y, likelihood).to(device)
-
-    # train（Type-II MLE）：ExactMarginalLogLikelihood
-    model.train(); likelihood.train()
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    mll = qpytorch.mlls.ExactMarginalLogLikelihood(likelihood, model)
-
-    for _ in range(train_iters):
-        optimizer.zero_grad()
-        output = model(train_x)
-        loss = -mll(output, train_y)
-        loss.backward()
-        optimizer.step()
-
-    # prediction
-    model.eval(); likelihood.eval()
-    with torch.no_grad(), qpytorch.settings.fast_pred_var():  # 可加速方差计算
-        test_x = train_x
-        pred = likelihood(model(test_x))
-        # predicted mean
-        mean = pred.mean.detach().cpu().numpy().reshape(H, W)
-    return mean
+    gpr = GaussianProcessRegressor(kernel=kernel, alpha=0.0, normalize_y=True, n_restarts_optimizer=1, copy_X_train=False)
+    gpr.fit(X, y)
+    y_pred = gpr.predict(X)
+    return y_pred.reshape(H, W)
 
 def pca_reconstruct(obs, d):
     U, s, Vt = np.linalg.svd(obs, full_matrices=False)
@@ -416,7 +367,7 @@ for j, sigma_0 in enumerate(sigma0_list):
             nuc_y_record[j] = obs
 
         # Lattice - exp kernel (use GPR RBF)
-        pred_exp = fit_qep_on_grid(obs, kernel_type="exp", q_power=1.0, train_iters=150, lr=0.1, length_scale=max(5,min(nuclei.shape)), device="cpu")
+        pred_exp = fit_gpr_on_grid(obs, kernel_type="exp", noise_level=(sigma_0**2), length_scale=max(5, min(nuclei.shape)))
         print('calling GPR with N=', obs.size, flush=True)
 
         nuc_rmse_exp[it, j] = rmse(nuclei, pred_exp)
@@ -424,7 +375,7 @@ for j, sigma_0 in enumerate(sigma0_list):
             nuc_pred_exp_record[j] = pred_exp
 
         # Lattice - matern kernel (use GPR Matern)
-        pred_mat = fit_qep_on_grid(obs, kernel_type="matern", q_power=1.0, train_iters=150, lr=0.1, length_scale=max(5,min(nuclei.shape)), nu= 1.5, device="cpu")
+        pred_mat = fit_gpr_on_grid(obs, kernel_type="matern", noise_level=(sigma_0**2), length_scale=max(5, min(nuclei.shape)), nu=1.5)
         nuc_rmse_mat[it, j] = rmse(nuclei, pred_mat)
         if it == 0:
             nuc_pred_mat_record[j] = pred_mat
@@ -464,14 +415,13 @@ for j, sigma_0 in enumerate(sigma0_list):
         if it == 0:
             whl_y_record[j] = obs
 
-        pred_exp = fit_qep_on_grid(obs, kernel_type="exp", q_power=1.0, train_iters=150, lr=0.1, length_scale=max(5,min(nuclei.shape)), device="cpu")
-
+        pred_exp = fit_gpr_on_grid(obs, kernel_type="exp", noise_level=(sigma_0**2), length_scale=max(5, min(whole.shape)))
         print('calling GPR with N=', obs.size, flush=True)
         whl_rmse_exp[it, j] = rmse(whole, pred_exp)
         if it == 0:
             whl_pred_exp_record[j] = pred_exp
 
-        pred_mat = fit_qep_on_grid(obs, kernel_type="matern", q_power=1.0, train_iters=150, lr=0.1, length_scale=max(5,min(nuclei.shape)), nu= 1.5, device="cpu")
+        pred_mat = fit_gpr_on_grid(obs, kernel_type="matern", noise_level=(sigma_0**2), length_scale=max(5, min(whole.shape)), nu=1.5)
         whl_rmse_mat[it, j] = rmse(whole, pred_mat)
         if it == 0:
             whl_pred_mat_record[j] = pred_mat
