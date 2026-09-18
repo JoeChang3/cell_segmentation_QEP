@@ -1,0 +1,2 @@
+"image","img_height","img_width","row_proportion","col_proportion","crop_height","crop_width","num_pieces_y","num_pieces_x","magick_orientation","intensity_convention"
+"data/nuclear_test_images/nuclei_figure_1/original_fig.png",1128,962,0.25,0.25,282,240,4,4,"(height, width, channel)","raw/255 via magick, channel 1 only"

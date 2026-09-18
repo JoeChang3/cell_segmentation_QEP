@@ -1,0 +1,186 @@
+{
+  "experiment": "cell_blobs_qep_benchmark",
+  "question": "Does q<2 preserve sharp cell boundaries better than q=2?",
+  "timestamp": "2026-09-04 00:36:39",
+  "args": {
+    "grid": 64,
+    "sigma": [
+      0.1,
+      0.25
+    ],
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "q": [
+      3.0,
+      2.0,
+      1.8,
+      1.5,
+      1.2,
+      1.0
+    ],
+    "iters": 400,
+    "lr": 0.02,
+    "inference": "exact",
+    "inducing_per_dim": 32,
+    "init_lengthscale": 0.04,
+    "nu": 2.5,
+    "band_width": 2,
+    "boundary_tol": 2,
+    "no_gp_control": false,
+    "out": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/cell_blobs_qep_exact",
+    "tag": "exact",
+    "smoke": false
+  },
+  "arms": [
+    {
+      "key": "qep_q3p0",
+      "label": "q=3.0 (probe)",
+      "power": 3.0
+    },
+    {
+      "key": "qep_q2p0",
+      "label": "q=2.0",
+      "power": 2.0
+    },
+    {
+      "key": "qep_q1p8",
+      "label": "q=1.8",
+      "power": 1.8
+    },
+    {
+      "key": "qep_q1p5",
+      "label": "q=1.5",
+      "power": 1.5
+    },
+    {
+      "key": "qep_q1p2",
+      "label": "q=1.2",
+      "power": 1.2
+    },
+    {
+      "key": "qep_q1p0",
+      "label": "q=1.0",
+      "power": 1.0
+    },
+    {
+      "key": "gp_control",
+      "label": "GP control",
+      "power": null
+    }
+  ],
+  "cell_specs": [
+    {
+      "name": "isolated_large",
+      "cx": 0.2,
+      "cy": 0.22,
+      "a": 0.105,
+      "b": 0.105,
+      "theta": 0.0,
+      "I": 1.0
+    },
+    {
+      "name": "isolated_medium",
+      "cx": 0.78,
+      "cy": 0.18,
+      "a": 0.07,
+      "b": 0.07,
+      "theta": 0.0,
+      "I": 0.85
+    },
+    {
+      "name": "touch_pair_A",
+      "cx": 0.44,
+      "cy": 0.515,
+      "a": 0.08,
+      "b": 0.08,
+      "theta": 0.0,
+      "I": 0.95
+    },
+    {
+      "name": "touch_pair_B",
+      "cx": 0.578,
+      "cy": 0.515,
+      "a": 0.08,
+      "b": 0.08,
+      "theta": 0.0,
+      "I": 0.72
+    },
+    {
+      "name": "near_pair_A",
+      "cx": 0.17,
+      "cy": 0.73,
+      "a": 0.0525,
+      "b": 0.0525,
+      "theta": 0.0,
+      "I": 0.9
+    },
+    {
+      "name": "near_pair_B",
+      "cx": 0.305,
+      "cy": 0.73,
+      "a": 0.0525,
+      "b": 0.0525,
+      "theta": 0.0,
+      "I": 0.78
+    },
+    {
+      "name": "rot_ellipse",
+      "cx": 0.8,
+      "cy": 0.62,
+      "a": 0.115,
+      "b": 0.055,
+      "theta": 35.0,
+      "I": 0.88
+    },
+    {
+      "name": "small_circle",
+      "cx": 0.58,
+      "cy": 0.87,
+      "a": 0.052,
+      "b": 0.052,
+      "theta": 0.0,
+      "I": 1.0
+    },
+    {
+      "name": "small_ellipse",
+      "cx": 0.9,
+      "cy": 0.9,
+      "a": 0.042,
+      "b": 0.058,
+      "theta": -20.0,
+      "I": 0.75
+    }
+  ],
+  "background": 0.05,
+  "fixed_threshold": 0.385,
+  "touch_roi": [
+    0.32,
+    0.7,
+    0.38,
+    0.66
+  ],
+  "truth_singular_values": [
+    14.495912455895512,
+    10.484946036836346,
+    6.568463125295673,
+    5.46200287091973,
+    4.104930170867591,
+    3.0253516647932504,
+    2.617711898721785,
+    2.2026696434822015
+  ],
+  "truth_effective_rank_999": 31,
+  "power_semantics": "power == q directly; verified: power=2.0 reproduces gpytorch MultivariateNormal.log_prob and GaussianLikelihood.expected_log_prob exactly",
+  "elbo_comparability_warning": "ELBO/-loss values are NOT comparable across q: qpytorch's QExponentialLikelihood.expected_log_prob adds 0.5*(q/2-1)*log(r) + log(q/2)",
+  "env": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "torch": "2.10.0",
+    "numpy": "1.26.4",
+    "gpytorch": "1.15.1",
+    "qpytorch": "0.2"
+  }
+}

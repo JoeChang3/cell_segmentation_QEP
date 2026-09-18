@@ -1,0 +1,2 @@
+selected_percentage,selected_abs_threshold,tile_max,tile_min,th_stability,argmax_index,n_candidates,rgasp_nugget_est,rgasp_beta_hat,rgasp_nugget,rgasp_sigma2
+0.24,0.215529411764706,0.898039215686275,0.0274509803921569,39.8400078238486,14,101,True,29.5983181187392,0.202677322458558,698614.730376251

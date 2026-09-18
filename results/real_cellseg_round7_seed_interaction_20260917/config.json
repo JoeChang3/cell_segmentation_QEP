@@ -1,0 +1,52 @@
+{
+  "round": "round7-seed-interaction",
+  "question": "Is Fast-GP's benefit under the paper downstream mediated by watershed seed stabilization?",
+  "nothing_refit": true,
+  "reused_from": "results/real_cellseg_round6_paper_downstream_20260917",
+  "reused_artifacts": [
+    "*_combined_binary.csv (paper RobustGaSP threshold)",
+    "*_distmap.csv (EBImage distmap)",
+    "*_watershed_precleanup.csv",
+    "*_labels_final.csv",
+    "GT_paper_orientation.csv"
+  ],
+  "held_fixed": {
+    "reconstruction": "Round-6 arrays, byte-identical between cell and cell*",
+    "threshold": "paper criterion_1 + real RobustGaSP, from Round 6; NOT replaced by Li/Otsu/Round-3/anything",
+    "binary_foreground": "identical between cell and cell*, asserted",
+    "distance_transform": "EBImage::distmap output from R, reused verbatim",
+    "cleanup": "paper eliminate_small_areas(., size_threshold=50)",
+    "orientation": "Round-6 verified natural (height,width); no flips",
+    "evaluator": "py_core/segmentation_eval.py, AP=TP/(TP+FP+FN)"
+  },
+  "markers": {
+    "implementation": "skimage.feature.peak_local_max via py_core.instance_separation.make_peak_markers",
+    "source_surface": "EBImage distmap from R (NOT recomputed)",
+    "min_distance": {
+      "nuclei": 15,
+      "whole_cell": 9
+    },
+    "min_distance_units": "pixels, p_norm=inf (Chebyshev)",
+    "threshold_abs": null,
+    "threshold_rel": null,
+    "exclude_border": false,
+    "mask_restriction": "labels = paper binary foreground",
+    "fallback_for_markerless_components": "one marker at the component's distance-transform argmax (first in C raster order)",
+    "connectivity": 1,
+    "label_construction": "each peak gets its own integer id; peaks are never fused by ndi.label",
+    "gt_used_for_markers": false,
+    "tuned_per_arm": false,
+    "settings_origin": "round-3 frozen_config.json (dataset-level, frozen before this experiment)"
+  },
+  "watershed_step4": {
+    "ebimage_accepts_markers": false,
+    "ebimage_watershed_signature": "watershed(x, tolerance=1, ext=1)",
+    "ebimage_propagate_signature": "propagate(x, seeds, mask=NULL, lambda=1e-04)",
+    "decision": "EBImage::watershed cannot take seeds; B*/D* use skimage watershed on -(EBImage distmap) with the same mask. CONTROLLED SEEDING INTERVENTION, not a paper-faithful EBImage run. EBImage::propagate with identical seeds is reported separately."
+  },
+  "environment": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "numpy": "1.26.4"
+  }
+}

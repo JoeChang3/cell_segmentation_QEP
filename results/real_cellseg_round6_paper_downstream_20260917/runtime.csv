@@ -1,0 +1,11 @@
+dataset,cell,label,t_recon_s,t_threshold_s,t_watershed_cleanup_s,t_downstream_s,t_total_s
+nuclei,A,A  Raw + current downstream,1.770176887512207,,,5.29619574546814,7.066372632980347
+nuclei,C,C  paper_fast_gp + current downstream,3.4131808280944824,,,0.3191323280334472,3.7323131561279297
+nuclei,B,B  NoGP + paper downstream (constructed ablation),0.0,2.59,9.587,12.177,12.353
+nuclei,D,D  paper_fast_gp + paper downstream,17.163,2.931,1.666,4.5969999999999995,21.953
+nuclei,B_literal,B' published NoGP arm (confounded; secondary),,,,,10.319
+whole_cell,A,A  Raw + current downstream,0.1505019664764404,,,0.1355788707733154,0.2860808372497558
+whole_cell,C,C  paper_fast_gp + current downstream,2.496417760848999,,,0.1400041580200195,2.6364219188690186
+whole_cell,B,B  NoGP + paper downstream (constructed ablation),0.0,1.021,0.705,1.726,1.836
+whole_cell,D,D  paper_fast_gp + paper downstream,8.972,1.183,0.57,1.7530000000000001,10.85
+whole_cell,B_literal,B' published NoGP arm (confounded; secondary),,,,,1.266

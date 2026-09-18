@@ -1,0 +1,24 @@
+{
+  "round": "round8-threshold-cross",
+  "question": "Does Fast-GP help the paper pipeline by changing the intensity field, or by changing the selected threshold proportion p?",
+  "nothing_refit": true,
+  "criterion_1_rerun": false,
+  "p_values_source": "results/real_cellseg_round6_paper_downstream_20260917/r_outputs/*/*_tile_meta.csv",
+  "reconstructions_source": "results/real_cellseg_round6_paper_downstream_20260917/r_outputs/*/*_combined_predmean.csv",
+  "crossing_rule": "threshold = p_donor * max(RECIPIENT tile). The recipient image's own max is always used; we cross the proportion p, not an absolute intensity.",
+  "downstream": "unchanged paper downstream: outlier-tile handling, EBImage::distmap, EBImage::watershed(tolerance=1, ext=1) implicit seeding, eliminate_small_areas(., 50). No explicit markers in the primary experiment.",
+  "self_checks": [
+    "RR reproduces Round-6 B AP@0.5 to <1e-12",
+    "GG reproduces Round-6 D AP@0.5 to <1e-12",
+    "raw reconstruction == image/255 in the tiled region",
+    "fastgp reconstruction == Round-5 paper_fast_gp/255",
+    "per-tile max matches Round-6 tile_meta to 1e-9",
+    "tile geometry identical between arms"
+  ],
+  "secondary_absolute_threshold_cross": "tables/secondary_absolute_threshold_cross.csv -- a DIAGNOSTIC only, not the paper-faithful factorial, because raw and fastgp have different scales",
+  "environment": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "numpy": "1.26.4"
+  }
+}

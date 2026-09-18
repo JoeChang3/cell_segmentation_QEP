@@ -1,0 +1,9 @@
+dataset,cell,label,n_markers,n_fg_components,n_components_rescued,markers_per_component_mean,markers_per_component_median,markers_per_component_max,components_with_zero_markers,components_with_gt1_markers,n_gt,frac_gt_with_ge1_marker,mean_markers_per_gt_cell,gt_cells_zero_markers,gt_cells_gt1_markers,markers_outside_gt
+nuclei,B,"B   Raw + paper downstream, EBImage implicit seeds",0,4123,0,0.0,0.0,0,4123,0,330,0.0,0.0,330,0,0
+nuclei,B*,"B*  Raw + paper downstream, EXPLICIT peak markers",4173,4123,3778,1.0121270919233567,1.0,15,0,31,330,0.9818181818181818,6.524242424242424,6,274,2020
+nuclei,D,"D   FastGP + paper downstream, EBImage implicit seeds",0,422,0,0.0,0.0,0,422,0,330,0.0,0.0,330,0,0
+nuclei,D*,"D*  FastGP + paper downstream, EXPLICIT peak markers",466,422,152,1.1042654028436019,1.0,4,0,33,330,0.9121212121212121,1.0272727272727273,29,28,127
+whole_cell,B,"B   Raw + paper downstream, EBImage implicit seeds",0,366,0,0.0,0.0,0,366,0,403,0.0,0.0,403,0,0
+whole_cell,B*,"B*  Raw + paper downstream, EXPLICIT peak markers",600,366,220,1.639344262295082,1.0,49,0,38,403,0.7369727047146402,0.8039702233250621,106,27,276
+whole_cell,D,"D   FastGP + paper downstream, EBImage implicit seeds",0,314,0,0.0,0.0,0,314,0,403,0.0,0.0,403,0,0
+whole_cell,D*,"D*  FastGP + paper downstream, EXPLICIT peak markers",495,314,111,1.5764331210191083,1.0,18,0,68,403,0.8138957816377171,0.890818858560794,75,30,136

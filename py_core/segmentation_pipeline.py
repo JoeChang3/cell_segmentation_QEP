@@ -35,6 +35,16 @@ METHODS
   "gp_legacy" : the legacy `separable_gp_smooth_gpytorch` verbatim (float32,
                 isotropic Matern 2.5, Adam lr=0.1, 75 iters). Preserves the
                 historical GP behavior for continuity.
+                DISPLAY LABEL: "gp_isotropic_gpytorch_2025". This arm is NOT the
+                paper's Fast GP -- it is isotropic, subsamples 6000 pixels with
+                an unseeded RNG, and refits per tile. Use "paper_fast_gp" for the
+                paper's method. The key is kept so old results/ CSVs resolve.
+  "paper_fast_gp" : faithful port of the original R Fast-GP reconstruction
+                (separable Matern 5/2 K1(x)K2, distinct beta1/beta2, all pixels,
+                Kronecker eigendecomposition, profiled mean/scale, L-BFGS-B,
+                params from the FIRST tile reused everywhere). See
+                py_core/paper_fast_gp.py and
+                audits/PAPER_FAST_GP_WIRING_REPORT.md.
   "gp"        : controlled Gaussian arm - same code path as "qep" with q=2.
   "qep"       : controlled Q-Exponential arm, joint 2D coordinates.
 
@@ -69,6 +79,7 @@ import gpytorch
 import qpytorch
 
 from py_core.instance_separation import separate_instances
+from py_core.paper_fast_gp import estimate_shared_params, reconstruct_tile
 from py_core.Modified_Functions_RGasp import (
     criterion_1,
     eliminate_small_areas,
@@ -77,7 +88,27 @@ from py_core.Modified_Functions_RGasp import (
     threshold_image,
 )
 
-METHODS = ("raw", "gp_legacy", "gp", "qep")
+METHODS = ("raw", "gp_legacy", "gp", "qep", "paper_fast_gp")
+
+# Display labels. The stored method KEYS are unchanged so that every existing
+# results/ CSV keeps resolving; only the human-facing label is corrected.
+# "gp_legacy" was being read as "the paper's Fast GP", which it is not: it is an
+# isotropic GPyTorch smoother. See audits/PAPER_FAST_GP_WIRING_REPORT.md.
+METHOD_LABELS = {
+    "raw": "Raw",
+    "gp_legacy": "gp_isotropic_gpytorch_2025",
+    "gp": "GP (controlled)",
+    "qep": "QEP (controlled)",
+    "paper_fast_gp": "paper_fast_gp",
+}
+
+
+def method_label(method: str, q: Optional[float] = None) -> str:
+    """Human-facing label for a method key (old result keys still resolve)."""
+    base = METHOD_LABELS.get(method, method)
+    if method == "qep" and q is not None:
+        return f"QEP q={q:g}"
+    return base
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -345,6 +376,7 @@ def run_segmentation(
     exact_logdet: bool = True,
     marker_mode: str = "legacy_none",
     min_distance: int = 9,
+    paper_fast_gp_restarts: int = 0,
     verbose: bool = True,
 ) -> SegResult:
     """End-to-end segmentation. Only the reconstruction stage depends on `method`.
@@ -371,6 +403,9 @@ def run_segmentation(
 
     t_recon = 0.0
     tile_index = 0
+    # paper_fast_gp estimates (beta1, beta2, nu) ONCE on the first tile and
+    # reuses them for every later tile, as generate_GP_Masks_test does.
+    shared_pfg = None
 
     # ---- 1) per-tile reconstruction + adaptive threshold ----
     for i in range(geom.num_pieces_x):
@@ -406,6 +441,31 @@ def run_segmentation(
                     torch_seed=(seed * 1000 + tile_index),
                     exact_logdet=exact_logdet)
                 diag["family"] = "gp_legacy"
+            elif method == "paper_fast_gp":
+                # Faithful port of the original R Fast-GP reconstruction:
+                # separable Matern 5/2 K1 (x) K2, distinct beta1/beta2, all
+                # pixels, Kronecker eigendecomposition, profiled mean and scale,
+                # L-BFGS-B from param_ini = (-2,-2,-3). Shared params come from
+                # the FIRST tile; theta_hat is re-profiled per tile.
+                tile01 = tile.astype(np.float64)
+                scale01 = 255.0 if float(tile01.max()) > 1.0 + 1e-9 else 1.0
+                tile01 = tile01 / scale01
+                if shared_pfg is None:
+                    shared_pfg = estimate_shared_params(
+                        tile01, source_tile=f"tile_index={tile_index}",
+                        n_restarts=paper_fast_gp_restarts)
+                rec = reconstruct_tile(tile01, shared_pfg)
+                predmean = rec.pred_mean * scale01
+                diag = dict(family="paper_fast_gp", q=None,
+                            n_pixels=int(tile.size),
+                            beta1=shared_pfg.beta1, beta2=shared_pfg.beta2,
+                            nugget=shared_pfg.nugget,
+                            neg_log_lik=shared_pfg.neg_log_lik,
+                            shared_from=shared_pfg.source_tile,
+                            degenerate_axes=",".join(shared_pfg.degenerate_axes)
+                                            or "none",
+                            theta_hat=rec.theta_hat, s_2=rec.s_2,
+                            sigma2_hat=rec.sigma2_hat, input_scale=scale01)
             else:
                 predmean, diag = smooth_tile(
                     tile, family=("gp" if method == "gp" else "qep"), q=q,

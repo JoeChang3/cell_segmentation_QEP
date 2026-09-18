@@ -1,0 +1,7 @@
+dataset,image,arm_a,arm_b,label_a,label_b,corr,rmse_between,max_abs_diff
+nuclei,nuclei_figure_1,raw,paper_fast_gp,Raw,paper_fast_gp (paper-faithful opt),0.9660863545152595,5.051976039964525,32.11479526432231
+nuclei,nuclei_figure_1,paper_fast_gp,gp_legacy,paper_fast_gp (paper-faithful opt),gp_isotropic_gpytorch_2025,0.888734065631405,8.890007474302655,61.67199043210371
+nuclei,nuclei_figure_1,paper_fast_gp,paper_fast_gp_robust,paper_fast_gp (paper-faithful opt),paper_fast_gp (MODIFIED opt: multi-start),0.9999999999999998,0.0,0.0
+whole_cell,whole_cell_figure_1,raw,paper_fast_gp,Raw,paper_fast_gp (paper-faithful opt),0.9996623455427704,1.065172819974982,16.804919287931497
+whole_cell,whole_cell_figure_1,paper_fast_gp,gp_legacy,paper_fast_gp (paper-faithful opt),gp_isotropic_gpytorch_2025,0.9453595526794205,14.049421669204879,143.272122046663
+whole_cell,whole_cell_figure_1,paper_fast_gp,paper_fast_gp_robust,paper_fast_gp (paper-faithful opt),paper_fast_gp (MODIFIED opt: multi-start),0.9997927328860942,0.8340472240061496,13.530950788696998

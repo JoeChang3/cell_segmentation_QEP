@@ -1,0 +1,9 @@
+dataset,cell,label,merged,split,missed,spurious,tp50,fp50,fn50,n_pred,n_gt
+nuclei,B,"B   Raw + paper downstream, EBImage implicit seeds",15,8,112,152,218,213,112,431,330
+nuclei,B*,"B*  Raw + paper downstream, EXPLICIT peak markers",26,2,114,35,216,95,114,311,330
+nuclei,D,"D   FastGP + paper downstream, EBImage implicit seeds",22,1,74,23,256,65,74,321,330
+nuclei,D*,"D*  FastGP + paper downstream, EXPLICIT peak markers",28,0,77,11,253,51,77,304,330
+whole_cell,B,"B   Raw + paper downstream, EBImage implicit seeds",84,20,179,36,224,119,179,343,403
+whole_cell,B*,"B*  Raw + paper downstream, EXPLICIT peak markers",84,25,185,28,218,120,185,338,403
+whole_cell,D,"D   FastGP + paper downstream, EBImage implicit seeds",68,12,128,19,275,68,128,343,403
+whole_cell,D*,"D*  FastGP + paper downstream, EXPLICIT peak markers",68,22,143,17,260,89,143,349,403

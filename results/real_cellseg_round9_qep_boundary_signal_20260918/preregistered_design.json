@@ -1,0 +1,103 @@
+{
+  "round": "round9-qep-boundary-signal",
+  "written_before_any_result_was_computed": true,
+  "scientific_question": "Do q-dependent LOCAL gradient-posterior statistics, under the current QePyTorch multitask construction, contain useful boundary evidence specifically at adjacent-cell interfaces where the current pipeline MERGES cells?",
+  "terminology_constraint": "The tested object is described ONLY as 'q-dependent local gradient-posterior statistics under the current QePyTorch multitask construction'. It is NOT called the joint QEP posterior boundary probability. The audited multitask construction draws a per-point radius from Chi2(n_tasks), i.e. it factorizes the elliptical structure across space, so it is not established to be identical to the paper's full spatial joint QEP.",
+  "not_an_objective": "Improving final AP. No pipeline stage is modified and AP is not a primary output.",
+
+  "images": {
+    "nuclei": "data/nuclear_test_images/nuclei_figure_1/original_fig.png",
+    "whole_cell": "data/whole_cell_test_images/whole_cell_figure_1/original_fig.jpg",
+    "held_out_inspected": false
+  },
+
+  "current_frozen_segmentation_for_merge_labeling": {
+    "source": "results/real_cellseg_round5_corrected_baseline_20260917/instance_masks/{ds}_{img}_raw.npz",
+    "arm": "raw + current corrected downstream (Round-3 frozen config: global Li, peak markers min_distance 15/9, eliminate_small_areas(50))",
+    "rule_for_choosing_it": "the best (nuclei, AP@0.5=0.6933) or tied-best (whole_cell, 0.5276) arm under the current corrected downstream in Round 5; identical arm used for both datasets; frozen before this round",
+    "known_merge_counts": {"nuclei": 27, "whole_cell": 67}
+  },
+
+  "q_values": {
+    "primary": [2.0, 1.5],
+    "secondary_sensitivity_only_after_primary": [1.2],
+    "search_over_q": false
+  },
+
+  "model": {
+    "family": "exact GP / ExactQEP regression on VALUE observations only",
+    "gradient_posterior": "obtained ANALYTICALLY from the gradient-augmented kernel cross-blocks (qpytorch.kernels.Matern52KernelGrad, verified interleaved layout [f, df/dx1, df/dx2], grad prior variance 5/(3 l^2))",
+    "explicitly_not_done": [
+      "no zero-valued gradient pseudo-observations are fed as data",
+      "no PDE constraints",
+      "no Deep QEP",
+      "no new learned neural architecture",
+      "no variational inference (exact only), so no inducing points"
+    ],
+    "local_construction": "per query point, a 3-dimensional MultivariateQExponential over (f, df/dx, df/dy) with the EXACT posterior mean and 3x3 posterior covariance. event dim d = n_tasks = 3 is FIXED, so the construction is partition-invariant by design; this is verified empirically in Step 3 regardless.",
+    "matched_across_q": ["training pixels", "kernel family", "kernel hyperparameters", "mean", "noise", "query coordinates", "numerical precision (float64)", "RNG seed"],
+    "hyperparameter_rule": "fit ONCE per dataset at q=2 by exact marginal likelihood (Adam, 150 iters, lr=0.1) on a CALIBRATION PATCH defined by a fixed rule: the 48x48 patch at the geometric centre of the image. Then FROZEN and reused unchanged for q=2, q=1.5 and every evaluation patch. The calibration patch selection uses no ground truth and no region labels.",
+    "primary_comparison": "direct q effect at FIXED frozen hyperparameters (q=2 vs q=1.5, no re-optimization)",
+    "secondary_comparison": "separately trained q=2 and q=1.5 hyperparameters, reported distinctly as a q-dependent hyperparameter-LEARNING effect"
+  },
+
+  "region_classes": {
+    "definition_uses_GT": "GT and the frozen segmentation are used ONLY to label regions AFTER all model outputs are computed. They never enter fitting, thresholding, or statistic generation.",
+    "adjacency_rule": "two GT instances are adjacent if dilating each by a 3x3 structuring element yields overlapping supports",
+    "interface_band": "pixels within 1 px (Chebyshev) of the shared border between the two dilated GT supports, restricted to GT foreground",
+    "A_merged_interface": "interface band of an adjacent GT pair that the frozen segmentation assigns to the SAME predicted instance (by per-GT argmax-IoU assignment)",
+    "B_separated_interface": "interface band of an adjacent GT pair assigned to DIFFERENT predicted instances",
+    "C_outer_boundary": "GT cell/background boundary pixels at distance >= 4 px from ANY interface band",
+    "D_interior_control": "GT-interior pixels with distance-to-any-GT-boundary >= 4 px",
+    "D_background_control": "background pixels with distance-to-any-GT-cell >= 6 px",
+    "ambiguous_excluded": "pixels within 1 px of a third GT instance are dropped from interface bands"
+  },
+
+  "site_selection_rule": {
+    "unit": "a 'site' is one region instance (one pair interface, or one sampled control location)",
+    "patch": "25 x 25 pixels centred on the site centroid, clipped to the image",
+    "training_points": "all pixels of the patch (<=625), values only",
+    "query_points": "the central 9 x 9 of the patch",
+    "max_sites_per_class_per_dataset": 60,
+    "selection": "sort candidate sites by interface length (or area for controls) DESCENDING, then take evenly spaced indices across the full sorted list so that the range is spanned rather than only the largest/most dramatic cases. Deterministic; no GT scores or model outputs involved.",
+    "no_cherry_picking": "figure examples are selected by explicit rule: largest merge-interface length, median merge-interface length, weakest local contrast, and one representative correctly separated pair"
+  },
+
+  "statistics": {
+    "S1": "|| E[grad f | y] ||  -- norm of the posterior MEAN gradient",
+    "S2": "E[ ||grad f|| | y ]  -- posterior MEAN of the gradient norm (Monte Carlo)",
+    "S3": "P( ||grad f|| > c | y )  (Monte Carlo)",
+    "S1_vs_S2_note": "S1 and S2 are different quantities and are never conflated",
+    "monte_carlo": {"n_samples": 20000, "seed": 20260918, "rescale_kwarg": false,
+      "rescale_note": "rescale=True is NOT used: the Task-B audit showed it applies sqrt(a(q,n_points)) which is the WRONG factor for the multitask construction and demonstrably breaks partition invariance there",
+      "error_reporting": "standard error of S2 and S3 reported per query point and pooled"},
+    "threshold_c_rule": "c is taken from the q=2 CONTROL pooled distribution of ||grad f|| samples per dataset at the 90th, 95th and 99th percentiles, then the EXACT SAME ABSOLUTE c is applied to q=1.5. c is never tuned per q.",
+    "difference_maps": ["Delta_S2 = S2(q=1.5) - S2(q=2)", "Delta_S3 = S3(q=1.5) - S3(q=2)"],
+    "global_rescaling_test": "Spearman rank correlation between the q=1.5 and q=2 maps over all query points. rho ~ 1 means the q effect is a monotone rescaling that adds NO discrimination. Also compared: AUC, and the a(q,3) prediction that Cov = a(q,n_tasks)*C implies a pure factor sqrt(a(1.5,3)/a(2,3)) = sqrt(1.6345) = 1.2785 on S2."
+  },
+
+  "baselines_non_qep": [
+    "gradient magnitude of the Raw image (np.gradient)",
+    "gradient magnitude of the paper_fast_gp reconstruction (Round 5)",
+    "gradient magnitude of the current frozen foreground's distance transform (ridge signal)"
+  ],
+
+  "discrimination_metrics": {
+    "primary_unit": "cell-PAIR level (one score per adjacent GT pair = mean over its interface band), then image level. Pixel-level is reported but never treated as independent samples.",
+    "boundary_contrast": "mean(score on merged interfaces) - mean(score on matched interior controls)",
+    "additional_contrasts": ["merged interface vs separated interface", "outer boundary vs interior", "interface vs nearby non-interface"],
+    "effect_size": "Cohen's d with pooled SD across pairs",
+    "auc": "ROC AUC separating merged-interface pairs from interior-control sites"
+  },
+
+  "success_criteria_all_must_hold_for_PROMISING": [
+    "1. statistic is partition/chunk invariant in THIS model (tolerance: max relative pointwise difference < 1e-6 for deterministic quantities; within 3 Monte-Carlo standard errors for sampled ones)",
+    "2. at fixed matched hyperparameters q=1.5 differs from q=2",
+    "3. q=1.5 improves boundary-vs-interior discrimination, especially on CURRENT MERGE FAILURES (AUC and Cohen's d must increase)",
+    "4. the improvement is NOT merely a global rescaling: Spearman rho between q maps must be materially below 1, or spatial localization must change",
+    "5. the signal is not trivially reproduced by a simple Raw/FastGP gradient baseline",
+    "6. the pattern appears in BOTH development datasets, or there is a clear application-specific reason for a difference"
+  ],
+  "stop_rule": "If the criteria fail, conclude this QEP-boundary mechanism is unsupported and STOP. Do not search for another q, threshold, or statistic. No statistical significance is claimed from two images.",
+  "pipeline_modification_forbidden": ["thresholding", "marker generation", "watershed", "cleanup"]
+}

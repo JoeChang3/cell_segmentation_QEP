@@ -15,3 +15,29 @@ results/**/instance_masks/
 results/**/npz/
 results/**/*.npz
 results/**/*.npy
+
+# ---- added 2026-09-18 (Rounds 6-9) ----
+# Full-image raster/matrix dumps written by the R paper-downstream scripts and
+# the marker/propagate steps. These are large (~240 MB total) and are exactly
+# reproducible from the committed scripts in audits/ and experiments/real_data/.
+# Scoped to the raster FILE PATTERNS only, so the small scientific summaries in
+# the same directories (*_summary.csv, *_tile_meta.csv, *_tiles.csv,
+# threshdiag_*_tile1.csv, threshdiag_*_selected.csv) remain committable.
+results/**/r_outputs/**/*_combined_predmean.csv
+results/**/r_outputs/**/*_combined_binary.csv
+results/**/r_outputs/**/*_distmap.csv
+results/**/r_outputs/**/*_labels_final.csv
+results/**/r_outputs/**/*_watershed_precleanup.csv
+results/**/r_outputs/**/*_precleanup.csv
+results/**/r_outputs/**/*_binary.csv
+results/**/r_outputs/**/GT_paper_orientation.csv
+results/**/r_outputs/**/threshdiag_*_predmean.csv
+results/**/r_outputs/**/threshdiag_*_binary.csv
+results/**/r_propagate/**/*_labels_final.csv
+results/**/markers/*_markers.csv
+# R reference-tile dumps for the Task-A parity test (regenerable by
+# audits/taskA2_real_tile_r_side.R and audits/taskA_parity_r_side.R)
+audits/parity/real_*_r_tile.csv
+audits/parity/real_*_r_predmean.csv
+audits/parity/r_tile_n*.csv
+audits/parity/r_predmean_n*.csv

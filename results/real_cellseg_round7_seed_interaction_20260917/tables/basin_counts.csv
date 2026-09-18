@@ -1,0 +1,9 @@
+dataset,cell,label,seeding,n_fg_components,n_markers,n_basins_precleanup,n_instances_final,python_cleanup_matches_R,n_labels_python_cleanup
+nuclei,B,"B   Raw + paper downstream, EBImage implicit seeds","EBImage implicit (tolerance=1, ext=1)",4123,,2846,431,True,431
+nuclei,B*,"B*  Raw + paper downstream, EXPLICIT peak markers",explicit peak_local_max min_distance=15,4123,4173.0,4173,311,,311
+nuclei,D,"D   FastGP + paper downstream, EBImage implicit seeds","EBImage implicit (tolerance=1, ext=1)",422,,484,321,True,321
+nuclei,D*,"D*  FastGP + paper downstream, EXPLICIT peak markers",explicit peak_local_max min_distance=15,422,466.0,466,304,,304
+whole_cell,B,"B   Raw + paper downstream, EBImage implicit seeds","EBImage implicit (tolerance=1, ext=1)",366,,577,343,True,343
+whole_cell,B*,"B*  Raw + paper downstream, EXPLICIT peak markers",explicit peak_local_max min_distance=9,366,600.0,600,338,,338
+whole_cell,D,"D   FastGP + paper downstream, EBImage implicit seeds","EBImage implicit (tolerance=1, ext=1)",314,,474,343,True,343
+whole_cell,D*,"D*  FastGP + paper downstream, EXPLICIT peak markers",explicit peak_local_max min_distance=9,314,495.0,495,349,,349

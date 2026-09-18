@@ -1,0 +1,2 @@
+"dataset","arm","use_gp","n_labels_final","n_outlier_tiles","fg_fraction","pct_selected","cleanup_rule","criterion_smoother","t_total_s"
+"nuclei","B_nogp_literal",FALSE,358,2,0.0876489214254425,"0.8;0.93;0.95;0.93;0.795;0.7;0.76;0.71;0.9;0.8;0.8;0.795;0.8;0.7;0.71;0.64","eliminate_small_areas2(mean_obj_size*0.15 / *0.05)","NONE (rgasp lines commented out)",10.319

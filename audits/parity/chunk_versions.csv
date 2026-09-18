@@ -1,0 +1,2 @@
+python_executable,python_version,torch,gpytorch,gpytorch_file,qpytorch,qpytorch_file
+/Users/zchan/miniforge3/envs/gpytorch_arm/bin/python,3.10.19,2.10.0,1.15.1,/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/gpytorch/__init__.py,0.2,/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/__init__.py

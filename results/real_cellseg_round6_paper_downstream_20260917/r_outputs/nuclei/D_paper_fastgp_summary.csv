@@ -1,0 +1,2 @@
+"dataset","arm","use_gp","img_height","img_width","crop_height","crop_width","num_pieces_x","num_pieces_y","n_tiles","n_outlier_tiles","outlier_tiles","n_reverted_to_background","cleanup_rule","gp_beta1","gp_beta2","gp_nugget","n_labels_precleanup","n_labels_final","fg_fraction","t_recon_s","t_threshold_s","t_watershed_cleanup_s","t_total_s"
+"nuclei","D_paper_fastgp",TRUE,1128,962,282,240,4,4,16,1,"5",0,"eliminate_small_areas(size_threshold=50)",26.0388376235267,5679456.51832897,0.0822243107405668,484,321,0.179263244422744,17.163,2.931,1.666,21.953

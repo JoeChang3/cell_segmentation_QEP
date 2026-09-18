@@ -1,0 +1,9 @@
+dataset,n_chunks,chunk_size,max_abs_diff_mean3,max_abs_diff_cov3,verdict,test
+nuclei,1,40,0.0,0.0,INVARIANT,deterministic_distribution
+nuclei,2,20,3.410605131648481e-13,0.0,INVARIANT,deterministic_distribution
+nuclei,5,8,8.242295734817162e-13,0.0,INVARIANT,deterministic_distribution
+nuclei,40,1,8.526512829121202e-13,2.2737367544323206e-13,INVARIANT,deterministic_distribution
+whole_cell,1,40,0.0,0.0,INVARIANT,deterministic_distribution
+whole_cell,2,20,5.400124791776761e-13,0.0,INVARIANT,deterministic_distribution
+whole_cell,5,8,1.3642420526593924e-12,0.0,INVARIANT,deterministic_distribution
+whole_cell,40,1,5.7269744502264075e-12,1.0231815394945443e-12,INVARIANT,deterministic_distribution

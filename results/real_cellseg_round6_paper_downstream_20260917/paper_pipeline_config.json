@@ -1,0 +1,33 @@
+{
+  "round": "round6-paper-downstream-2x2",
+  "cell_seg_qep_commit": "a48381de87bf59490f4c8a9ec09670270a45caa3",
+  "r_reference_repo": "/Users/zchan/eclipse-workspace/cell_segmentation_original",
+  "r_reference_commit": "44714c2e0be958fe796a8fd4bdbc220dae3c23dd",
+  "development_images": {
+    "nuclei": "nuclei_figure_1",
+    "whole_cell": "whole_cell_figure_1"
+  },
+  "A_C_source": "results/real_cellseg_round5_corrected_baseline_20260917 (reused, AP verified identical)",
+  "B_D_source": "real R via audits/round6_paper_downstream.R",
+  "paper_downstream": {
+    "threshold": "criterion_1: candidates seq(0,1,by=0.01) as PROPORTIONS of max(tile), per tile; diff_pixel_counts=abs(diff(counts)); smoothed by RobustGaSP rgasp(nugget.est=TRUE) -> predict()$mean; walk forward from which.max until |d[i]-d[i-1]| < 0.05*sd(d); selected = percentages[stable_index+1]; fallback = all background, pct=1",
+    "outlier_tiles": "|n_connected - mean| > 2*sd -> re-threshold at mean of non-outlier pcts; >0.99 foreground -> revert to all background",
+    "distance_transform": "EBImage::distmap(as.Image(binary)), metric='euclidean'",
+    "watershed": "EBImage::watershed(dist_map) with defaults tolerance=1, ext=1; POSITIVE distance map (not negated); EBImage does its own tolerance-based seed detection",
+    "cleanup": "eliminate_small_areas(mask, size_threshold=50): area<50 & !on_boundary -> remove; on_boundary & area<10 -> remove",
+    "B_is": "CONSTRUCTED ABLATION: predmean_mat <- img_matrix, downstream untouched",
+    "B_literal_is": "PUBLISHED NoGP arm generate_GP_Masks_test2: differs from the GP arm in THREE ways (no image GP, NO rgasp on the criterion curve, eliminate_small_areas2 with mean*0.15/mean*0.05)"
+  },
+  "current_downstream": {
+    "threshold": "Round-3 selected rule: Li, GLOBAL on the stitched reconstruction",
+    "markers": "peak_local_max, min_distance nuclei=15 whole_cell=9",
+    "watershed": "-distance_transform_edt, connectivity=1",
+    "cleanup": "eliminate_small_areas(50)"
+  },
+  "evaluator": "py_core/segmentation_eval.py, AP=TP/(TP+FP+FN), identical for all cells",
+  "environment": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "numpy": "1.26.4"
+  }
+}

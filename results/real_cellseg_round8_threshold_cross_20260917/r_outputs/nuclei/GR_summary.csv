@@ -1,0 +1,2 @@
+"dataset","condition","image_source","p_source","n_tiles","n_outlier_tiles","outlier_tiles","n_reverted","fg_fraction","n_fg_components","n_basins_precleanup","n_labels_final","t_watershed_s","t_total_s"
+"nuclei","GR","G","R",16,1,"3",0,0.235581530794612,470,572,342,2.058,2.108

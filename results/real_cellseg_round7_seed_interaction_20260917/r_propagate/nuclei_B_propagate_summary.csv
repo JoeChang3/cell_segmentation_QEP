@@ -1,0 +1,2 @@
+"dataset","cell","method","n_seeds","n_labels_precleanup","n_labels_final","t_s"
+"nuclei","B*prop","EBImage::propagate(distmap, seeds, mask, lambda=1e-04)",4173,4173,917,12.104

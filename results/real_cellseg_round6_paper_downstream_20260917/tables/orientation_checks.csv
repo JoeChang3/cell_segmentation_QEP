@@ -1,0 +1,3 @@
+dataset,gt_shape,r_gt_shape,gt_foreground_identical,n_labels_r_gt,n_labels_python_gt,best_orientation,iou_identity,iou_flipud,iou_fliplr,iou_rot180
+nuclei,"(1128, 962)","(1128, 962)",True,330,330,identity,0.7410782293562534,0.1018942315498904,0.1100021724406732,0.11377391393547726
+whole_cell,"(600, 602)","(600, 602)",True,403,403,identity,0.7568537301377736,0.1835651987380383,0.19041003620442873,0.1863210391898766

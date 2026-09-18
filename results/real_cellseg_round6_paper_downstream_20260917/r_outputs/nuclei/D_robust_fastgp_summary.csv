@@ -1,0 +1,2 @@
+"dataset","arm","use_gp","recon_source","n_outlier_tiles","fg_fraction","n_labels_precleanup","n_labels_final","t_recon_s","t_threshold_s","t_watershed_cleanup_s","t_total_s","cleanup_rule"
+"nuclei","D_robust_fastgp",TRUE,"/tmp/recon_robust_nuclei.csv",1,0.172240161601876,319,316,NA,2.872,1.208,4.117,"eliminate_small_areas(size_threshold=50)"

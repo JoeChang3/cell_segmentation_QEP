@@ -1,0 +1,2 @@
+"image","img_height","img_width","row_proportion","col_proportion","crop_height","crop_width","num_pieces_y","num_pieces_x","magick_orientation","intensity_convention"
+"data/whole_cell_test_images/whole_cell_figure_1/original_fig.jpg",600,602,0.333333333333333,0.333333333333333,200,200,3,3,"(height, width, channel)","raw/255 via magick, channel 1 only"

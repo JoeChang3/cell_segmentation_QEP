@@ -1,0 +1,2 @@
+"dataset","condition","image_source","p_source","n_tiles","n_outlier_tiles","outlier_tiles","n_reverted","fg_fraction","n_fg_components","n_basins_precleanup","n_labels_final","t_watershed_s","t_total_s"
+"whole_cell","RG","R","G",9,1,"7",0,0.295418050941231,347,498,345,0.624,0.642

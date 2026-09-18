@@ -1,0 +1,50 @@
+{
+  "round": "round5-corrected-baseline",
+  "scope": "development images only; held-out images untouched",
+  "threshold_config_source": "results/real_cellseg_round3_thresholding_20260916/selected_threshold_config.json",
+  "selected_threshold": {
+    "nuclei": {
+      "rule": "li",
+      "params": {},
+      "name": "li",
+      "dev_dice_mean": 0.8522206048392293,
+      "dev_dice_min": 0.8393101933871858,
+      "dev_iou_mean": 0.7425683005227889
+    },
+    "whole_cell": {
+      "rule": "li",
+      "params": {},
+      "name": "li",
+      "dev_dice_mean": 0.8030811948947935,
+      "dev_dice_min": 0.7880879732467596,
+      "dev_iou_mean": 0.6712731189602608
+    }
+  },
+  "min_distance": {
+    "nuclei": 15,
+    "whole_cell": 9
+  },
+  "remove_size_threshold": 50,
+  "marker_mode": "peak",
+  "watershed": "-distance_transform_edt, connectivity=1",
+  "ap_definition": "TP/(TP+FP+FN)",
+  "cached_arms": [
+    "raw",
+    "gp_legacy",
+    "qep_q2",
+    "qep_q1.5"
+  ],
+  "cached_from": "results/real_cellseg_round3_thresholding_20260916",
+  "computed_arms": [
+    "paper_fast_gp",
+    "paper_fast_gp_robust"
+  ],
+  "n_restarts_robust": 8,
+  "retuned_per_arm": "nothing; downstream is byte-identical across arms",
+  "environment": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "numpy": "1.26.4",
+    "pandas": "2.3.3"
+  }
+}
