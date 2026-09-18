@@ -1,0 +1,35 @@
+{
+  "stage0": {
+    "max_abs_delta": 0.13373436010414191,
+    "mean_abs_delta": 0.04523261766608471,
+    "rmse_between_means": 0.05814555569196244,
+    "corr_between_means": 0.989912082438952,
+    "mc_se_of_delta_mean": 0.0018887853632923038,
+    "mc_se_of_delta_max": 0.004871985155020728,
+    "snr_max": 27.449664941266214,
+    "snr_mean": 23.947992474507874,
+    "spatial_nonuniform_sd_over_mean": 0.8077467862606782
+  },
+  "gate_passed": true,
+  "shallow_max_abs_delta": 0.0,
+  "env": {
+    "python_torch": "2.10.0",
+    "gpytorch": "1.15.1",
+    "gpytorch_file": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/gpytorch/__init__.py",
+    "qpytorch": "0.2",
+    "qpytorch_file": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/__init__.py",
+    "reference_repo": "/Users/zchan/eclipse-workspace/DeepQEP",
+    "reference_commit": "aa843960a3e8692e06eb36522fdbb2043bf34f2e",
+    "fork_on_sys_path": false,
+    "deep_qep_module": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/models/deep_qeps/deep_qep.py"
+  },
+  "target": "kinked piecewise-smooth 1-D",
+  "n_train": 120,
+  "n_query": 201,
+  "iters": 400,
+  "num_inducing": 64,
+  "hidden_dims": 3,
+  "seed": 73,
+  "n_mc": 64,
+  "n_mc_batches": 12
+}

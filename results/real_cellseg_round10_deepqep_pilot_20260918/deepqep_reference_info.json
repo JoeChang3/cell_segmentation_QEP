@@ -1,0 +1,66 @@
+{
+  "reference_repo": {
+    "remote": "https://github.com/lanzithinking/DeepQEP.git",
+    "local_path": "/Users/zchan/eclipse-workspace/DeepQEP",
+    "branch": "main",
+    "head_commit": "aa843960a3e8692e06eb36522fdbb2043bf34f2e",
+    "head_subject": "aa84396 Fri Feb 28 08:30:09 2025 -0700 fix a bug of rsample in multivariate_qexponential",
+    "git_status_dirty_files": 0,
+    "treated_as": "read-only reference, SIBLING checkout, never vendored into Cell_Seg_QEP"
+  },
+  "vendored_fork": {
+    "present": true,
+    "path": "DeepQEP/gpytorch/",
+    "size": "6.6 MB",
+    "note": "full gpytorch fork containing the pre-qpytorch QEP additions; the repo's demos shadow the interpreter with sys.path.insert(0,'../GPyTorch')",
+    "placed_on_our_sys_path": false,
+    "reason": "we use the INSTALLED, already-audited qpytorch 0.2 (the successor package) to avoid shadowing our audited gpytorch/qpytorch"
+  },
+  "equivalence_check": {
+    "method": "diff after normalising the package-root rename (gpytorch<->qpytorch)",
+    "results": {
+      "models/deep_qeps/deep_qep.py": "functionally identical; installed adds only rsample(rescale=kwargs.pop('rescale', False)) whose default reproduces the fork",
+      "models/deep_qeps/__init__.py": "byte-identical",
+      "distributions/multivariate_qexponential.py": "installed is a strict superset (adds rescalor, absent in fork)",
+      "likelihoods/qexponential_likelihood.py": "cosmetic; installed adds an optional reduction kwarg"
+    }
+  },
+  "where_q_enters": {
+    "file": "qpytorch/models/deep_qeps/deep_qep.py",
+    "call": "DeepQEPLayer.__call__",
+    "code": "inputs = QExponential(loc=inputs.mean, scale=inputs.variance.sqrt(), power=inputs.power).rsample(rescale=False)",
+    "univariate_rsample": "eps = |z|**(2/q - 1) * z for q != 2 ; eps = z for q == 2",
+    "consequence": "the inter-layer latent is a non-linear q-warp of the Gaussian latent, so the COMPOSED predictive mean is q-dependent; at q==2 the branch is skipped so the q=2 arm is the same architecture and code path",
+    "caveat": "this resample is mean-field: it uses only inputs.mean and inputs.variance (the scale-matrix diagonal per the Task-B audit), not the full latent covariance"
+  },
+  "compatibility_changes": {
+    "code_patches": "NONE - no model code was rewritten or patched",
+    "dependency_installed": "tqdm 4.70.1 (listed as a requirement in the DeepQEP README; was missing from the env)",
+    "demo_edits_for_the_reference_run": "only POWER value and removal of the plotting tail, applied IN MEMORY; the repository files were never modified",
+    "repo_dirty_after_our_work": 0
+  },
+  "reference_demo_reproduction": {
+    "demo": "demo/demo_multi_Deep_QEP.py",
+    "power_1p0": {
+      "final_loss": -4.926163,
+      "finite_mean": true,
+      "finite_var": true
+    },
+    "power_2p0": {
+      "final_loss": -0.142754,
+      "finite_mean": true,
+      "finite_var": true
+    },
+    "reproducibility": "identical-seed rerun gave max|mean diff| = 0.0 and identical loss",
+    "gpytorch_resolved_to": "DeepQEP/demo/../GPyTorch/gpytorch (macOS case-insensitive path); confined to that isolated subprocess"
+  },
+  "our_environment": {
+    "python": "3.10.19",
+    "torch": "2.10.0",
+    "gpytorch": "1.15.1",
+    "gpytorch_file": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/gpytorch/__init__.py",
+    "qpytorch": "0.2",
+    "qpytorch_file": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/__init__.py",
+    "platform": "macOS-15.3.2-arm64-arm-64bit"
+  }
+}

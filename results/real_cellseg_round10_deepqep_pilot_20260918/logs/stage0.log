@@ -1,0 +1,36 @@
+================================================================================================================
+ROUND 10 STAGE 0 (Part 5)  does DEPTH make the predictive mean q-dependent?
+  matched Deep q=2.0 vs q=1.5; identical seed/inducing/steps; common MC streams
+================================================================================================================
+  qpytorch             0.2
+  qpytorch_file        /Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/__init__.py
+  gpytorch             1.15.1
+  reference_commit     aa843960a3e8692e06eb36522fdbb2043bf34f2e
+  fork_on_sys_path     False
+  deep_qep_module      /Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/models/deep_qeps/deep_qep.py
+/Users/zchan/eclipse-workspace/Cell_Seg_QEP/experiments/real_data/round10_deepqep_core.py:148: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  losses.append(float(loss))
+
+  deep q=2.0: final ELBO loss=-0.23140 finite=True  |mu|max=0.77471  MC SE mean=0.000965 max=0.002659
+
+  deep q=1.5: final ELBO loss=-0.45363 finite=True  |mu|max=0.80018  MC SE mean=0.001552 max=0.004788
+
+  DEEP q-EFFECT vs MONTE CARLO ERROR
+    max_abs_delta                      0.133734
+    mean_abs_delta                     0.045233
+    rmse_between_means                 0.058146
+    corr_between_means                 0.989912
+    mc_se_of_delta_mean                0.001889
+    mc_se_of_delta_max                 0.004872
+    snr_max                            27.449665
+    snr_mean                           23.947992
+    spatial_nonuniform_sd_over_mean    0.807747
+
+  SHALLOW ExactQEP control (fixed hyperparameters):
+    max|Delta_mu| shallow = 0.000e+00   (expected ~0: shallow mean is q-invariant)
+    deep / shallow ratio  = 1.337e+299
+
+  STAGE-0 GATE (q effect must exceed MC error): PASS
+
+wrote stage0 outputs into results/real_cellseg_round10_deepqep_pilot_20260918

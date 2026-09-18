@@ -1,0 +1,79 @@
+============================================================================================================================
+ROUND 10 CELL PILOT  STAGE 2   patches=25x25  pairs/class/dataset=4  seeds=[73, 137, 211]
+  PAIRED arms: identical seed/inducing/steps/MC stream; only power differs
+============================================================================================================================
+
+### nuclei: 8 pairs selected (4 merged)
+/Users/zchan/eclipse-workspace/Cell_Seg_QEP/experiments/real_data/round10_deepqep_core.py:148: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  losses.append(float(loss))
+  nuclei 293+299 MERGED  seed=73 iface= 35 | max|d|=2.3282 mean|d|=0.6160 SNRmean=5.5 loc_ratio=1.321 gradcontrast q2=2.2315 q15=1.9161
+  nuclei 293+299 MERGED  seed=137 iface= 35 | max|d|=3.9071 mean|d|=0.9653 SNRmean=8.9 loc_ratio=1.488 gradcontrast q2=2.1186 q15=1.9824
+  nuclei 293+299 MERGED  seed=211 iface= 35 | max|d|=3.9374 mean|d|=0.9828 SNRmean=9.6 loc_ratio=1.903 gradcontrast q2=1.9894 q15=1.9515
+  nuclei 15+19 MERGED  seed=73 iface= 52 | max|d|=2.7673 mean|d|=0.6649 SNRmean=7.8 loc_ratio=1.091 gradcontrast q2=1.3362 q15=1.1291
+  nuclei 15+19 MERGED  seed=137 iface= 52 | max|d|=2.7626 mean|d|=0.7220 SNRmean=8.4 loc_ratio=0.898 gradcontrast q2=1.2301 q15=0.9936
+  nuclei 15+19 MERGED  seed=211 iface= 52 | max|d|=3.0944 mean|d|=0.8545 SNRmean=8.1 loc_ratio=0.495 gradcontrast q2=1.3314 q15=1.1442
+  nuclei 288+292 MERGED  seed=73 iface= 56 | max|d|=3.7434 mean|d|=0.7939 SNRmean=8.1 loc_ratio=2.651 gradcontrast q2=0.3871 q15=0.0506
+  nuclei 288+292 MERGED  seed=137 iface= 56 | max|d|=2.6747 mean|d|=0.6055 SNRmean=5.9 loc_ratio=2.011 gradcontrast q2=0.5611 q15=0.4083
+  nuclei 288+292 MERGED  seed=211 iface= 56 | max|d|=3.4414 mean|d|=0.7803 SNRmean=7.7 loc_ratio=1.229 gradcontrast q2=0.7219 q15=0.1102
+  nuclei 164+165 MERGED  seed=73 iface= 92 | max|d|=2.0768 mean|d|=0.4101 SNRmean=6.2 loc_ratio=1.583 gradcontrast q2=1.8441 q15=1.7362
+  nuclei 164+165 MERGED  seed=137 iface= 92 | max|d|=4.0186 mean|d|=0.6931 SNRmean=11.1 loc_ratio=0.851 gradcontrast q2=1.9958 q15=1.8709
+  nuclei 164+165 MERGED  seed=211 iface= 92 | max|d|=6.3195 mean|d|=0.9215 SNRmean=12.8 loc_ratio=1.053 gradcontrast q2=1.9471 q15=1.7981
+  nuclei 196+205 separat seed=73 iface=  4 | max|d|=3.5491 mean|d|=0.6557 SNRmean=6.6 loc_ratio=0.365 gradcontrast q2=-1.4252 q15=-1.5724
+  nuclei 196+205 separat seed=137 iface=  4 | max|d|=2.1548 mean|d|=0.6451 SNRmean=6.6 loc_ratio=0.765 gradcontrast q2=-1.5854 q15=-1.7471
+  nuclei 196+205 separat seed=211 iface=  4 | max|d|=6.2359 mean|d|=1.1333 SNRmean=8.6 loc_ratio=0.564 gradcontrast q2=-1.6507 q15=-2.3411
+  nuclei 260+261 separat seed=73 iface= 27 | max|d|=4.2581 mean|d|=0.9479 SNRmean=13.8 loc_ratio=0.751 gradcontrast q2=0.6587 q15=0.4116
+  nuclei 260+261 separat seed=137 iface= 27 | max|d|=3.6181 mean|d|=0.9285 SNRmean=12.6 loc_ratio=0.597 gradcontrast q2=0.5368 q15=0.1461
+  nuclei 260+261 separat seed=211 iface= 27 | max|d|=2.4628 mean|d|=0.7522 SNRmean=9.5 loc_ratio=1.380 gradcontrast q2=0.3549 q15=0.4900
+  nuclei 125+126 separat seed=73 iface= 35 | max|d|=4.8817 mean|d|=0.8436 SNRmean=8.4 loc_ratio=1.029 gradcontrast q2=2.4098 q15=2.1104
+  nuclei 125+126 separat seed=137 iface= 35 | max|d|=2.4020 mean|d|=0.8030 SNRmean=7.2 loc_ratio=2.110 gradcontrast q2=2.5885 q15=2.5980
+  nuclei 125+126 separat seed=211 iface= 35 | max|d|=3.1206 mean|d|=0.8429 SNRmean=7.8 loc_ratio=3.264 gradcontrast q2=2.2382 q15=2.3185
+  nuclei 294+299 separat seed=73 iface= 86 | max|d|=3.1018 mean|d|=0.6608 SNRmean=7.7 loc_ratio=1.648 gradcontrast q2=0.4210 q15=0.0843
+  nuclei 294+299 separat seed=137 iface= 86 | max|d|=4.6746 mean|d|=0.6861 SNRmean=7.0 loc_ratio=1.030 gradcontrast q2=0.2866 q15=0.2545
+  nuclei 294+299 separat seed=211 iface= 86 | max|d|=3.6638 mean|d|=0.6895 SNRmean=8.1 loc_ratio=0.680 gradcontrast q2=0.2145 q15=-0.1051
+
+### whole_cell: 8 pairs selected (4 merged)
+  whole_cell 130+379 MERGED  seed=73 iface=  4 | max|d|=25.5852 mean|d|=2.8226 SNRmean=12.0 loc_ratio=2.736 gradcontrast q2=0.0088 q15=2.2537
+  whole_cell 130+379 MERGED  seed=137 iface=  4 | max|d|=19.7535 mean|d|=3.2863 SNRmean=13.0 loc_ratio=2.599 gradcontrast q2=-0.1877 q15=1.1840
+  whole_cell 130+379 MERGED  seed=211 iface=  4 | max|d|=26.1978 mean|d|=3.7206 SNRmean=11.2 loc_ratio=0.504 gradcontrast q2=1.3574 q15=1.3811
+  whole_cell 179+182 MERGED  seed=73 iface= 32 | max|d|=8.8483 mean|d|=2.9530 SNRmean=11.1 loc_ratio=1.594 gradcontrast q2=9.2784 q15=10.7973
+  whole_cell 179+182 MERGED  seed=137 iface= 32 | max|d|=11.2319 mean|d|=2.0197 SNRmean=7.2 loc_ratio=1.391 gradcontrast q2=10.7747 q15=9.3783
+  whole_cell 179+182 MERGED  seed=211 iface= 32 | max|d|=8.9798 mean|d|=1.9127 SNRmean=6.5 loc_ratio=2.392 gradcontrast q2=9.5615 q15=8.7495
+  whole_cell 1+12 MERGED  seed=73 iface= 44 | max|d|=19.4262 mean|d|=3.6555 SNRmean=11.3 loc_ratio=1.799 gradcontrast q2=0.0852 q15=0.1197
+  whole_cell 1+12 MERGED  seed=137 iface= 44 | max|d|=16.2453 mean|d|=4.4664 SNRmean=13.2 loc_ratio=1.741 gradcontrast q2=-0.3934 q15=-0.7695
+  whole_cell 1+12 MERGED  seed=211 iface= 44 | max|d|=16.4127 mean|d|=3.0381 SNRmean=8.5 loc_ratio=2.063 gradcontrast q2=0.8013 q15=0.1866
+  whole_cell 133+141 MERGED  seed=73 iface= 83 | max|d|=26.2509 mean|d|=5.6771 SNRmean=16.9 loc_ratio=0.819 gradcontrast q2=-11.6063 q15=-8.5331
+  whole_cell 133+141 MERGED  seed=137 iface= 83 | max|d|=11.1326 mean|d|=2.8792 SNRmean=9.0 loc_ratio=0.570 gradcontrast q2=-4.4058 q15=-7.3019
+  whole_cell 133+141 MERGED  seed=211 iface= 83 | max|d|=21.1158 mean|d|=4.3679 SNRmean=11.6 loc_ratio=3.164 gradcontrast q2=-7.8833 q15=-7.9638
+  whole_cell 59+77 separat seed=73 iface=  4 | max|d|=15.4973 mean|d|=1.6968 SNRmean=7.5 loc_ratio=2.580 gradcontrast q2=-5.3968 q15=-5.5071
+  whole_cell 59+77 separat seed=137 iface=  4 | max|d|=10.5004 mean|d|=2.1540 SNRmean=10.9 loc_ratio=0.574 gradcontrast q2=-3.6870 q15=-4.5837
+  whole_cell 59+77 separat seed=211 iface=  4 | max|d|=11.8316 mean|d|=2.7441 SNRmean=11.6 loc_ratio=1.308 gradcontrast q2=-7.0315 q15=-5.1772
+  whole_cell 189+198 separat seed=73 iface= 15 | max|d|=19.2339 mean|d|=3.7308 SNRmean=16.7 loc_ratio=2.919 gradcontrast q2=-2.7623 q15=-2.8964
+  whole_cell 189+198 separat seed=137 iface= 15 | max|d|=27.2096 mean|d|=4.7797 SNRmean=19.6 loc_ratio=2.057 gradcontrast q2=-2.1067 q15=-4.7436
+  whole_cell 189+198 separat seed=211 iface= 15 | max|d|=14.3576 mean|d|=3.2751 SNRmean=12.0 loc_ratio=1.813 gradcontrast q2=-5.0061 q15=-4.6954
+  whole_cell 218+388 separat seed=73 iface= 24 | max|d|=20.9587 mean|d|=3.0256 SNRmean=8.0 loc_ratio=0.723 gradcontrast q2=-8.0477 q15=-10.1013
+  whole_cell 218+388 separat seed=137 iface= 24 | max|d|=22.7364 mean|d|=3.4905 SNRmean=8.9 loc_ratio=2.001 gradcontrast q2=-6.9763 q15=-10.6320
+  whole_cell 218+388 separat seed=211 iface= 24 | max|d|=14.6359 mean|d|=3.4143 SNRmean=8.2 loc_ratio=0.846 gradcontrast q2=-9.2004 q15=-10.4916
+  whole_cell 253+256 separat seed=73 iface= 57 | max|d|=6.2903 mean|d|=1.2879 SNRmean=6.0 loc_ratio=1.052 gradcontrast q2=4.9705 q15=4.1015
+  whole_cell 253+256 separat seed=137 iface= 57 | max|d|=13.4051 mean|d|=2.6784 SNRmean=11.5 loc_ratio=1.530 gradcontrast q2=3.2276 q15=2.3513
+  whole_cell 253+256 separat seed=211 iface= 57 | max|d|=6.2800 mean|d|=1.6202 SNRmean=6.6 loc_ratio=0.715 gradcontrast q2=4.4868 q15=1.9584
+
+============================================================================================================================
+STAGE 2 AGGREGATE
+============================================================================================================================
+
+  nuclei
+    mean|Delta_mu| all=0.77494  merged=0.75082  sep=0.79905
+    MC SE(delta)  mean=0.093418   SNR_mean=8.50  SNR_max=13.54
+    spatial non-uniformity sd/mean = 0.799
+    localization ratio (iface/interior) = 1.282   edge/iface = 1.120
+    MERGED gradmu contrast  q2=1.47452  q15=1.25760  gain=-0.21692
+    MERGED baselines        raw=1.09594  fastgp=1.07183
+
+  whole_cell
+    mean|Delta_mu| all=3.11235  merged=3.39992  sep=2.82477
+    MC SE(delta)  mean=0.291371   SNR_mean=10.79  SNR_max=17.91
+    spatial non-uniformity sd/mean = 0.929
+    localization ratio (iface/interior) = 1.645   edge/iface = 0.669
+    MERGED gradmu contrast  q2=0.61589  q15=0.79015  gain=+0.17426
+    MERGED baselines        raw=6.49201  fastgp=6.28078

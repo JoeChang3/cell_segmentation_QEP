@@ -41,3 +41,9 @@ audits/parity/real_*_r_tile.csv
 audits/parity/real_*_r_predmean.csv
 audits/parity/r_tile_n*.csv
 audits/parity/r_predmean_n*.csv
+
+# ---- added 2026-09-18 (Round 10) ----
+# The Round-10 pilot logs are small (~14 KB) and carry the per-patch provenance
+# for the 96 paired DeepQEP fits, so they are committed despite the global
+# *.log rule. Narrowly scoped to this one directory.
+!results/real_cellseg_round10_deepqep_pilot_20260918/logs/*.log

@@ -1,0 +1,39 @@
+============================================================================================================================
+ROUND 10 CELL PILOT  STAGE 1   patches=25x25  pairs/class/dataset=2  seeds=[73]
+  PAIRED arms: identical seed/inducing/steps/MC stream; only power differs
+============================================================================================================================
+
+### nuclei: 4 pairs selected (2 merged)
+/Users/zchan/eclipse-workspace/Cell_Seg_QEP/experiments/real_data/round10_deepqep_core.py:148: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  losses.append(float(loss))
+  nuclei 24+27 MERGED  seed=73 iface= 54 | max|d|=3.2060 mean|d|=0.6706 SNRmean=7.9 loc_ratio=1.042 gradcontrast q2=-1.3536 q15=-1.4748
+  nuclei 164+165 MERGED  seed=73 iface= 92 | max|d|=2.0768 mean|d|=0.4101 SNRmean=6.2 loc_ratio=1.583 gradcontrast q2=1.8441 q15=1.7362
+  nuclei 91+98 separat seed=73 iface= 32 | max|d|=2.1655 mean|d|=0.5648 SNRmean=8.5 loc_ratio=1.540 gradcontrast q2=0.1786 q15=0.3374
+  nuclei 294+299 separat seed=73 iface= 86 | max|d|=3.1018 mean|d|=0.6608 SNRmean=7.7 loc_ratio=1.648 gradcontrast q2=0.4210 q15=0.0843
+
+### whole_cell: 4 pairs selected (2 merged)
+  whole_cell 67+76 MERGED  seed=73 iface= 39 | max|d|=15.6257 mean|d|=2.2003 SNRmean=7.6 loc_ratio=0.903 gradcontrast q2=-10.8179 q15=-11.3174
+  whole_cell 133+141 MERGED  seed=73 iface= 83 | max|d|=26.2509 mean|d|=5.6771 SNRmean=16.9 loc_ratio=0.819 gradcontrast q2=-11.6063 q15=-8.5331
+  whole_cell 80+85 separat seed=73 iface= 20 | max|d|=8.8022 mean|d|=2.1575 SNRmean=7.4 loc_ratio=0.652 gradcontrast q2=-3.8024 q15=-3.5731
+  whole_cell 253+256 separat seed=73 iface= 57 | max|d|=6.2903 mean|d|=1.2879 SNRmean=6.0 loc_ratio=1.052 gradcontrast q2=4.9705 q15=4.1015
+
+============================================================================================================================
+STAGE 1 AGGREGATE
+============================================================================================================================
+
+  nuclei
+    mean|Delta_mu| all=0.57658  merged=0.54037  sep=0.61279
+    MC SE(delta)  mean=0.075969   SNR_mean=7.56  SNR_max=12.18
+    spatial non-uniformity sd/mean = 0.813
+    localization ratio (iface/interior) = 1.453   edge/iface = 0.834
+    MERGED gradmu contrast  q2=0.24522  q15=0.13069  gain=-0.11453
+    MERGED baselines        raw=-0.09416  fastgp=-0.01739
+
+  whole_cell
+    mean|Delta_mu| all=2.83071  merged=3.93872  sep=1.72270
+    MC SE(delta)  mean=0.282332   SNR_mean=9.49  SNR_max=15.12
+    spatial non-uniformity sd/mean = 0.880
+    localization ratio (iface/interior) = 0.856   edge/iface = 1.071
+    MERGED gradmu contrast  q2=-11.21210  q15=-9.92524  gain=+1.28686
+    MERGED baselines        raw=-2.35977  fastgp=-2.70551

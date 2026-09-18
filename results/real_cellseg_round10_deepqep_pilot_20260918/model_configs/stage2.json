@@ -1,0 +1,30 @@
+{
+  "stage": 2,
+  "patch": 25,
+  "iters": 300,
+  "num_inducing": 48,
+  "hidden_dims": 3,
+  "n_mc": 48,
+  "n_mc_batches": 8,
+  "seeds": [
+    73,
+    137,
+    211
+  ],
+  "q_pair": [
+    2.0,
+    1.5
+  ],
+  "standardization": "per-patch z-score, identical for both q; Delta_mu reported back in raw intensity units",
+  "env": {
+    "python_torch": "2.10.0",
+    "gpytorch": "1.15.1",
+    "gpytorch_file": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/gpytorch/__init__.py",
+    "qpytorch": "0.2",
+    "qpytorch_file": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/__init__.py",
+    "reference_repo": "/Users/zchan/eclipse-workspace/DeepQEP",
+    "reference_commit": "aa843960a3e8692e06eb36522fdbb2043bf34f2e",
+    "fork_on_sys_path": false,
+    "deep_qep_module": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch/models/deep_qeps/deep_qep.py"
+  }
+}

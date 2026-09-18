@@ -1,0 +1,96 @@
+{
+  "round": "round10-deepqep-spatial-mean-pilot",
+  "written_before_any_pilot_result_was_examined": true,
+  "frozen_pre_pilot_checkpoint": "f312ff045625aac960bc6d1c97227a89f6a1833c",
+  "question": "Can DEEP QEP create a q-dependent change in the predictive MEAN that is spatially localized at difficult cell interfaces, unlike shallow ExactQEP (whose predictive mean is q-invariant at fixed hyperparameters)?",
+  "not_an_objective": [
+    "this is a representation / boundary-mechanism pilot, NOT a segmentation benchmark",
+    "no AP is computed or optimized",
+    "DeepQEP is not inserted into thresholding, marker generation, watershed or cleanup"
+  ],
+
+  "reference_implementation": {
+    "repo": "https://github.com/lanzithinking/DeepQEP.git",
+    "local_path": "/Users/zchan/eclipse-workspace/DeepQEP",
+    "commit": "aa843960a3e8692e06eb36522fdbb2043bf34f2e",
+    "branch": "main",
+    "treated_as": "read-only reference; cloned as a SIBLING, never vendored into Cell_Seg_QEP",
+    "vendored_fork_present": "yes - DeepQEP/gpytorch/ is a full 6.6 MB gpytorch fork; its demos shadow the interpreter via sys.path.insert(0,'../GPyTorch')",
+    "shadowing_decision": "we do NOT put the fork on sys.path. The pilot uses the INSTALLED, already-audited qpytorch 0.2 (successor package). Justified by a normalised diff: deep_qeps/deep_qep.py functionally identical, deep_qeps/__init__.py byte-identical, multivariate_qexponential.py installed is a strict superset, qexponential_likelihood.py cosmetic differences only."
+  },
+
+  "where_q_enters": "qpytorch/models/deep_qeps/deep_qep.py, DeepQEPLayer.__call__ resamples the inter-layer latent as QExponential(loc=inputs.mean, scale=inputs.variance.sqrt(), power).rsample(rescale=False). The univariate rsample is eps=|z|^(2/q-1)*z for q!=2 and eps=z for q==2. So q non-linearly warps the latent fed to the next layer, making the composed predictive mean q-dependent; at q==2 the branch is skipped and the arm reduces to Deep GP in the SAME code path.",
+
+  "primary_control": "SAME DeepQEP architecture and SAME code path at power=2.0 versus power=1.5. The repository's separate deep_gps DeepGP demo is only a secondary sanity check.",
+  "matched_across_q": ["architecture", "number of layers", "hidden/latent dims",
+    "inducing-point count", "inducing-point initialization", "kernel family",
+    "mean functions", "likelihood family", "optimizer", "learning rate",
+    "number of iterations", "training observations", "train/test coordinates",
+    "initialization seed", "MC sample count", "dtype", "MC sample stream (common random numbers)"],
+  "only_intentional_difference": "power (q)",
+
+  "stage0_synthetic_gate": {
+    "purpose": "establish that a q-dependent predictive-mean difference exists and EXCEEDS Monte Carlo estimation noise, before touching cell data",
+    "target": "piecewise-smooth / kinked 1-D function",
+    "measure": ["max |Delta_mu|", "RMSE(mu_q15, mu_q2)", "MC standard error of each predictive mean", "signal-to-MC-error ratio"],
+    "stop_rule": "if the q-dependent mean difference is NOT larger than MC error, STOP and report NOT SUPPORTED"
+  },
+
+  "cell_data": {
+    "images_only": ["data/nuclear_test_images/nuclei_figure_1/original_fig.png",
+                    "data/whole_cell_test_images/whole_cell_figure_1/original_fig.jpg"],
+    "held_out_inspected": false,
+    "pair_inventory_source": "results/real_cellseg_round9_qep_boundary_signal_20260918/adjacent_pair_inventory.csv",
+    "frozen_segmentation": "results/real_cellseg_round5_corrected_baseline_20260917/instance_masks/{ds}_{img}_raw.npz",
+    "gt_use": "GT is used ONLY to select and evaluate diagnostic region classes. It is never a training observation and never tunes the model."
+  },
+
+  "stage1_smoke": {
+    "per_dataset": {"merged_pairs": 2, "separated_pairs": 2},
+    "selection_rule": "deterministic from the Round-9 inventory: for each of merged and separated, take the LONGEST interface and the MEDIAN interface length. Never selected using DeepQEP outputs.",
+    "patch_size": 25,
+    "patch_size_justification": "reuse the Round-9 25x25 design so the spatial support and the region bands are identical to the shallow experiment this is being contrasted with",
+    "seeds": 1
+  },
+  "stage1_stop_rule_all_must_hold": [
+    "1. q=1.5 and q=2 predictive means differ by more than MC error",
+    "2. the difference is spatially non-uniform, not a constant/global shift",
+    "3. at least some difference is concentrated near real cell structure rather than patch edges or inducing-point artifacts",
+    "4. no numerical pathology (non-finite loss or predictions, exploding values)"
+  ],
+  "stage2_confirmation": {"per_dataset": {"merged_pairs": 4, "separated_pairs": 4},
+    "seeds": 3, "runs_whole_images": false,
+    "only_if": "Stage 1 passes all four conditions"},
+
+  "metrics": {
+    "A_global_mean_difference": ["max |Delta_mu|", "RMSE(mu_q15,mu_q2)", "mean |Delta_mu|", "corr(mu_q15,mu_q2)"],
+    "B_mc_reliability": ["MC standard error from repeated batched estimates", "max|Delta_mu|/MC_SE", "mean|Delta_mu|/MC_SE"],
+    "C_spatial_localization": ["mean |Delta_mu| on merged GT interface band", "on separated interface band", "cell interior", "background", "localization_ratio = interface / matched interior"],
+    "D_boundary_quality_of_the_mean": ["|grad mu_q| for both q", "interface-vs-interior contrast", "AUC", "pair-level score"],
+    "E_merged_specificity": "does q=1.5 improve mean-gradient interface contrast on CURRENT MERGE FAILURES relative to q=2",
+    "difference_from_round9": "Round 9 tested posterior gradient DISTRIBUTIONAL statistics of a shallow model. Round 10 tests whether DEPTH makes the predictive MEAN itself q-dependent."
+  },
+
+  "baselines": ["raw image gradient magnitude",
+                "paper Fast-GP predictive-mean gradient magnitude",
+                "shallow ExactQEP q=2 vs q=1.5 mean difference (expected ~0 at fixed hyperparameters; establishes that any deep effect is due to depth)"],
+
+  "randomness_control": {
+    "evidence_must_be_PAIRED": true,
+    "paired_elements": ["same initialization seed", "same inducing locations", "same optimizer step count", "common MC base sample stream"],
+    "stage2_reporting": "q-effect within paired seed, compared against seed-to-seed variation within the same q. A useful q effect should not be much smaller than ordinary seed variability."
+  },
+
+  "success_criteria_all_must_hold_for_PROMISING": [
+    "1. Deep q=1.5 predictive mean measurably differs from Deep q=2 beyond MC error",
+    "2. the difference is spatially localized, not a global shift or rescaling",
+    "3. q=1.5 improves mean-based boundary/interface discrimination on MERGED cell pairs relative to q=2",
+    "4. the gain is larger than or comparable to paired seed variability",
+    "5. the behaviour is not explained by patch edges or inducing-point placement",
+    "6. direction is reasonably consistent across nuclei and whole-cell, OR a clear pre-existing dataset-specific mechanism explains disagreement"
+  ],
+  "possible_verdicts": ["PROMISING", "WEAK", "NOT SUPPORTED", "IMPLEMENTATION BLOCKED"],
+  "criteria_may_not_be_redefined_after_seeing_results": true,
+  "if_weak_or_not_supported": "STOP. Do not tune q, architecture, number of layers, or inducing points.",
+  "forbidden_in_this_round": ["thresholding", "marker generation", "watershed", "cleanup", "AP optimization", "editing Rounds 1-9 outputs"]
+}
