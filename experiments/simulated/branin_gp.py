@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -208,7 +209,7 @@ def run_experiment(
 # -----------------------------
 # 6) Plot: violin RMSE (Figure 5A analog)
 # -----------------------------
-def plot_rmse_violin(res, out_png="rmse_violin.png"):
+def plot_rmse_violin(res, out_png="results/rmse_violin_branin_gp.png"):
     sigma0_list = list(res["sigma0_list"])
     num_rep = res["rmse_lattice_exp"].shape[0]
 
@@ -257,7 +258,7 @@ def plot_rmse_violin(res, out_png="rmse_violin.png"):
 # -----------------------------
 # 7) Plot: Figure 6(A) analog triplet
 # -----------------------------
-def plot_triplet(res, sigma_index=2, out_png="signal_obs_pred_branin.png"):
+def plot_triplet(res, sigma_index=2, out_png="results/signal_obs_pred_branin_gp.png"):
     # sigma_index=2 means sigma0_list[2] in R => the 3rd one (sigma0=10)
     f_mat = res["f_mat"]
     y_mat = res["y_record"][sigma_index]
@@ -274,13 +275,14 @@ def plot_triplet(res, sigma_index=2, out_png="signal_obs_pred_branin.png"):
 
 
 if __name__ == "__main__":
+    os.makedirs("results", exist_ok=True)
     res = run_experiment()
     print(res["rmse_summary"])
 
     # Violin plot (Figure 5A analog)
-    plot_rmse_violin(res, out_png="rmse_violin.png")
+    plot_rmse_violin(res, out_png="results/rmse_violin_branin_gp.png")
 
     # Triplet plot (Figure 6A analog) - default uses sigma0_list[2]
-    plot_triplet(res, sigma_index=2, out_png="signal_obs_pred_branin.png")
+    plot_triplet(res, sigma_index=2, out_png="results/signal_obs_pred_branin_gp.png")
 
-    print("Saved: rmse_violin.png, signal_obs_pred_branin.png")
+    print("Saved: results/rmse_violin_branin_gp.png, results/signal_obs_pred_branin_gp.png")

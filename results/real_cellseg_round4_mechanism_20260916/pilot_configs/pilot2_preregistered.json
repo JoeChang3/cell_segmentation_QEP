@@ -1,0 +1,12 @@
+{
+  "pilot": "P2_intensity_markers",
+  "written_before_any_pilot2_score": true,
+  "rationale": "Phase-2 oracle MARKERS on the real foreground lifted held-out AP@0.5 from 0.2248 to 0.4350 (whole-cell) and 0.7543 to 0.9001 (nuclei, merged 32.2 -> 8.0), locating the merge failure at MARKER COUNT. Pilot 1 changed only the flooding surface and failed to reduce merges (best -1.7%), consistent with that reading. Pilot 2 therefore changes marker generation.",
+  "mechanism": "markers = peak_local_max( wm*dist_norm + (1-wm)*img_norm, min_distance=MD, labels=foreground, exclude_border=False ); elevation stays at the frozen -distance_transform_edt; cleanup stays eliminate_small_areas(50)",
+  "intensity_source": "each arm's own cached reconstruction (so a q<2 reconstruction gets a fair chance to supply a better marker surface)",
+  "wm_grid": [1.0, 0.7, 0.5, 0.3, 0.0],
+  "wm_selection": "lowest mean merged count on DEVELOPMENT images subject to AP@0.5 not falling below the wm=1.0 frozen rule; aggregated over all 4 arms, never per arm, never per image",
+  "success_criteria_mechanism": "on held-out images: (a) merged count falls >= 15% relative for at least one dataset, AND (b) AP@0.5 does not fall for that dataset, AND (c) split count does not rise more than 50% relative",
+  "success_criteria_qep_specific": "a q=1.5 arm must beat BOTH its Gaussian counterpart (q=2/GP, identical machinery) AND the Raw arm on AP@0.5 for the same dataset",
+  "note": "wm=1.0 reproduces the frozen round-3 marker rule exactly; wm=0.0 uses intensity only"
+}

@@ -1,0 +1,289 @@
+{
+  "selection_rule": "highest mean foreground Dice across ALL four reconstruction arms on development images only; rules that collapse on any arm are ineligible",
+  "development_images": [
+    "nuclei_figure_1",
+    "whole_cell_figure_1"
+  ],
+  "arms_aggregated": [
+    "raw",
+    "gp",
+    "qep_q2",
+    "qep_q1.5"
+  ],
+  "selected": {
+    "nuclei": {
+      "rule": "li",
+      "params": {},
+      "name": "li",
+      "dev_dice_mean": 0.8522206048392293,
+      "dev_dice_min": 0.8393101933871858,
+      "dev_iou_mean": 0.7425683005227889
+    },
+    "whole_cell": {
+      "rule": "li",
+      "params": {},
+      "name": "li",
+      "dev_dice_mean": 0.8030811948947935,
+      "dev_dice_min": 0.7880879732467596,
+      "dev_iou_mean": 0.6712731189602608
+    }
+  },
+  "frozen_elsewhere": {
+    "markers": "peak_local_max, min_distance nuclei=15 whole_cell=9",
+    "cleanup": "eliminate_small_areas(50)",
+    "watershed": "-distance_transform_edt, connectivity=1",
+    "evaluation": "AP = TP/(TP+FP+FN)"
+  },
+  "automated_winner_per_dataset": {
+    "nuclei": {
+      "name": "li",
+      "dev_dice_mean": 0.8522206048392293
+    },
+    "whole_cell": {
+      "name": "robust_mad_c1.5",
+      "dev_dice_mean": 0.8122726254963748
+    }
+  },
+  "override_reason": "li chosen for both datasets: parameter-free, within 0.009 mean Dice of the per-dataset winner on whole-cell, and only one development image per dataset so the margin does not justify two rules. Simpler-rule preference stated in the selection policy.",
+  "full_development_ranking": {
+    "nuclei": [
+      {
+        "rule": "li",
+        "rule_family": "li",
+        "params": "{}",
+        "dice_mean": 0.8522206048392293,
+        "dice_min": 0.8393101933871858,
+        "iou_mean": 0.7425683005227889,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.8",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.8}",
+        "dice_mean": 0.8484574015728699,
+        "dice_min": 0.8386599854413994,
+        "iou_mean": 0.7368429953381419,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "otsu",
+        "rule_family": "otsu",
+        "params": "{}",
+        "dice_mean": 0.8426407478957417,
+        "dice_min": 0.8287299453506475,
+        "iou_mean": 0.7281554997186819,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "yen",
+        "rule_family": "yen",
+        "params": "{}",
+        "dice_mean": 0.8242223453653292,
+        "dice_min": 0.8210062993531537,
+        "iou_mean": 0.7010080275316327,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c1.5",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 1.5}",
+        "dice_mean": 0.8073442623639299,
+        "dice_min": 0.7895953529779207,
+        "iou_mean": 0.6770525098585539,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "triangle",
+        "rule_family": "triangle",
+        "params": "{}",
+        "dice_mean": 0.7855390173277084,
+        "dice_min": 0.5927466975140744,
+        "iou_mean": 0.6594344400313696,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.85",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.85}",
+        "dice_mean": 0.7749393117903421,
+        "dice_min": 0.7732587080077762,
+        "iou_mean": 0.6325743020622596,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c2",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 2.0}",
+        "dice_mean": 0.7163929495884416,
+        "dice_min": 0.7048386709591723,
+        "iou_mean": 0.5581511087428904,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.9",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.9}",
+        "dice_mean": 0.6091251177166648,
+        "dice_min": 0.6034831097462421,
+        "iou_mean": 0.43795176413825954,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c3",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 3.0}",
+        "dice_mean": 0.4744694271710984,
+        "dice_min": 0.4561676114473528,
+        "iou_mean": 0.31108184594529487,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "criterion_1",
+        "rule_family": "criterion_1",
+        "params": "{}",
+        "dice_mean": 0.44082935847890214,
+        "dice_min": 0.3287063012142496,
+        "iou_mean": 0.29062115566586433,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.95",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.95}",
+        "dice_mean": 0.3643818115005083,
+        "dice_min": 0.3618387323489367,
+        "iou_mean": 0.22278024761554993,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c4",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 4.0}",
+        "dice_mean": 0.2414127872901243,
+        "dice_min": 0.2218854175885771,
+        "iou_mean": 0.13732313234231486,
+        "n_collapsed": 0
+      }
+    ],
+    "whole_cell": [
+      {
+        "rule": "robust_mad_c1.5",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 1.5}",
+        "dice_mean": 0.8122726254963748,
+        "dice_min": 0.8066118074825376,
+        "iou_mean": 0.683981264572706,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "criterion_1",
+        "rule_family": "criterion_1",
+        "params": "{}",
+        "dice_mean": 0.8107690736972877,
+        "dice_min": 0.8026401689708141,
+        "iou_mean": 0.6818826039581597,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "li",
+        "rule_family": "li",
+        "params": "{}",
+        "dice_mean": 0.8030811948947935,
+        "dice_min": 0.7880879732467596,
+        "iou_mean": 0.6712731189602608,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "triangle",
+        "rule_family": "triangle",
+        "params": "{}",
+        "dice_mean": 0.7992660831901647,
+        "dice_min": 0.7366247442231871,
+        "iou_mean": 0.6672949663260712,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c2",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 2.0}",
+        "dice_mean": 0.7478222722969539,
+        "dice_min": 0.7362485568200561,
+        "iou_mean": 0.597502690919145,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "otsu",
+        "rule_family": "otsu",
+        "params": "{}",
+        "dice_mean": 0.7335751922700031,
+        "dice_min": 0.7185398856663345,
+        "iou_mean": 0.579329119105473,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.8",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.8}",
+        "dice_mean": 0.7275700511856943,
+        "dice_min": 0.7251638194831802,
+        "iou_mean": 0.571797736019065,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "yen",
+        "rule_family": "yen",
+        "params": "{}",
+        "dice_mean": 0.697382749335864,
+        "dice_min": 0.6855078714686219,
+        "iou_mean": 0.5355146759938162,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.85",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.85}",
+        "dice_mean": 0.6096723564684912,
+        "dice_min": 0.6059152677857714,
+        "iou_mean": 0.4385133491296691,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c3",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 3.0}",
+        "dice_mean": 0.6070741455199344,
+        "dice_min": 0.5824306372419927,
+        "iou_mean": 0.4365999838155682,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "robust_mad_c4",
+        "rule_family": "robust_mad",
+        "params": "{\"c\": 4.0}",
+        "dice_mean": 0.45873909560451315,
+        "dice_min": 0.4192505106583564,
+        "iou_mean": 0.2991068021758544,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.9",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.9}",
+        "dice_mean": 0.45651488761047043,
+        "dice_min": 0.4535611149174313,
+        "iou_mean": 0.29577047612368834,
+        "n_collapsed": 0
+      },
+      {
+        "rule": "quantile_p0.95",
+        "rule_family": "quantile",
+        "params": "{\"p\": 0.95}",
+        "dice_mean": 0.2591333189003777,
+        "dice_min": 0.2585742451269978,
+        "iou_mean": 0.1488530916691199,
+        "n_collapsed": 0
+      }
+    ]
+  },
+  "threshold_scope": "GLOBAL: the rule is applied once to the stitched reconstruction. Round 2 applied criterion_1 PER TILE. This is a second difference from round 2 besides the rule itself, and per-tile criterion_1 is therefore reported separately as the round-2 baseline."
+}

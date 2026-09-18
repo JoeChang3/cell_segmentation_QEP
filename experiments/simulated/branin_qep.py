@@ -1,4 +1,5 @@
 import math
+import os
 from dataclasses import dataclass
 from typing import Dict, Tuple, List
 
@@ -289,7 +290,7 @@ def run_experiment_qep(
     }
 
 
-def plot_rmse_violin(res, out_png="rmse_violin_qep.png"):
+def plot_rmse_violin(res, out_png="results/rmse_violin_branin_qep.png"):
     sigma0_list = list(res["sigma0_list"])
     num_rep = res["rmse_qep_rbf"].shape[0]
 
@@ -329,7 +330,7 @@ def plot_rmse_violin(res, out_png="rmse_violin_qep.png"):
     plt.close()
 
 
-def plot_triplet(res, sigma_index=1, out_png="signal_obs_pred_branin_qep.png"):
+def plot_triplet(res, sigma_index=1, out_png="results/signal_obs_pred_branin_qep.png"):
     f_mat = res["f_mat"]
     y_mat = res["y_record"][sigma_index]
     pred_mat = res["pred_mean_qep_matern_record"][sigma_index]
@@ -358,9 +359,10 @@ if __name__ == "__main__":
         cg_tolerance=1e-3,
     )
 
+    os.makedirs("results", exist_ok=True)
     res = run_experiment_qep(qep_cfg=cfg)
     print(res["rmse_summary"])
 
-    plot_rmse_violin(res, out_png="rmse_violin_qep.png")
-    plot_triplet(res, sigma_index=1, out_png="signal_obs_pred_branin_qep.png")
-    print("Saved: rmse_violin_qep.png, signal_obs_pred_branin_qep.png")
+    plot_rmse_violin(res, out_png="results/rmse_violin_branin_qep.png")
+    plot_triplet(res, sigma_index=1, out_png="results/signal_obs_pred_branin_qep.png")
+    print("Saved: results/rmse_violin_branin_qep.png, results/signal_obs_pred_branin_qep.png")

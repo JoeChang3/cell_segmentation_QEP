@@ -1,0 +1,10 @@
+check,lengthscale,outputscale,noise,mean_constant,max_abs_diff,pairwise_rmse,tol_identical,verdict,parameter,first_differing_iter,final_abs_diff,gp_final_lengthscale,qep_final_lengthscale,gp_final_noise,qep_final_noise,gp_final_loss,qep_final_loss
+fixed_parameter,0.031983,1.727742,0.02823,0.0,0.0,0.0,1e-08,numerically identical,,,,,,,,,
+fixed_parameter,0.1,1.0,0.01,0.0,0.0,0.0,1e-08,numerically identical,,,,,,,,,
+fixed_parameter,0.05,2.0,0.1,0.25,0.0,0.0,1e-08,numerically identical,,,,,,,,,
+trajectory_divergence,,,,,,,,,lengthscale,-1.0,0.0,,,,,,
+trajectory_divergence,,,,,,,,,outputscale,-1.0,0.0,,,,,,
+trajectory_divergence,,,,,,,,,noise,-1.0,0.0,,,,,,
+trajectory_divergence,,,,,,,,,mean_constant,-1.0,0.0,,,,,,
+trajectory_divergence,,,,,,,,,loss,-1.0,0.0,,,,,,
+independent_training,,,,,0.0,0.0,,,,,,0.030889635668758034,0.030889635668758034,0.013506812752616134,0.013506812752616134,0.6697833984818257,0.6697833984818257

@@ -1,0 +1,9 @@
+check,passed,note,got_ap50,got_ap75,got_tp50,got_fp50,got_fn50,got_n_pred,got_n_gt,got_mean_matched_iou,exp_ap50,exp_ap75,exp_tp50,exp_fp50,exp_fn50,exp_n_pred,exp_n_gt,exp_mean_matched_iou
+identity_gt_vs_gt,True,,1.0,1.0,2.0,0.0,0.0,2.0,2.0,1.0,1.0,1.0,2.0,0.0,0.0,2.0,2.0,1.0
+empty_prediction,True,AP=0 with FN=2; no prediction columns so FP=0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0,0.0,,0.0,0.0,2.0,0.0,2.0,0.0
+empty_truth,True,"no GT, 2 predictions: correctly 2 FP and AP=0; n_pred=2 because two prediction columns do exist",0.0,0.0,0.0,2.0,0.0,2.0,0.0,0.0,0.0,,0.0,2.0,0.0,2.0,0.0,0.0
+split_equal_halves_boundary,True,"IoU is exactly 0.5 for each half; tau is inclusive (>=), so the half chosen by argmax counts as TP. Boundary case.",0.666667,0.25,2.0,1.0,0.0,3.0,2.0,0.75,,,2.0,,0.0,3.0,2.0,
+split_unequal_70_30,True,"big fragment IoU=0.7 gives TP for GT1, cell2 perfect; the 30% fragment is unmatched and counted as FP",0.666667,0.25,2.0,1.0,0.0,3.0,2.0,0.85,,,2.0,1.0,0.0,3.0,2.0,
+pure_merge_two_cells,True,"single blob spans both cells: IoU=100/300=0.333 with each, below 0.5, so no TP",0.0,0.0,0.0,1.0,2.0,1.0,2.0,0.333333,0.0,,0.0,1.0,2.0,1.0,2.0,
+label_permutation_invariant,True,integer ids renamed only,1.0,1.0,2.0,0.0,0.0,2.0,2.0,1.0,1.0,,2.0,0.0,0.0,,,1.0
+double_match_guard,True,max duplicate prediction reuse across real masks = 0,,,,,,,,,,,,,,,,

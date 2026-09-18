@@ -1,0 +1,9 @@
+git HEAD: 1123b84
+modified (pre-existing, not mine): 7
+python: /Users/zchan/miniforge3/envs/gpytorch_arm/bin/python
+torch 2.10.0  numpy 1.26.4  gpytorch 1.15.1  qpytorch 0.2  skimage 0.25.2  scipy 1.15.3
+OMP_NUM_THREADS: 2-6 per command (noted per run)
+seeds: training-pixel RNG default_rng([0, tile_index]); torch seed 0*1000+tile_index; deep-QEP probe used manual_seed(123) init and manual_seed(999) sampling
+data provenance: images/GT/ImageJ masks from data/{nuclear,whole_cell}_test_images/*_figure_{1..5}/; reconstructions cached from round 2 (held-out) and regenerated into round 3 (development)
+numerical warnings: none fatal; no non-finite losses; memory pressure killed three waiter shells (not the compute jobs)
+incomplete: ICLR-2025 'Bayesian Regularization of Latent Representation' not retrieved; Q-EP prediction equation not retrieved from primary source

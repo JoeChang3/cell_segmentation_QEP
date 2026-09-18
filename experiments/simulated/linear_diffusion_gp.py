@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -129,7 +130,7 @@ def dmd_reconstruct(obs, r):
 def rmse(a, b):
     return np.sqrt(np.mean((a - b) ** 2))
 
-def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
+def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title, out_png=None):
     """
     all_rmse_arrays: list of arrays, each shape (R, len(sigmas))
     """
@@ -153,12 +154,14 @@ def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
         ax.grid(True, alpha=0.3)
     fig.suptitle(title, fontweight="bold")
     plt.tight_layout()
+    if out_png is not None:
+        plt.savefig(out_png, dpi=300)
     plt.show()
 
 def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mean",
                  title_mid="(B) Noisy observation", title_right="(C) Predictive mean",
-                 suptitle=""):
-    cmap = "viridis" 
+                 suptitle="", out_png=None):
+    cmap = "viridis"
     fig, axs = plt.subplots(1, 3, figsize=(9, 3))
     im0 = axs[0].imshow(obs_mean, cmap=cmap, origin="lower")
     axs[0].set_title(title_left, fontsize=10)
@@ -174,41 +177,62 @@ def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mea
 
     fig.suptitle(suptitle, fontweight="bold")
     plt.tight_layout()
+    if out_png is not None:
+        plt.savefig(out_png, dpi=300)
     plt.show()
 
 
 # ---------- 1) "observation mean" reality：same as R code :ReacTran + deSolve ----------
-def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0):
+def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0,
+                              C_left=0.0, C_right=1.0,
+                              clip_bounds=(0.0, 1.0)):
     """
-    1D diffusion: u_t = D * u_xx；implicited Euler
-    bound：left:Dirichlet=C_left(=0)，right: Dirichlet=C_right(=1)
-    return: reality shape (k, n)
+    1D diffusion: u_t = D * u_xx; Crank-Nicolson scheme, Dirichlet boundaries.
+    Returns reality of shape (k, n), one spatial snapshot per column.
     """
     dx = L / k
     dt = T / (n - 1)
-    main = np.full(k, 2.0)
-    off  = np.full(k - 1, -1.0)
-    Lap = sparse.diags([off, main, off], [-1, 0, 1], shape=(k, k), format="csr") / (dx * dx)
+    r = D * dt / (dx * dx)
 
-    A = sparse.eye(k, format="csr") + dt * D * Lap  # implicit Euler: I + dt*D*Lap (Lap = -L_FD)
-    A = A.tolil()
-    # Dirichlet bounds
-    A[0, :] = 0.0;  A[0, 0] = 1.0
-    A[-1, :] = 0.0; A[-1, -1] = 1.0
+    main = np.full(k, 2.0, dtype=np.float64)
+    off  = np.full(k - 1, -1.0, dtype=np.float64)
+    Lap  = sparse.diags([off, main, off], [-1, 0, 1], shape=(k, k), format="csr")
+
+    # CN: (I - r/2 * Lap) u^{t+1} = (I + r/2 * Lap) u^t
+    I = sparse.eye(k, format="csr", dtype=np.float64)
+    A = (I - 0.5 * r * Lap).tolil()
+    B = (I + 0.5 * r * Lap).tocsr()
+
+    # Dirichlet boundary conditions
+    for M in (A, B):
+        M[0, :] = 0.0;  M[0, 0] = 1.0
+        M[-1,:] = 0.0;  M[-1,-1] = 1.0
     A = A.tocsr()
 
-    u = np.zeros(k)
+    u = np.zeros(k, dtype=np.float64)
     u[0]  = C_left
     u[-1] = C_right
 
-    reality = np.zeros((k, n))
-    reality[:, 0] = u.copy()
+    reality = np.zeros((k, n), dtype=np.float64)
+    reality[:, 0] = u
+
     for t in range(1, n):
-        rhs = reality[:, t-1].copy()
+        rhs = B @ reality[:, t-1]
         rhs[0]  = C_left
         rhs[-1] = C_right
         u_next = spsolve(A, rhs)
+
+        if clip_bounds is not None:
+            lo, hi = clip_bounds
+            u_next = np.clip(u_next, lo, hi)
+
+        u_next = np.nan_to_num(u_next, nan=0.0,
+                               posinf=clip_bounds[1] if clip_bounds else 1e6,
+                               neginf=clip_bounds[0] if clip_bounds else -1e6)
+
         reality[:, t] = u_next
+
+    reality = np.nan_to_num(reality, nan=0.0, posinf=1.0, neginf=0.0)
     return reality
 
 # ---------- 2) Gaussian Process on 2D grid ----------
@@ -240,6 +264,9 @@ sigma0_list = [0.05, 0.1, 0.3]
 
 # "observation" reality
 reality = generate_linear_diffusion(k=k, n=n, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0)
+reality = _ensure_finite(reality, tag="reality")
+assert np.isfinite(reality).all(), "reality has non-finite values"
+print(f"[GP]  reality: shape={reality.shape}, min={reality.min():.6f}, max={reality.max():.6f}, mean={reality.mean():.6f}")
 
 # ---------- 4) results ----------
 def _alloc(R, S): return np.full((R, S), np.nan)
@@ -330,10 +357,13 @@ def _reorder(arrs):
     mapping = {"Fast-Mat":1, "PCA":3, "FMOU":2, "DMD":4, "Fast-Exp":0}
     return [arrs[mapping[m]] for m in method_order]
 
+os.makedirs("results", exist_ok=True)
 make_violin_plot(_reorder([rmse_lattice_exp, rmse_lattice_matern, rmse_fmou, rmse_pca, rmse_dmd]),
-                 method_order, sigma0_list, title="(B) Linear diffusion (Gaussian)")
+                 method_order, sigma0_list, title="(B) Linear diffusion (Gaussian)",
+                 out_png="results/rmse_violin_linear_diffusion_gp.png")
 
 # ---------- 8) triplots ----------
 plot_triplet(reality, y_record[2], pred_mean_lattice_matern_record[2],
              title_left="(D) Observation mean", title_mid="(E) Noisy observation",
-             title_right="(F) Predictive mean", suptitle="Linear diffusion (Gaussian)")
+             title_right="(F) Predictive mean", suptitle="Linear diffusion (Gaussian)",
+             out_png="results/signal_obs_pred_linear_diffusion_gp.png")

@@ -1,0 +1,97 @@
+{
+  "protocol_version": "round2-v1",
+  "selected_on": "development images only (nuclei_figure_1, whole_cell_figure_1)",
+  "preprocessing": {
+    "grayscale": "first channel if RGB, else as-is",
+    "orientation": "native; ground truth relabelled WITHOUT transpose",
+    "intensity_units": "raw image units (8-bit 0-255 for these files)",
+    "per_tile_standardization": "z-score per tile, inverted before thresholding"
+  },
+  "tiling": "legacy get_proportion rule (py_core.Modified_Functions_RGasp)",
+  "coordinates": "joint 2D X=(row,col) linearly mapped to [0,1]^2 per tile",
+  "training_pixels": {
+    "max_points": 3000,
+    "sampler": "np.random.default_rng([seed, tile_index])",
+    "seed": 0
+  },
+  "determinism": {
+    "torch_seed": "seed*1000 + tile_index",
+    "exact_logdet": true,
+    "reason": "gpytorch max_cholesky_size=800 would otherwise estimate the log-determinant with 10 random probe vectors; unseeded, that alone moved the fitted lengthscale by ~1.8e-3 between identical reruns"
+  },
+  "model": {
+    "mean": "ConstantMean",
+    "kernel": "ScaleKernel(MaternKernel(nu=2.5))",
+    "ard": false,
+    "init": "library defaults (nothing overridden)",
+    "dtype": "float64"
+  },
+  "fitting": {
+    "optimizer": "Adam",
+    "lr": 0.1,
+    "iters": 75,
+    "objective": "ExactMarginalLogLikelihood"
+  },
+  "q_values": [
+    2.0,
+    1.5
+  ],
+  "thresholding": {
+    "rule": "criterion_1",
+    "delta": 0.01,
+    "nugget": true,
+    "scope": "per tile, then outlier-tile re-threshold at the non-outlier mean"
+  },
+  "markers": {
+    "mode": "peak",
+    "implementation": "skimage.feature.peak_local_max",
+    "min_distance": {
+      "nuclei": 15,
+      "whole_cell": 9
+    },
+    "min_distance_units": "pixels, Chebyshev (p_norm=inf)",
+    "exclude_border": false,
+    "threshold_abs": null,
+    "threshold_rel": null,
+    "labels": "binary foreground",
+    "empty_component_policy": "one marker at the component's distance-transform argmax (first in C raster order)",
+    "uses_ground_truth": false
+  },
+  "cleanup": {
+    "rule": "eliminate_small_areas",
+    "remove_size_threshold": 50,
+    "border_object_removal": "none"
+  },
+  "watershed": {
+    "elevation": "-distance_transform_edt(foreground)",
+    "connectivity": 1,
+    "mask": "binary foreground"
+  },
+  "evaluation": {
+    "ap": "TP/(TP+FP+FN)",
+    "thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9
+    ],
+    "matching": "per-GT-row argmax IoU, tau inclusive (>=)",
+    "mean_matched_iou": "max IoU per GT instance, averaged over ALL GT instances (undetected contribute 0)"
+  },
+  "environment": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "torch": "2.10.0",
+    "numpy": "1.26.4",
+    "gpytorch": "1.15.1",
+    "qpytorch": "0.2",
+    "skimage": "0.25.2"
+  },
+  "config_hash": "ee35f34412ef",
+  "run_id": "round2-v1_ee35f34412ef"
+}

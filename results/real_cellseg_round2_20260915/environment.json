@@ -1,0 +1,20 @@
+{
+  "python_executable": "/Users/zchan/miniforge3/envs/gpytorch_arm/bin/python",
+  "python_version": "3.10.19",
+  "platform": "macOS-15.3.2-arm64-arm-64bit",
+  "torch": "2.10.0",
+  "torch_path": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/torch",
+  "gpytorch": "1.15.1",
+  "gpytorch_path": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/gpytorch",
+  "qpytorch": "0.2",
+  "qpytorch_path": "/Users/zchan/miniforge3/envs/gpytorch_arm/lib/python3.10/site-packages/qpytorch",
+  "numpy": "1.26.4",
+  "default_dtype": "torch.float64",
+  "device": "cpu",
+  "gp_model_class": "py_core.segmentation_pipeline._ExactGPTile",
+  "qep_model_class": "py_core.segmentation_pipeline._ExactQEPTile",
+  "gp_likelihood": "gpytorch.likelihoods.GaussianLikelihood",
+  "qep_likelihood": "qpytorch.likelihoods.QExponentialLikelihood",
+  "gp_mll": "gpytorch.mlls.ExactMarginalLogLikelihood",
+  "qep_mll": "qpytorch.mlls.ExactMarginalLogLikelihood"
+}

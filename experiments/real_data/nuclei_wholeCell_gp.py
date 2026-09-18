@@ -290,7 +290,7 @@ print("\n=== wholeCell_rmse_summary ===\n", whl_rmse_summary)
 # -----------------------------
 # violin plot（using Matplotlib）
 # -----------------------------
-def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
+def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title, out_png=None):
     """
     all_rmse_arrays: list of arrays, each shape (R, len(sigmas))
     """
@@ -314,6 +314,8 @@ def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
         ax.grid(True, alpha=0.3)
     fig.suptitle(title, fontweight="bold")
     plt.tight_layout()
+    if out_png is not None:
+        plt.savefig(out_png, dpi=300)
     plt.show()
 
 method_order = ["Fast-Mat","PCA","FMOU","DMD","Fast-Exp"]
@@ -323,18 +325,21 @@ def reorder(arrs):
     mapping = {"Fast-Mat":1, "PCA":3, "FMOU":2, "DMD":4, "Fast-Exp":0}
     return [arrs[mapping[m]] for m in method_order]
 
+os.makedirs("results", exist_ok=True)
 make_violin_plot(reorder([nuc_rmse_exp, nuc_rmse_mat, nuc_rmse_fmou, nuc_rmse_pca, nuc_rmse_dmd]),
-                 method_order, sigma0_list, title="(A) Cell nuclei")
+                 method_order, sigma0_list, title="(A) Cell nuclei",
+                 out_png="results/rmse_violin_nuclei_gp.png")
 make_violin_plot(reorder([whl_rmse_exp, whl_rmse_mat, whl_rmse_fmou, whl_rmse_pca, whl_rmse_dmd]),
-                 method_order, sigma0_list, title="(B) Whole cell")
+                 method_order, sigma0_list, title="(B) Whole cell",
+                 out_png="results/rmse_violin_wholecell_gp.png")
 
 
 # thermo diagram（nuclei/whole）
 # -----------------------------
 def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mean",
                  title_mid="(B) Noisy observation", title_right="(C) Predictive mean",
-                 suptitle=""):
-    cmap = "viridis" 
+                 suptitle="", out_png=None):
+    cmap = "viridis"
     fig, axs = plt.subplots(1, 3, figsize=(9, 3))
     im0 = axs[0].imshow(obs_mean, cmap=cmap, origin="lower")
     axs[0].set_title(title_left, fontsize=10)
@@ -350,14 +355,20 @@ def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mea
 
     fig.suptitle(suptitle, fontweight="bold")
     plt.tight_layout()
+    if out_png is not None:
+        plt.savefig(out_png, dpi=300)
     plt.show()
+
+os.makedirs("results", exist_ok=True)
 
 # nuclei: use Matern predictive mean（sigma0_list[0] case）
 plot_triplet(nuclei, nuc_y_record[0], nuc_pred_mat_record[0],
              title_left="(A) Observation mean", title_mid="(B) Noisy observation",
-             title_right="(C) Predictive mean", suptitle="Cell nuclei")
+             title_right="(C) Predictive mean", suptitle="Cell nuclei",
+             out_png="results/signal_obs_pred_nuclei_gp.png")
 
 # whole: use Matern predictive mean（sigma0_list[2] case）
 plot_triplet(whole, whl_y_record[2], whl_pred_mat_record[2],
              title_left="(D) Observation mean", title_mid="(E) Noisy observation",
-             title_right="(F) Predictive mean", suptitle="Whole cell")
+             title_right="(F) Predictive mean", suptitle="Whole cell",
+             out_png="results/signal_obs_pred_wholecell_gp.png")

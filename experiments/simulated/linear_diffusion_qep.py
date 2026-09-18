@@ -1,4 +1,5 @@
 # ==== Linear diffusion experiment (R -> Python) ====
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -134,7 +135,7 @@ def dmd_reconstruct(obs, r):
 def rmse(a, b):
     return np.sqrt(np.mean((a - b) ** 2))
 
-def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
+def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title, out_png=None):
     """
     all_rmse_arrays: list of arrays, each shape (R, len(sigmas))
     """
@@ -158,12 +159,14 @@ def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
         ax.grid(True, alpha=0.3)
     fig.suptitle(title, fontweight="bold")
     plt.tight_layout()
+    if out_png is not None:
+        plt.savefig(out_png, dpi=300)
     plt.show()
 
 def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mean",
                  title_mid="(B) Noisy observation", title_right="(C) Predictive mean",
-                 suptitle=""):
-    cmap = "viridis" 
+                 suptitle="", out_png=None):
+    cmap = "viridis"
     fig, axs = plt.subplots(1, 3, figsize=(9, 3))
     im0 = axs[0].imshow(obs_mean, cmap=cmap, origin="lower")
     axs[0].set_title(title_left, fontsize=10)
@@ -179,8 +182,10 @@ def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mea
 
     fig.suptitle(suptitle, fontweight="bold")
     plt.tight_layout()
+    if out_png is not None:
+        plt.savefig(out_png, dpi=300)
     plt.show()
-    
+
 
 def fit_qep_1d(y_1d,
                kernel_type="rbf", q_power=2.0,
@@ -298,6 +303,26 @@ def fit_qep_separable_2d(obs,
     return after_cols
 
 
+def fit_qep_row_only(obs,
+                     kernel_type="rbf", q_power=2.0,
+                     train_iters_row=50,
+                     lr=0.05,
+                     length_scale_row=0.2,
+                     nu=1.5,
+                     jitter=1e-3,
+                     device="cpu"):
+    """Row-wise 1D QEP smoothing only — no column pass."""
+    H, W = obs.shape
+    after_rows = np.empty_like(obs, dtype=np.float64)
+    for i in range(H):
+        after_rows[i, :] = fit_qep_1d(
+            obs[i, :],
+            kernel_type=kernel_type, q_power=q_power,
+            train_iters=train_iters_row, lr=lr,
+            length_scale=length_scale_row, nu=nu,
+            jitter=jitter, device=device
+        )
+    return after_rows
 
 
 
@@ -368,6 +393,7 @@ num_repetition = 10
 reality = generate_linear_diffusion(k=k, n=n, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0)
 reality = _ensure_finite(reality, tag="reality")
 assert np.isfinite(reality).all(), "reality has non-finite values"
+print(f"[QEP] reality: shape={reality.shape}, min={reality.min():.6f}, max={reality.max():.6f}, mean={reality.mean():.6f}")
 
 # —— tool functions：
 # fmou_predictive_mean(obs, d, ...)
@@ -379,15 +405,17 @@ assert np.isfinite(reality).all(), "reality has non-finite values"
 
 # result container
 def _alloc(R, S): return np.full((R, S), np.nan)
-rmse_qep_rbf     = _alloc(num_repetition, len(sigma0_list))   # lattice_exp in R
-rmse_qep_matern  = _alloc(num_repetition, len(sigma0_list))   # lattice_matern in R
-rmse_fmou        = _alloc(num_repetition, len(sigma0_list))
-rmse_pca         = _alloc(num_repetition, len(sigma0_list))
-rmse_dmd         = _alloc(num_repetition, len(sigma0_list))
+rmse_qep_rbf          = _alloc(num_repetition, len(sigma0_list))   # lattice_exp in R
+rmse_qep_matern       = _alloc(num_repetition, len(sigma0_list))   # lattice_matern in R
+rmse_qep_matern_row   = _alloc(num_repetition, len(sigma0_list))   # row-only (no col pass)
+rmse_fmou             = _alloc(num_repetition, len(sigma0_list))
+rmse_pca              = _alloc(num_repetition, len(sigma0_list))
+rmse_dmd              = _alloc(num_repetition, len(sigma0_list))
 
 y_record                     = [None]*len(sigma0_list)
 pred_qep_rbf_record          = [None]*len(sigma0_list)
 pred_qep_matern_record       = [None]*len(sigma0_list)
+pred_qep_matern_row_record   = [None]*len(sigma0_list)
 pred_fmou_record             = [None]*len(sigma0_list)
 pred_pca_record              = [None]*len(sigma0_list)
 pred_dmd_record              = [None]*len(sigma0_list)
@@ -405,8 +433,8 @@ for j, sigma0 in enumerate(sigma0_list):
         # QEP-RBF（ R: lattice_exp）
         # length_scale  0.1~0.5
         pred_rbf = fit_qep_separable_2d(
-            y_obs, kernel_type="rbf", q_power=2.5,
-            train_iters_row=50, train_iters_col=50, lr=0.05,
+            y_obs, kernel_type="rbf", q_power=1.5,
+            train_iters_row=200, train_iters_col=200, lr=0.05,
             length_scale_row=0.2, length_scale_col=0.2,
             device="cpu"
         )
@@ -423,15 +451,25 @@ for j, sigma0 in enumerate(sigma0_list):
 
         # QEP-Matern（R: lattice_matern）
         pred_mat = fit_qep_separable_2d(
-            y_obs, kernel_type="matern", q_power=2.5,
-            train_iters_row=50, train_iters_col=50, lr=0.05,
+            y_obs, kernel_type="matern", q_power=1.5,
+            train_iters_row=200, train_iters_col=200, lr=0.05,
             length_scale_row=0.2, length_scale_col=0.2,
             nu=1.5, device="cpu"
         )
         pred_mat = _ensure_finite(pred_mat, tag=f"pred_mat (sigma={sigma0}, it={it})")
         rmse_qep_matern[it, j] = np.sqrt(np.mean((reality - pred_mat)**2))
         if it == 0: pred_qep_matern_record[j] = pred_mat
-        
+
+        # QEP-Matern row-only (ablation baseline: no column pass)
+        pred_mat_row = fit_qep_row_only(
+            y_obs, kernel_type="matern", q_power=1.5,
+            train_iters_row=200, lr=0.05,
+            length_scale_row=0.2, nu=1.5, device="cpu"
+        )
+        pred_mat_row = _ensure_finite(pred_mat_row, tag=f"pred_mat_row (sigma={sigma0}, it={it})")
+        rmse_qep_matern_row[it, j] = np.sqrt(np.mean((reality - pred_mat_row)**2))
+        if it == 0: pred_qep_matern_row_record[j] = pred_mat_row
+
         assert np.isfinite(y_obs).all(), "y_obs contains NaN/Inf before SVD rank selection"
         # avoid extreme value
         # y_for_svd = np.clip(y_obs, -1e6, 1e6)
@@ -462,26 +500,32 @@ for j, sigma0 in enumerate(sigma0_list):
 # ======= RMSE Summary=======
 rmse_summary = pd.DataFrame({
     0.05: [np.nanmean(rmse_qep_rbf[:,0]), np.nanmean(rmse_qep_matern[:,0]),
+           np.nanmean(rmse_qep_matern_row[:,0]),
            np.nanmean(rmse_fmou[:,0]),    np.nanmean(rmse_pca[:,0]), np.nanmean(rmse_dmd[:,0])],
     0.10: [np.nanmean(rmse_qep_rbf[:,1]), np.nanmean(rmse_qep_matern[:,1]),
+           np.nanmean(rmse_qep_matern_row[:,1]),
            np.nanmean(rmse_fmou[:,1]),    np.nanmean(rmse_pca[:,1]), np.nanmean(rmse_dmd[:,1])],
     0.30: [np.nanmean(rmse_qep_rbf[:,2]), np.nanmean(rmse_qep_matern[:,2]),
+           np.nanmean(rmse_qep_matern_row[:,2]),
            np.nanmean(rmse_fmou[:,2]),    np.nanmean(rmse_pca[:,2]), np.nanmean(rmse_dmd[:,2])],
-}, index=["qep_rbf","qep_matern","fmou","pca","dmd"])
+}, index=["qep_rbf","qep_matern","qep_matern_row_only","fmou","pca","dmd"])
 print("\n=== RMSE summary (Linear diffusion) ===\n", rmse_summary)
 
 # ======= Figure (B) violin plot =======
-method_order = ["QEP-Mat","PCA","FMOU","DMD","QEP-RBF"]
+method_order = ["QEP-Mat","QEP-Mat-RowOnly","PCA","FMOU","DMD","QEP-RBF"]
 def _reorder(arrs):
-    # [rbf, mat, fmou, pca, dmd] -> ["QEP-Mat","PCA","FMOU","DMD","QEP-RBF"]
-    mapping = {"QEP-Mat":1, "PCA":3, "FMOU":2, "DMD":4, "QEP-RBF":0}
+    # [rbf, mat, mat_row, fmou, pca, dmd] -> method_order
+    mapping = {"QEP-Mat":1, "QEP-Mat-RowOnly":2, "PCA":4, "FMOU":3, "DMD":5, "QEP-RBF":0}
     return [arrs[mapping[m]] for m in method_order]
 
-make_violin_plot(_reorder([rmse_qep_rbf, rmse_qep_matern, rmse_fmou, rmse_pca, rmse_dmd]),
-                 method_order, sigma0_list, title="(B) Linear diffusion")
+os.makedirs("results", exist_ok=True)
+make_violin_plot(_reorder([rmse_qep_rbf, rmse_qep_matern, rmse_qep_matern_row, rmse_fmou, rmse_pca, rmse_dmd]),
+                 method_order, sigma0_list, title="(B) Linear diffusion",
+                 out_png="results/rmse_violin_linear_diffusion_qep.png")
 
 # ======= Figure 6(B)：（observation mean、observation with noise、Matern estimation）=======
 # sigma0=0.3, same with R code
-plot_triplet(reality, y_record[2], pred_qep_matern_record[2],
+plot_triplet(reality, y_record[2], pred_qep_matern_row_record[2],
              title_left="(D) Observation mean", title_mid="(E) Noisy observation",
-             title_right="(F) Predictive mean", suptitle="Linear diffusion")
+             title_right="(F) Predictive mean", suptitle="Linear diffusion",
+             out_png="results/signal_obs_pred_linear_diffusion_qep.png")

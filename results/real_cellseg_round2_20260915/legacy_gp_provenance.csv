@@ -1,0 +1,41 @@
+operation,file,column,pair,threshold,ap50,dataset,tag,n_gt_rows,n_pred_cols,ap75,tp50,fp50,fn50,historical_n_pred,abs_npred_gap
+stored_table_value,data/combined_ap_table.csv,GP_Method_AP,whole_cell_figure_1,0.5,0.583864118895966,,,,,,,,,,
+stored_table_value,data/combined_ap_table.csv,GP_Method_AP,whole_cell_figure_2,0.5,0.1689189189189189,,,,,,,,,,
+stored_table_value,data/combined_ap_table.csv,GP_Method_AP,whole_cell_figure_3,0.5,0.5370741482965932,,,,,,,,,,
+stored_table_value,data/combined_ap_table.csv,GP_Method_AP,whole_cell_figure_4,0.5,0.2312925170068027,,,,,,,,,,
+stored_table_value,data/combined_ap_table.csv,GP_Method_AP,whole_cell_figure_5,0.5,0.1878980891719745,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,GP_Method_AP,nuclei_figure_1,0.5,0.0307443365695792,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,noGP_Method_AP,nuclei_figure_1,0.5,0.0041229385307346,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,GP_Method_AP,nuclei_figure_2,0.5,0.073170731707317,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,noGP_Method_AP,nuclei_figure_2,0.5,0.1452282157676348,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,GP_Method_AP,nuclei_figure_3,0.5,0.0295566502463054,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,noGP_Method_AP,nuclei_figure_3,0.5,0.0097864768683274,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,GP_Method_AP,nuclei_figure_4,0.5,0.2289377289377289,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,noGP_Method_AP,nuclei_figure_4,0.5,0.0591278640059127,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,GP_Method_AP,nuclei_figure_5,0.5,0.0041724617524339,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_nogp.csv,noGP_Method_AP,nuclei_figure_5,0.5,0.0004967709885742,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,GP_Method_AP,nuclei_figure_1,0.5,0.0387931034482758,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,noImageGP_Method_AP,nuclei_figure_1,0.5,0.0054894784995425,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,GP_Method_AP,nuclei_figure_2,0.5,0.0470588235294117,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,noImageGP_Method_AP,nuclei_figure_2,0.5,0.1636363636363636,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,GP_Method_AP,nuclei_figure_3,0.5,0.0477326968973747,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,noImageGP_Method_AP,nuclei_figure_3,0.5,0.0069182389937106,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,GP_Method_AP,nuclei_figure_4,0.5,0.2509293680297397,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,noImageGP_Method_AP,nuclei_figure_4,0.5,0.0012893059236444,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,GP_Method_AP,nuclei_figure_5,0.5,0.0060422960725075,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_gp_vs_noimagegp.csv,noImageGP_Method_AP,nuclei_figure_5,0.5,0.0,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_nuclear_gp_vs_imagej.csv,GP_Method_AP,nuclei_figure_1,0.5,0.0387931034482758,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_nuclear_gp_vs_imagej.csv,GP_Method_AP,nuclei_figure_2,0.5,0.0470588235294117,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_nuclear_gp_vs_imagej.csv,GP_Method_AP,nuclei_figure_3,0.5,0.0477326968973747,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_nuclear_gp_vs_imagej.csv,GP_Method_AP,nuclei_figure_4,0.5,0.2509293680297397,,,,,,,,,,
+stored_table_value,results/tables/combined_ap_table_nuclear_gp_vs_imagej.csv,GP_Method_AP,nuclei_figure_5,0.5,0.0060422960725075,,,,,,,,,,
+1_recompute_from_saved_iou_matrix,data/whole_cell_test_images/whole_cell_figure_1/ious_gp.csv,,,,0.583864118895966,whole_cell,ious_gp,403.0,343.0,0.17111459968602827,275.0,68.0,128.0,,
+1_recompute_from_saved_iou_matrix,data/whole_cell_test_images/whole_cell_figure_1/ious_imagej.csv,,,,0.3415841584158416,whole_cell,ious_imagej,403.0,410.0,0.002466091245376079,207.0,203.0,196.0,,
+1_recompute_from_saved_iou_matrix,data/nuclear_test_images/nuclei_figure_1/ious_gp.csv,,,,0.03879310344827586,nuclei,ious_gp,330.0,393.0,0.0013850415512465374,27.0,366.0,303.0,,
+1_recompute_from_saved_iou_matrix,data/nuclear_test_images/nuclei_figure_1/ious_imagej.csv,,,,0.45863309352517984,nuclei,ious_imagej,330.0,481.0,0.2515432098765432,255.0,226.0,75.0,,
+3_new_shared_pipeline,,,,,0.11583421891604676,whole_cell,gp_legacy_markers=None,,647.0,0.01842870999030068,,,,343.0,304.0
+3_new_shared_pipeline,,,,,0.2902711323763955,whole_cell,gp_legacy_peak md=5,,406.0,0.06869220607661823,,,,343.0,63.0
+3_new_shared_pipeline,,,,,0.3194444444444444,whole_cell,gp_legacy_peak md=7,,357.0,0.08108108108108109,,,,343.0,14.0
+3_new_shared_pipeline,,,,,0.3432282003710575,whole_cell,gp_legacy_peak md=9,,321.0,0.08383233532934131,,,,343.0,22.0
+3_new_shared_pipeline,,,,,0.31773879142300193,whole_cell,gp_legacy_peak md=12,,273.0,0.08507223113964688,,,,343.0,70.0
+3_new_shared_pipeline,,,,,0.26719056974459726,whole_cell,gp_legacy_peak md=15,,242.0,0.07679465776293823,,,,343.0,101.0

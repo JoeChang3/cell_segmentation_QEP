@@ -1,0 +1,17 @@
+{
+  "selected_w": {
+    "whole_cell": 0.2,
+    "nuclei": 1.0
+  },
+  "grid": [
+    1.0,
+    0.8,
+    0.6,
+    0.4,
+    0.2
+  ],
+  "selection_rule": "lowest mean merged count on development images subject to AP@0.5 not falling below the w=1.0 frozen rule; aggregated over all 4 arms, never per arm",
+  "elevation": "-(w*dist_norm + (1-w)*img_norm)",
+  "markers": "unchanged: peak_local_max on the distance transform",
+  "intensity_source": "each arm's own cached reconstruction"
+}

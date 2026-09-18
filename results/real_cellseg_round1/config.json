@@ -1,0 +1,103 @@
+{
+  "experiment": "real_cellseg_round1",
+  "purpose": "make the real nuclei/whole-cell segmentation pipeline correct, reproducible and end-to-end; development cases only",
+  "timestamp": "2026-09-04 20:40:09",
+  "args": {
+    "q": [
+      2.0,
+      1.5
+    ],
+    "max_points": 3000,
+    "train_iters": 75,
+    "lr": 0.1,
+    "nu": 2.5,
+    "dtype": "float64",
+    "seed": 0,
+    "remove_size_threshold": 50,
+    "no_legacy": false,
+    "datasets": [
+      "nuclei",
+      "whole_cell"
+    ],
+    "out": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/real_cellseg_round1",
+    "smoke": false
+  },
+  "arms": [
+    {
+      "key": "raw",
+      "method": "raw",
+      "q": null,
+      "label": "Raw"
+    },
+    {
+      "key": "gp_legacy",
+      "method": "gp_legacy",
+      "q": 2.0,
+      "label": "GP (legacy)"
+    },
+    {
+      "key": "gp",
+      "method": "gp",
+      "q": 2.0,
+      "label": "GP"
+    },
+    {
+      "key": "qep_q2",
+      "method": "qep",
+      "q": 2.0,
+      "label": "QEP q=2"
+    },
+    {
+      "key": "qep_q1.5",
+      "method": "qep",
+      "q": 1.5,
+      "label": "QEP q=1.5"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "nuclei",
+      "folder": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/data/nuclear_test_images/nuclei_figure_1",
+      "image": "original_fig.png",
+      "truth": "original_true_masks.png",
+      "imagej": "original_ImageJ_masks.tif"
+    },
+    {
+      "name": "whole_cell",
+      "folder": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/data/whole_cell_test_images/whole_cell_figure_1",
+      "image": "original_fig.jpg",
+      "truth": "original_true_masks.png",
+      "imagej": "original_ImageJ_masks.tif"
+    }
+  ],
+  "ap_thresholds": [
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9
+  ],
+  "shared_pipeline": "tile -> [method-dependent reconstruction] -> criterion_1 adaptive threshold -> outlier tile re-threshold -> stitch -> distance transform -> watershed(markers=None) -> eliminate_small_areas",
+  "deviations_from_legacy": [
+    "training-pixel subsample is seeded per tile (legacy used an unseeded np.random.choice, which is why stored nuclei GP AP was not reproducible)",
+    "ground truth loaded in native orientation (legacy process_image_mask applied a net transpose); IoU is transpose-invariant so scores are comparable, but overlays are now correctly aligned",
+    "IoU computed by contingency table (verified identical to the legacy pairwise implementation)",
+    "controlled gp/qep arms run float64 and standardize each tile; the gp_legacy arm keeps the original float32 unstandardized path"
+  ],
+  "notes": [
+    "nuclei: fast-vs-legacy IoU parity max|diff|=0.00e+00",
+    "whole_cell: fast-vs-legacy IoU parity max|diff|=0.00e+00"
+  ],
+  "env": {
+    "python": "3.10.19",
+    "platform": "macOS-15.3.2-arm64-arm-64bit",
+    "torch": "2.10.0",
+    "numpy": "1.26.4",
+    "gpytorch": "1.15.1",
+    "qpytorch": "0.2"
+  }
+}

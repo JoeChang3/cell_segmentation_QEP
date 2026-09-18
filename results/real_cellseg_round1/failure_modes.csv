@@ -1,0 +1,11 @@
+dataset,method,q,label,merged,split,missed,spurious,n_true,n_pred
+nuclei,raw,,Raw,1,26,306,677,330,819
+nuclei,gp_legacy,2.0,GP (legacy),3,15,321,162,330,237
+nuclei,gp,2.0,GP,1,36,297,544,330,750
+nuclei,qep,2.0,QEP q=2,1,35,304,517,330,714
+nuclei,qep,1.5,QEP q=1.5,4,32,296,490,330,685
+whole_cell,raw,,Raw,21,58,290,270,403,616
+whole_cell,gp_legacy,2.0,GP (legacy),42,73,294,260,403,647
+whole_cell,gp,2.0,GP,26,61,295,288,403,638
+whole_cell,qep,2.0,QEP q=2,28,61,292,283,403,632
+whole_cell,qep,1.5,QEP q=1.5,32,67,282,259,403,628

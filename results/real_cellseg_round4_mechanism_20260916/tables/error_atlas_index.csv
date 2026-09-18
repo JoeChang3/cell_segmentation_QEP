@@ -1,0 +1,5 @@
+dataset,image,gt_instance,category,area_px,fg_coverage,best_pred_iou,markers_inside,figure
+whole_cell,whole_cell_figure_1,167,merged,227,0.9030837004405288,0.4475982532751091,1,whole_cell_merged_GT167.png
+whole_cell,whole_cell_figure_1,5,matched,277,0.8014440433212996,0.6170212765957447,2,whole_cell_matched_GT5.png
+nuclei,nuclei_figure_3,79,merged,203,0.9605911330049262,0.4276315789473684,1,nuclei_merged_GT79.png
+nuclei,nuclei_figure_3,143,matched,224,0.9464285714285714,0.860655737704918,1,nuclei_matched_GT143.png

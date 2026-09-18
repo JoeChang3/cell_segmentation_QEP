@@ -1,0 +1,5 @@
+dataset,image,arm,rule,threshold_identical,mask_identical,partition_equivalent
+nuclei,nuclei_figure_2,gp,li,True,True,True
+nuclei,nuclei_figure_4,qep_q1.5,li,True,True,True
+whole_cell,whole_cell_figure_3,gp,li,True,True,True
+whole_cell,whole_cell_figure_5,raw,li,True,True,True

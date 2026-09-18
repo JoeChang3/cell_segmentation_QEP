@@ -1,4 +1,5 @@
 ###### Running time of lattice method
+import os
 import time
 import numpy as np
 import pandas as pd
@@ -195,6 +196,7 @@ ax2.set_yticks([-2, 0, 2])
 ax2.set_yticklabels([r"$10^{-2}$", r"$10^0$", r"$10^2$"], fontsize=12)
 
 plt.tight_layout()
-plt.savefig("compare_comp_time.pdf", bbox_inches="tight")
+os.makedirs("results", exist_ok=True)
+plt.savefig("results/compare_comp_time.pdf", bbox_inches="tight")
 plt.close()
-print("Saved: compare_comp_time.pdf")
+print("Saved: results/compare_comp_time.pdf")
