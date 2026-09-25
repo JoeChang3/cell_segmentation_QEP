@@ -1,7 +1,10 @@
 # Approved QEP reconstruction × downstream experiment
 
-Status on 2026-09-24 (America/Phoenix): runner prepared; scientific execution
-blocked at dependency preflight. **No new segmentation results exist.**
+Status on 2026-09-24 (America/Phoenix): cloud execution was blocked at preflight.
+The subsequent MacBook run passed non-QEP anchors and stopped on newly generated
+nuclei Q2-C reproduction mismatch. Historical-cache recovery is now available;
+the full 16-row experiment is not yet complete. See CACHE_RECOVERY.md in the
+associated results directory.
 
 Base: `fa746853ba007552bb1d5a43340d91f6796096b1`.
 R reference: `44714c2e0be958fe796a8fd4bdbc220dae3c23dd`.
@@ -80,3 +83,18 @@ The worker saves each newly generated QEP tile and its diagnostics, but does
 not yet implement verified cross-run cache resume. Use a fresh output directory
 after a scientific run stops; never concatenate incompatible partial results.
 The original audited core modules and previous results are unchanged.
+
+## Preferred continuation using the recovered historical caches
+
+Add this argument to the normal run command:
+
+```bash
+--qep-cache-dir /Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/real_cellseg_round3_thresholding_20260916/masks
+```
+
+Choose a new `--out` directory (for example `results/qep_downstream_4x2_macbook_cached`).
+All four historical files must pass the committed cache manifest before any
+scientific work. They are then independently checked as arrays before scoring.
+This route performs no QEP training. It reruns the fast non-QEP anchors and all
+fixed downstream comparisons, rather than merging result tables from two runs.
+Historical QEP-C anchors are unchanged. The original failed run is retained.

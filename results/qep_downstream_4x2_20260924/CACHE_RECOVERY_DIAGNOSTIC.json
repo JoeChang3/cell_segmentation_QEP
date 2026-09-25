@@ -1,0 +1,28 @@
+{
+  "status": "Reproduction discrepancy retained; historical-cache route added",
+  "new_ap50": 0.5974358974358974,
+  "historical_ap50": 0.625,
+  "mean_absolute_reconstruction_difference": 0.08680117288297193,
+  "max_absolute_reconstruction_difference": 0.95135498046875,
+  "all_four_R3_R5_predmean_arrays_identical": true,
+  "hyperparameter_aggregate_comparison": {
+    "lengthscale": {
+      "historical_mean": 0.05933415004017859,
+      "new_mean": 0.05933415004017854
+    },
+    "outputscale": {
+      "historical_mean": 1.720083837984761,
+      "new_mean": 1.7200838379847667
+    },
+    "noise": {
+      "historical_mean": 0.0879307302117085,
+      "new_mean": 0.08793073021170854
+    },
+    "final_loss": {
+      "historical_mean": 0.565856402290095,
+      "new_mean": 0.5658564022900956
+    }
+  },
+  "interpretation": "Training aggregates agree to floating-point precision. This does not prove every fitted parameter identical. Prediction-path/numerical settings require investigation; root cause not established. No solver or core implementation changed.",
+  "cache_validation": "All four source-file and canonical-array SHA256 checks passed; wrong geometry and changed bytes rejected; full downstream evaluation remains pending on MacBook."
+}

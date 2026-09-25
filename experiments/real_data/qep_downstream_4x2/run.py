@@ -116,7 +116,16 @@ def preflight(args):
                     errors.append(f"R package {pkg}: {found.get(pkg)} != {version}")
         except subprocess.SubprocessError as e:
             errors.append(f"R dependency probe failed: {e}")
-    record["runner_sha256"] = {p.name: digest(p) for p in HERE.glob("*") if p.suffix in (".py", ".R")}
+    if args.qep_cache_dir:
+        cache_manifest = json.loads((HERE / "historical_cache_manifest.json").read_text())
+        record["qep_cache_files"] = []
+        for name, expected in cache_manifest["entries"].items():
+            path = args.qep_cache_dir / name
+            matched = path.is_file() and digest(path) == expected["file_sha256"]
+            record["qep_cache_files"].append(dict(path=str(path), checksum_matched=matched))
+            if not matched:
+                errors.append(f"Missing or changed historical QEP cache: {path}")
+    record["runner_sha256"] = {p.name: digest(p) for p in HERE.glob("*") if p.suffix in (".py", ".R", ".json")}
     record["errors"] = errors
     record["status"] = "BLOCKED" if errors else "READY_FOR_ANCHOR_CHECKS"
     dump(args.out / "preflight.json", record)
@@ -197,7 +206,10 @@ def run(args, manifest):
                    mean_best_iou=ev.mean_matched_iou, **foreground_metrics(binary, gt > 0),
                    **{k: failures[k] for k in ("merged", "split", "missed", "spurious")},
                    fg_components_4=int(ndi.label(binary)[1]), runtime_reconstruction_s=seconds,
-                   runtime_downstream_s=elapsed, runtime_total_s=seconds+elapsed, **extra)
+                   runtime_downstream_s=elapsed,
+                   runtime_total_s=None if seconds is None else seconds+elapsed,
+                   reconstruction_source="verified historical cache" if seconds is None else "generated in this run",
+                   **extra)
         for threshold, suffix in [(.5, "50"), (.75, "75")]:
             for metric in ("tp", "fp", "fn"):
                 row[metric+suffix] = ev.per_threshold[threshold][metric]
@@ -262,6 +274,21 @@ def run(args, manifest):
     for ds, (m, folder, raw, gt) in prepared.items():
         geom = compute_tiling(*raw.shape)
         for method, q in [("q2", 2.0), ("q15", 1.5)]:
+            if args.qep_cache_dir:
+                from cache_io import load_verified_cache
+                print(f"{ds} {method}: loading verified historical reconstruction; no training", flush=True)
+                recon, provenance = load_verified_cache(args.qep_cache_dir, ds, method, raw.shape)
+                dump(folder / f"{method}_cache_provenance.json", provenance)
+                np.savez_compressed(folder / f"{method}_reconstruction.npz", predmean=recon)
+                np.savetxt(folder / f"{method}.csv", recon, delimiter=",", fmt="%.17g")
+                work = dict(manifest=m, csv=folder/f"{method}.csv", dir=folder)
+                c = score(ds, method, "C", recon, None, gt, work)
+                old_name = "qep_q2" if q == 2 else "qep_q1.5"
+                old = next(x for x in rows(R5 / "development_segmentation_metrics.csv")
+                           if x["dataset"] == ds and x["method"] == old_name)
+                check_anchor(c, old)
+                score(ds, method, "P", recon, None, gt, work)
+                continue
             recon = np.zeros_like(raw)
             diagnostics = []
             t0 = time.perf_counter()
@@ -284,6 +311,7 @@ def run(args, manifest):
                     recon[y:y+h, x:x+w] = tile
                     np.savez_compressed(folder / f"{method}_tile{index:02d}.npz", predmean=tile)
                     index += 1
+                    print(f"{ds} {method}: trained tile {index}/{geom.num_pieces_x*geom.num_pieces_y}", flush=True)
             seconds = time.perf_counter() - t0
             # Historical cache contract: float32 storage, float64 downstream loading.
             recon = recon.astype(np.float32).astype(np.float64)
@@ -356,6 +384,7 @@ def run(args, manifest):
         "", "See comparisons.csv for all control contrasts, AP75 changes, new splits and lost matches; downstream_contrasts.csv for C minus P.",
         "", "Engineering gates are descriptive predeclared continuation criteria. AP75/split safety is conservatively required against all listed controls. No p-values are computed.",
         "", "FastGP runtime excludes the historical optimizer: its frozen R-side fit is restored. Runtime columns cannot support a full-fit speed ranking.",
+        "", "When historical QEP caches are used, reconstruction/total runtime is unavailable (null), not zero. Historical full-pipeline runtime is retained separately in cache provenance.",
         "", "No automatic follow-up search or held-out evaluation is authorized by these results."]
     (args.out / "REPORT.md").write_text("\n".join(report) + "\n")
     dump(args.out / "completion.json", dict(status="COMPLETE", n_results=16,
@@ -368,9 +397,13 @@ def main():
     p.add_argument("--reference", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--rscript", default="Rscript")
+    p.add_argument("--qep-cache-dir", type=Path,
+                   help="Original Round-3 masks directory; all four caches must match the inspected manifest")
     p.add_argument("--preflight", action="store_true")
     args = p.parse_args()
     args.reference = args.reference.resolve()
+    if args.qep_cache_dir:
+        args.qep_cache_dir = args.qep_cache_dir.resolve()
     args.out = args.out.resolve()
     args.out.mkdir(parents=True, exist_ok=True)
     manifest, record = preflight(args)
