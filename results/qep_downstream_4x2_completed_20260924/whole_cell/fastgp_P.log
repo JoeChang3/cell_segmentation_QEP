@@ -1,0 +1,139 @@
+Warning messages:
+1: package ‘magick’ was built under R version 4.5.2 
+2: package ‘EBImage’ was built under R version 4.5.2 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  27 
+ The value of the  marginal posterior  function is  -819.70644482689613 
+ Optimized range parameters are 0.02971988354527693 
+ Optimized nugget parameter is 0.043521536175764736 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -899.50221664372691 
+ Optimized range parameters are 0.00059400712780857288 
+ Optimized nugget parameter is 0.00019999825357623142 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  30 
+ The value of the  marginal posterior  function is  -791.10505400247951 
+ Optimized range parameters are 0.03399181932370629 
+ Optimized nugget parameter is 0.0031918715458528479 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -922.61889778087652 
+ Optimized range parameters are 0.00059400712781616371 
+ Optimized nugget parameter is 0.00019999825357623142 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  30 
+ The value of the  marginal posterior  function is  -776.1109544096214 
+ Optimized range parameters are 0.029539761533594625 
+ Optimized nugget parameter is 0.0036007352012099722 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -897.9839094407829 
+ Optimized range parameters are 0.00059400712781948592 
+ Optimized nugget parameter is 0.00019999825357623142 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  20 
+ The value of the  marginal posterior  function is  -727.1218457358566 
+ Optimized range parameters are 0.053978832481833404 
+ Optimized nugget parameter is 0.005632982611067104 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -881.07999111523645 
+ Optimized range parameters are 0.0005940071278258813 
+ Optimized nugget parameter is 0.00019999825357623106 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  17 
+ The value of the  marginal posterior  function is  -656.36516052163552 
+ Optimized range parameters are 0.065632515481117024 
+ Optimized nugget parameter is 0.0014055656531558297 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -862.39539531683704 
+ Optimized range parameters are 0.00059400712783082635 
+ Optimized nugget parameter is 0.00019999825357623106 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  23 
+ The value of the  marginal posterior  function is  -716.19147110359472 
+ Optimized range parameters are 0.062256877127414997 
+ Optimized nugget parameter is 0.010681194433174104 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -869.48816637870084 
+ Optimized range parameters are 0.00059400712782957756 
+ Optimized nugget parameter is 0.00019999825357623106 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  28 
+ The value of the  marginal posterior  function is  -715.13284407808408 
+ Optimized range parameters are 0.035500177823741805 
+ Optimized nugget parameter is 0.0031743816732917583 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -861.65483750268288 
+ Optimized range parameters are 0.00059400712782642416 
+ Optimized nugget parameter is 0.00019999825357623142 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  24 
+ The value of the  marginal posterior  function is  -688.46123859605746 
+ Optimized range parameters are 0.053626174837954316 
+ Optimized nugget parameter is 0.0062107123904412897 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -850.71765812753654 
+ Optimized range parameters are 0.00059400712782942979 
+ Optimized nugget parameter is 0.00019999825357623106 
+ Convergence:  TRUE 
+The upper bounds of the range parameters are 7.993364983186682 Inf 
+The initial values of range parameters are 0.15986729966373364 
+Start of the optimization  1  : 
+The number of iterations is  20 
+ The value of the  marginal posterior  function is  -666.99045275828962 
+ Optimized range parameters are 0.07157261637152014 
+ Optimized nugget parameter is 0.0023895323813260599 
+ Convergence:  TRUE 
+The initial values of range parameters are 0.00019799999999999991 
+Start of the optimization  2  : 
+The number of iterations is  8 
+ The value of the  marginal posterior  function is  -863.0868126620253 
+ Optimized range parameters are 0.00059400712783154485 
+ Optimized nugget parameter is 0.00019999825357623106 
+ Convergence:  TRUE 
+  fastgp                 thresh   1.3s ws   0.6s | fg=0.297 labels 474->343 outliers=1

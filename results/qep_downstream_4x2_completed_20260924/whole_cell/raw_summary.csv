@@ -1,0 +1,2 @@
+"dataset","arm","use_gp","recon_source","n_outlier_tiles","fg_fraction","n_labels_precleanup","n_labels_final","t_recon_s","t_threshold_s","t_watershed_cleanup_s","t_total_s","cleanup_rule"
+"whole_cell","raw",NA,"/Users/zchan/eclipse-workspace/CellSeg_QEP_4x2/results/qep_downstream_4x2_macbook_cached/whole_cell/raw.csv",1,0.374410299003048,577,343,NA,1.187,0.715,1.927,"eliminate_small_areas(size_threshold=50)"

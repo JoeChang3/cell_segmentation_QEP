@@ -1,0 +1,6 @@
+{
+  "status": "COMPLETE",
+  "n_results": 16,
+  "inference": "Development images only; q differences include fitting and likelihood effects",
+  "runtime_note": "FastGP reconstruction restores frozen parameters; optimizer time excluded; no fair full-fit runtime ranking"
+}

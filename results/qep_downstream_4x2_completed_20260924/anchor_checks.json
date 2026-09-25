@@ -1,0 +1,72 @@
+[
+  {
+    "dataset": "nuclei",
+    "method": "raw",
+    "downstream": "P",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "nuclei",
+    "method": "raw",
+    "downstream": "C",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "nuclei",
+    "method": "fastgp",
+    "downstream": "P",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "raw",
+    "downstream": "P",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "raw",
+    "downstream": "C",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "fastgp",
+    "downstream": "P",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "nuclei",
+    "method": "q2",
+    "downstream": "C",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "nuclei",
+    "method": "q15",
+    "downstream": "C",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "q2",
+    "downstream": "C",
+    "passed": true,
+    "differences": {}
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "q15",
+    "downstream": "C",
+    "passed": true,
+    "differences": {}
+  }
+]

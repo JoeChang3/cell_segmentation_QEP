@@ -1,0 +1,124 @@
+{
+  "status": "PASS",
+  "n_masks_independently_scored": 16,
+  "n_historical_anchors_verified": 10,
+  "all_input_array_hashes_verified": true,
+  "all_PC_pairs_share_input": true,
+  "all_comparison_GT_identity_lists_verified": true,
+  "metric_tolerance": 1e-12,
+  "scope": "Independent NumPy/Pillow/SciPy audit of saved masks and arrays; no model training or downstream rerun",
+  "checks": [
+    {
+      "dataset": "nuclei",
+      "method": "raw",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "raw",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "fastgp",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "fastgp",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "raw",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "raw",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "fastgp",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "fastgp",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "q2",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "q2",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "q15",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "nuclei",
+      "method": "q15",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "q2",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "q2",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "q15",
+      "downstream": "C",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    },
+    {
+      "dataset": "whole_cell",
+      "method": "q15",
+      "downstream": "P",
+      "input_hash_verified": true,
+      "mask_metrics_verified": true
+    }
+  ]
+}

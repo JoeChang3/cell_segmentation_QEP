@@ -1,0 +1,29 @@
+R version 4.5.1 (2025-06-13)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sequoia 15.3.2
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Phoenix
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] EBImage_4.52.0   RobustGaSP_0.6.8 pracma_2.4.6     magick_2.9.1    
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.39       fastmap_1.2.0       lattice_0.22-7     
+ [4] magrittr_2.0.4      abind_1.4-8         jpeg_0.1-11        
+ [7] BiocGenerics_0.56.0 RCurl_1.98-1.20     htmltools_0.5.9    
+[10] png_0.1-8           generics_0.1.4      cli_3.6.5          
+[13] bitops_1.1-0        fftwtools_0.9-11    nloptr_2.2.1       
+[16] grid_4.5.1          compiler_4.5.1      tiff_0.1-12        
+[19] Rcpp_1.1.0          locfit_1.5-9.12     htmlwidgets_1.6.4  
+[22] rlang_1.1.6        

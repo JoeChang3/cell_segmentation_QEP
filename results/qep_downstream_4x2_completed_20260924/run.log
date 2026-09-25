@@ -1,0 +1,107 @@
+{
+  "base": "fa746853ba007552bb1d5a43340d91f6796096b1",
+  "reference": "44714c2e0be958fe796a8fd4bdbc220dae3c23dd",
+  "python": "3.10.19",
+  "platform": "macOS-15.3.2-arm64-arm-64bit",
+  "packages": {
+    "torch": "2.10.0",
+    "gpytorch": "1.15.1",
+    "qpytorch": "0.2",
+    "numpy": "1.26.4",
+    "scikit-image": "0.25.2",
+    "pandas": "2.3.3",
+    "scipy": "1.15.3",
+    "imageio": "2.37.3",
+    "tifffile": "2025.5.10",
+    "Pillow": "12.1.1",
+    "matplotlib": "3.10.8"
+  },
+  "R_packages": {
+    "R": "4.5.1",
+    "EBImage": "4.52.0",
+    "RobustGaSP": "0.6.8",
+    "magick": "2.9.1",
+    "pracma": "2.4.6"
+  },
+  "inputs": [
+    {
+      "path": "data/nuclear_test_images/nuclei_figure_1/original_fig.png",
+      "matches_frozen_md5": true,
+      "sha256": "d94445ff17fd054a4c14f903af337716192543e531209d45d059d2682b55dc0a"
+    },
+    {
+      "path": "data/nuclear_test_images/nuclei_figure_1/original_true_masks.png",
+      "matches_frozen_md5": true,
+      "sha256": "aa19de7e96a4e59c6808ac8cfa6ceabb1a3e62a04946320ba30f267ff796d845"
+    },
+    {
+      "path": "data/whole_cell_test_images/whole_cell_figure_1/original_fig.jpg",
+      "matches_frozen_md5": true,
+      "sha256": "4edb9dfe0868fdc29c122ebc8e5ee61db171d5283b38e503ef80fe8eb10e75af"
+    },
+    {
+      "path": "data/whole_cell_test_images/whole_cell_figure_1/original_true_masks.png",
+      "matches_frozen_md5": true,
+      "sha256": "0fe48203bd036886f076ca2ebf78e6d27ed9e1ca31905c6bb215402c651e7219"
+    }
+  ],
+  "protocol": {
+    "seed": 0,
+    "train_iters": 75,
+    "lr": 0.1,
+    "max_points": 3000,
+    "nu": 2.5,
+    "predict_chunk": 8192,
+    "standardize": true,
+    "exact_logdet": true,
+    "device": "cpu"
+  },
+  "new_results": 0,
+  "qep_cache_files": [
+    {
+      "path": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/real_cellseg_round3_thresholding_20260916/masks/nuclei_nuclei_figure_1_qep_q1.5.npz",
+      "checksum_matched": true
+    },
+    {
+      "path": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/real_cellseg_round3_thresholding_20260916/masks/nuclei_nuclei_figure_1_qep_q2.npz",
+      "checksum_matched": true
+    },
+    {
+      "path": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/real_cellseg_round3_thresholding_20260916/masks/whole_cell_whole_cell_figure_1_qep_q1.5.npz",
+      "checksum_matched": true
+    },
+    {
+      "path": "/Users/zchan/eclipse-workspace/Cell_Seg_QEP/results/real_cellseg_round3_thresholding_20260916/masks/whole_cell_whole_cell_figure_1_qep_q2.npz",
+      "checksum_matched": true
+    }
+  ],
+  "runner_sha256": {
+    "restore_fastgp.R": "c48d17296a59cb628f0c83c5a79fc8f8eda5ef51739853410735cba2585a098a",
+    "run.py": "f115efc36cd190cffa185aff7d6617328723dac28013dde5f8597cb280fcb1db",
+    "historical_cache_manifest.json": "f625dcac4487261c8476168fe8eebcbc5bcfd009a0679f3b6d17374151bda29b",
+    "paper_downstream.R": "0e7cb06b5f800a445e3580440f9a3e92a295078b05cba6f04bbccf9e6a49a218",
+    "cache_io.py": "8950444f70c6a0b79c07c04c718ee01f918a7b426c3e4e2c6c25b93a1b2bf58f"
+  },
+  "errors": [],
+  "status": "READY_FOR_ANCHOR_CHECKS"
+}
+nuclei raw-P: AP50=0.40147330
+nuclei raw-C: AP50=0.69333333
+nuclei fastgp-P: AP50=0.64810127
+nuclei fastgp-C: AP50=0.62015504
+whole_cell raw-P: AP50=0.42911877
+whole_cell raw-C: AP50=0.52760736
+whole_cell fastgp-P: AP50=0.58386412
+whole_cell fastgp-C: AP50=0.52760736
+nuclei q2: loading verified historical reconstruction; no training
+nuclei q2-C: AP50=0.62500000
+nuclei q2-P: AP50=0.46000000
+nuclei q15: loading verified historical reconstruction; no training
+nuclei q15-C: AP50=0.59846547
+nuclei q15-P: AP50=0.53975904
+whole_cell q2: loading verified historical reconstruction; no training
+whole_cell q2-C: AP50=0.44529750
+whole_cell q2-P: AP50=0.49196787
+whole_cell q15: loading verified historical reconstruction; no training
+whole_cell q15-C: AP50=0.45029240
+whole_cell q15-P: AP50=0.49083503

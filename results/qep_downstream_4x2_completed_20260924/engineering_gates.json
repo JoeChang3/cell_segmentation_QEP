@@ -1,0 +1,38 @@
+[
+  {
+    "dataset": "nuclei",
+    "candidate": "q15-P",
+    "best_same_downstream_gaussian_or_raw": "fastgp",
+    "ap50_gain_vs_original": -0.1083422296782065,
+    "ap50_gain_vs_best_control": -0.1083422296782065,
+    "safety_passed_all_controls": false,
+    "engineering_gate_passed": false
+  },
+  {
+    "dataset": "nuclei",
+    "candidate": "q15-C",
+    "best_same_downstream_gaussian_or_raw": "raw",
+    "ap50_gain_vs_original": -0.0496357926770048,
+    "ap50_gain_vs_best_control": -0.09486786018755333,
+    "safety_passed_all_controls": false,
+    "engineering_gate_passed": false
+  },
+  {
+    "dataset": "whole_cell",
+    "candidate": "q15-P",
+    "best_same_downstream_gaussian_or_raw": "fastgp",
+    "ap50_gain_vs_original": -0.09302908834606782,
+    "ap50_gain_vs_best_control": -0.09302908834606782,
+    "safety_passed_all_controls": false,
+    "engineering_gate_passed": false
+  },
+  {
+    "dataset": "whole_cell",
+    "candidate": "q15-C",
+    "best_same_downstream_gaussian_or_raw": "raw",
+    "ap50_gain_vs_original": -0.13357172123514732,
+    "ap50_gain_vs_best_control": -0.07731496430237145,
+    "safety_passed_all_controls": false,
+    "engineering_gate_passed": false
+  }
+]
