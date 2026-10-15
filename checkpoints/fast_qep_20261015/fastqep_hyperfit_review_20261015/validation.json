@@ -1,0 +1,180 @@
+{
+  "purpose": "numerical validation, not a segmentation experiment",
+  "model": "finite-tile covariance-matched qED + independent Gaussian noise",
+  "coordinates": [
+    "m",
+    "log_s",
+    "log_nu",
+    "log_beta_row",
+    "log_beta_col"
+  ],
+  "seed": 20261015,
+  "checks": {
+    "complete_score_q2.0": {
+      "max_abs_error": 5.604054109653589e-09,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    "kronecker_score_q2.0": {
+      "max_abs_error": 2.4513724383723456e-13,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    "q2_joint_density": {
+      "max_abs_error": 7.105427357601002e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "complete_score_q1.5": {
+      "max_abs_error": 2.075420724167998e-09,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    "kronecker_score_q1.5": {
+      "max_abs_error": 1.509903313490213e-13,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    "q2_R_profile_algebra": {
+      "max_abs_error": 3.552713678800501e-15,
+      "tolerance": 1e-10,
+      "note": "R formula checked; R not executed in this review",
+      "passed": true
+    },
+    "evidence_fisher_score_q2.0": {
+      "max_abs_error": 2.7362556664911608e-11,
+      "tolerance": 2e-06,
+      "passed": true
+    },
+    "angular_refinement_q2.0": {
+      "max_abs_error": 2.220446049250313e-16,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    "q2_integral_vs_analytic_GP": {
+      "max_abs_error": 4.440892098500626e-16,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    "evidence_ascent_q2.0": {
+      "increase": 0.06072031284873258,
+      "minimum": 0.0,
+      "passed": true
+    },
+    "ECM_monotonic_q2.0": {
+      "min_increase": 0.03423438453213934,
+      "minimum": -1e-08,
+      "passed": true
+    },
+    "evidence_fisher_score_q1.5": {
+      "max_abs_error": 1.4389864300135002e-11,
+      "tolerance": 2e-06,
+      "passed": true
+    },
+    "angular_refinement_q1.5": {
+      "max_abs_error": 2.220446049250313e-16,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    "evidence_ascent_q1.5": {
+      "increase": 0.04457090305955003,
+      "minimum": 0.0,
+      "passed": true
+    },
+    "ECM_monotonic_q1.5": {
+      "min_increase": 0.03093122905803458,
+      "minimum": -1e-08,
+      "passed": true
+    }
+  },
+  "quadrature_fixture": {
+    "y": [
+      0.7,
+      -0.4
+    ],
+    "arms": {
+      "2.0": {
+        "initial_theta": [
+          0.1,
+          0.26236426446749106,
+          -1.1786549963416462,
+          0.3364722366212129
+        ],
+        "initial_score": [
+          0.04716545544585969,
+          -0.7624565843851693,
+          -0.1765072193113865,
+          0.02243772333461046
+        ],
+        "initial_log_evidence": -2.5745282539968994,
+        "joint_step_theta": [
+          0.10471654554458598,
+          0.18611860602897412,
+          -1.1963057182727848,
+          0.33871600895467396
+        ],
+        "joint_step_log_evidence": -2.513807941148167,
+        "nuisance_ECM_log_evidence": [
+          -2.5745282539968994,
+          -2.28367978904002,
+          -2.08231709137733,
+          -1.9592591618069584,
+          -1.892462306066401,
+          -1.8582279215342616
+        ],
+        "nuisance_ECM_final_theta": [
+          0.1394919287169014,
+          -1.2926051815528778,
+          -0.3441495780849894,
+          0.3364722366212129
+        ],
+        "note": "Two-observation identity check; not an identifiable fitted-image benchmark."
+      },
+      "1.5": {
+        "initial_theta": [
+          0.1,
+          0.26236426446749106,
+          -1.1786549963416462,
+          0.3364722366212129
+        ],
+        "initial_score": [
+          0.08830459682553368,
+          -0.6368439541760901,
+          -0.20094458949725758,
+          0.044664834978293246
+        ],
+        "initial_log_evidence": -2.4206223202447097,
+        "joint_step_theta": [
+          0.10883045968255338,
+          0.19867986904988205,
+          -1.198749455291372,
+          0.3409387201190422
+        ],
+        "joint_step_log_evidence": -2.3760514171851597,
+        "nuisance_ECM_log_evidence": [
+          -2.4206223202447097,
+          -2.1836910048919753,
+          -2.0347767563461527,
+          -1.9482444588907069,
+          -1.898316913136357,
+          -1.8673856840783225
+        ],
+        "nuisance_ECM_final_theta": [
+          0.14616180920180638,
+          -1.248932024648679,
+          -0.23759401962856574,
+          0.3364722366212129
+        ],
+        "note": "Two-observation identity check; not an identifiable fitted-image benchmark."
+      }
+    }
+  },
+  "passed": true,
+  "runtime_s": 0.6282703589995435,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "source_sha256": "7be00ee99b170bc622455ccef46927f866ebcd1fb06a6c6fcee6494da27313c2"
+}

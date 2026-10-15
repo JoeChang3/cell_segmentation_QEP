@@ -1,0 +1,17 @@
+{
+  "user_authorized_fresh_validation": true,
+  "authorization_message": "批准",
+  "authorization_local_time": "2026-10-15T15:49:26-07:00",
+  "run_status": "COMPLETED",
+  "sources": {
+    "FastQEP_hyperfit_pilot_20261015.zip": "9899b0b894e68ef65e0bd5d0ddf91c1eb6f1abd95f26c5330dd917be73400cbe",
+    "FastQEP_score_precision_diagnostic_20261015.zip": "f99d32bbc6cdce721b950de1ca429f4bb0c4022c43fa65ca4ed7cc16624a2c92"
+  },
+  "original_run_review_zip_sha256": "92d1679bd6ee714314da2f3ddaa93ef6b9e386f87a6a7eb3a44c1dbb80da9297",
+  "summary_sha256": "b37b129a3c37388ba5b718eb5db5e08ac1a53dc32c2e1c5e96a20ee8884d532b",
+  "fresh_sampling": true,
+  "qep_parameter_updates": false,
+  "segmentation_run": false,
+  "original_freeze_protocol_bytes_preserved": true,
+  "assembled_utc": "2026-10-15T22:57:14.158012+00:00"
+}

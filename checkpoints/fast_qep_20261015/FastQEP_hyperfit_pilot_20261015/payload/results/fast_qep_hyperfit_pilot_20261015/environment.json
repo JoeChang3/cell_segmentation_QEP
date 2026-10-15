@@ -1,0 +1,16 @@
+{
+  "python": "3.12.14",
+  "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "Pillow": "12.3.0",
+    "threadpoolctl": "3.6.0"
+  },
+  "mode": "pilot",
+  "threads": 1,
+  "manifest_sha256": "bc2ff360ccd63d6ea5e5f630c223a912be63569cf1a8c0c290f1c36fe2c736c8",
+  "verified_files": 69,
+  "original_execution_zip_sha256": "64baa638d989a9a8e3032d00d65eb75eeb2b911b0b7425c4fa78581540a50df2"
+}

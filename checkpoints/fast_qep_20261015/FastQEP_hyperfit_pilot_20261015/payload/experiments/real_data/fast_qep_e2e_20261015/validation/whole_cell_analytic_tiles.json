@@ -1,0 +1,182 @@
+[
+  {
+    "tile": 1,
+    "y": 0,
+    "x": 0,
+    "q2_original_error": 4.1300296516055823e-14,
+    "proposal": {
+      "eta": 1.0000046804832343,
+      "reference_E_T": 40000.143492803225,
+      "reference_E_T_over_n": 1.0000035873200805,
+      "root_relative_residual": 7.549481232230729e-15,
+      "detected_brackets": [
+        [
+          1.0,
+          1.2589254117941688
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 2,
+    "y": 200,
+    "x": 0,
+    "q2_original_error": 3.930189507173054e-14,
+    "proposal": {
+      "eta": 0.9899040767117886,
+      "reference_E_T": 40941.842052679574,
+      "reference_E_T_over_n": 1.0235460513169894,
+      "root_relative_residual": 3.774758283725532e-14,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 3,
+    "y": 400,
+    "x": 0,
+    "q2_original_error": 1.1080025785759062e-13,
+    "proposal": {
+      "eta": 0.9937062891973807,
+      "reference_E_T": 40583.03238105535,
+      "reference_E_T_over_n": 1.0145758095263837,
+      "root_relative_residual": 6.217248937900877e-15,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 4,
+    "y": 0,
+    "x": 200,
+    "q2_original_error": 4.629630012686903e-14,
+    "proposal": {
+      "eta": 0.9914178323018957,
+      "reference_E_T": 40798.35633940538,
+      "reference_E_T_over_n": 1.0199589084851344,
+      "root_relative_residual": 2.2537527399890678e-14,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 5,
+    "y": 200,
+    "x": 200,
+    "q2_original_error": 4.596323321948148e-14,
+    "proposal": {
+      "eta": 0.9963909287181723,
+      "reference_E_T": 40332.84939614119,
+      "reference_E_T_over_n": 1.0083212349035298,
+      "root_relative_residual": 8.881784197001252e-16,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 6,
+    "y": 400,
+    "x": 200,
+    "q2_original_error": 4.451994328746878e-14,
+    "proposal": {
+      "eta": 0.9857360051616012,
+      "reference_E_T": 41341.32457168275,
+      "reference_E_T_over_n": 1.0335331142920687,
+      "root_relative_residual": 1.6753265441593612e-13,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 7,
+    "y": 0,
+    "x": 400,
+    "q2_original_error": 4.77118344832661e-14,
+    "proposal": {
+      "eta": 0.984989164650295,
+      "reference_E_T": 41413.594075195055,
+      "reference_E_T_over_n": 1.0353398518798764,
+      "root_relative_residual": 1.9884094371036554e-13,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 8,
+    "y": 200,
+    "x": 400,
+    "q2_original_error": 6.011857678345223e-14,
+    "proposal": {
+      "eta": 0.9753880068943049,
+      "reference_E_T": 42361.823945276374,
+      "reference_E_T_over_n": 1.0590455986319094,
+      "root_relative_residual": 0.0,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  },
+  {
+    "tile": 9,
+    "y": 400,
+    "x": 400,
+    "q2_original_error": 5.449807272128737e-14,
+    "proposal": {
+      "eta": 0.9979394240688606,
+      "reference_E_T": 40189.71818968351,
+      "reference_E_T_over_n": 1.0047429547420879,
+      "root_relative_residual": 3.3306690738754696e-16,
+      "detected_brackets": [
+        [
+          0.7943282347242822,
+          1.0
+        ]
+      ],
+      "fixed_before_sampling": true,
+      "changes_target_model": false
+    }
+  }
+]

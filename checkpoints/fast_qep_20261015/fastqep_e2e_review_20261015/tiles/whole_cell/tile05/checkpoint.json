@@ -1,0 +1,18 @@
+{
+  "identity": {
+    "signature": "342dd06ee990d25dfa4bfcdd4a720652c30fe2685e80477db61bce2e4e3e67ec",
+    "dataset": "whole_cell",
+    "tile": 5,
+    "y": 200,
+    "x": 200,
+    "tile_sha256": "94514d78c682607f5643366b6a1ecf402565a19a1fc1dded7a313c7c25b5d150",
+    "fixture_id": 2005
+  },
+  "status": "PASSED",
+  "sampler_runtime_s": 133.46819283347577,
+  "artifacts": {
+    "chains.npz": "0d34f008927005b63c4774a230977c2578caf4f79f2aeeadb0a8c66391edf93d",
+    "estimates.npz": "61243e857770a731198a24c8a29cd5aacedd9ed54146e8c7cb9e778e0ea81d40",
+    "summary.json": "cf742af0897219f32b2d9cc3ea46eeeaac391b9f7103ebb5e053947da8163a43"
+  }
+}

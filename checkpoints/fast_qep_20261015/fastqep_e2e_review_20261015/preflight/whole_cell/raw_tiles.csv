@@ -1,0 +1,10 @@
+"tile","p_initial","p_final","max_raw_units","components_including_background","outlier","threshold_raw_units"
+1,0.24,0.24,229,43,FALSE,54.96
+2,0.15,0.15,227,55,FALSE,34.05
+3,0.19,0.19,222,47,FALSE,42.18
+4,0.11,0.18,228,107,TRUE,41.04
+5,0.23,0.23,227,49,FALSE,52.21
+6,0.07,0.07,218,44,FALSE,15.26
+7,0.12,0.12,224,66,FALSE,26.88
+8,0.19,0.19,209,39,FALSE,39.71
+9,0.25,0.25,227,44,FALSE,56.75

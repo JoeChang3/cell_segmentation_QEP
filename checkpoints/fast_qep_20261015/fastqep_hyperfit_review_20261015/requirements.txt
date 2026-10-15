@@ -1,0 +1,5 @@
+# Verification needs only NumPy and SciPy.
+# Tested Python 3.12.14, NumPy 2.3.5, SciPy 1.17.0
+# Existing compatible installations can be used; do not replace a working research environment.
+numpy
+scipy

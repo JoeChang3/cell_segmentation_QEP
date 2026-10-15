@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-15",
+  "sources": [
+    {
+      "url": "https://github.com/JoeChang3/cell_segmentation_QEP/blob/fa746853ba007552bb1d5a43340d91f6796096b1/audits/TASK_A_FASTGP_BASELINE_AUDIT.md",
+      "blob_sha": "f947f6e73cf47c65692875ccde5f4c31a400c949",
+      "path": "TASK_A_FASTGP_BASELINE_AUDIT.md"
+    },
+    {
+      "url": "https://github.com/JoeChang3/cell_segmentation_QEP/blob/fa746853ba007552bb1d5a43340d91f6796096b1/audits/PAPER_FAST_GP_WIRING_REPORT.md",
+      "blob_sha": "22d4a670978402db9b98615b539ecd6b08bcee53",
+      "path": "PAPER_FAST_GP_WIRING_REPORT.md"
+    },
+    {
+      "url": "https://github.com/UncertaintyQuantification/cell_segmentation/blob/44714c2e0be958fe796a8fd4bdbc220dae3c23dd/src/Modified_Functions_RGasp.R",
+      "blob_sha": "893b00d9e2f92f281bf5e7ca3a9e15bf85119dd5",
+      "path": "Modified_Functions_RGasp.R",
+      "lines": [
+        1,
+        124
+      ]
+    }
+  ],
+  "model_source": "https://proceedings.neurips.cc/paper_files/paper/2023/file/e6bfdd58f1326ff821a1b92743963bdf-Paper-Conference.pdf",
+  "result_bundle": {
+    "name": "FastQEP_e2e_review_20261015.zip",
+    "sha256": "9ff26f51a247f3fa1c9606affd9145676a10eb398bb3b775e52b04588b09526a",
+    "source_available": false
+  },
+  "historical_runner_bundle": {
+    "name": "FastQEP_R_pipeline_20261015.zip",
+    "sha256_previously_recorded": "64baa638d989a9a8e3032d00d65eb75eeb2b911b0b7425c4fa78581540a50df2",
+    "available_here": false
+  },
+  "scope": "Standalone mathematical and numerical audit. No real-image fitting, R execution, new segmentation run, source integration, or generalization claim."
+}

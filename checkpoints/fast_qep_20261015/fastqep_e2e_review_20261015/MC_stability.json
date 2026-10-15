@@ -1,0 +1,26 @@
+[
+  {
+    "dataset": "nuclei",
+    "chain_delta_ap50": [
+      0.0,
+      0.0,
+      0.0075109790751743954,
+      0.0
+    ],
+    "all_chain_AP50_gains_positive": false,
+    "minimum_delta_ap50": 0.0,
+    "maximum_delta_ap50": 0.0075109790751743954
+  },
+  {
+    "dataset": "whole_cell",
+    "chain_delta_ap50": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "all_chain_AP50_gains_positive": false,
+    "minimum_delta_ap50": 0.0,
+    "maximum_delta_ap50": 0.0
+  }
+]

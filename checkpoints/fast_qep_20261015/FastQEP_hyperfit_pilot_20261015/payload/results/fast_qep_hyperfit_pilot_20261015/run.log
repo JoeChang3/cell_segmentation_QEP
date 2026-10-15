@@ -1,0 +1,39 @@
+Output: /workspace/scratch/756bc0f68837/FastQEP_hyperfit_pilot_20261015/payload/results/fast_qep_hyperfit_pilot_20261015
+INTEGRATION CHECKS PASS
+Both original first-tile R anchors PASS. No new R process was run.
+Fitting analytic GP control: nuclei (two fixed starts)
+START nuclei/archived_R: original tile (282, 240), q=1.5
+nuclei/archived_R: 1000/6000, 34.1s
+nuclei/archived_R: 2000/6000, 70.0s
+nuclei/archived_R: 3000/6000, 110.0s
+nuclei/archived_R: 4000/6000, 150.8s
+nuclei/archived_R: 5000/6000, 190.6s
+nuclei/archived_R: 6000/6000, 229.5s
+nuclei/archived_R: PASS
+START nuclei/refitted_GP: original tile (282, 240), q=1.5
+nuclei/refitted_GP: 1000/6000, 34.1s
+nuclei/refitted_GP: 2000/6000, 68.1s
+nuclei/refitted_GP: 3000/6000, 107.4s
+nuclei/refitted_GP: 4000/6000, 146.0s
+nuclei/refitted_GP: 5000/6000, 184.5s
+nuclei/refitted_GP: 6000/6000, 223.6s
+nuclei/refitted_GP: PASS
+Fitting analytic GP control: whole_cell (two fixed starts)
+START whole_cell/archived_R: original tile (200, 200), q=1.5
+whole_cell/archived_R: 1000/6000, 19.8s
+whole_cell/archived_R: 2000/6000, 39.3s
+whole_cell/archived_R: 3000/6000, 62.2s
+whole_cell/archived_R: 4000/6000, 84.7s
+whole_cell/archived_R: 5000/6000, 108.0s
+whole_cell/archived_R: 6000/6000, 131.2s
+whole_cell/archived_R: PASS
+START whole_cell/refitted_GP: original tile (200, 200), q=1.5
+whole_cell/refitted_GP: 1000/6000, 20.2s
+whole_cell/refitted_GP: 2000/6000, 40.3s
+whole_cell/refitted_GP: 3000/6000, 63.6s
+whole_cell/refitted_GP: 4000/6000, 87.2s
+whole_cell/refitted_GP: 5000/6000, 111.0s
+whole_cell/refitted_GP: 6000/6000, 134.6s
+whole_cell/refitted_GP: PASS
+COMPLETED: inspect REPORT.txt and pilot_summary.json
+COMPLETED

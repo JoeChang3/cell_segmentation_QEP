@@ -1,0 +1,105 @@
+FAST-QEP FROZEN-WEIGHT FRESH-SAMPLE VALIDATION
+2026-10-15
+
+EXECUTED SCOPE
+New MCMC seeds, same two development-image first tiles and same GP-fitted
+parameter points. q=1.5; four chains per target; 2000 warmup plus 4000
+retained draws per chain. Scores evaluated every tenth retained draw.
+Control weights were fitted exclusively on OLD pilot draws and frozen.
+No weight retuning, parameter optimization, new q, or segmentation evaluation.
+Independent Monte Carlo replication does not mean independent image validation.
+
+Run status: COMPLETED
+Runtime: 370.20 seconds (6.17 minutes).
+All numerical/convergence gates pass: True
+Precision repair supported in both datasets: True
+Predeclared decision: STOP_AUTOMATIC_EXPANSION_OF_THIS_LOCAL_GRADIENT_TRAINING_ROUTE
+
+FROZEN DECISION RULE
+Retain original sampler, latent, score and mean-MCSE gates; additionally
+weighted-score Rhat<1.01 and bulk/tail ESS>400 for every coordinate.
+Precision: weighted MCSE <=1.2 times raw MCSE for all coordinates, and
+<=0.8 times original fixed-control MCSE for both kernel coordinates.
+Direction: |QEP score-GP score|>3 MCSE, scaled absolute difference>1e-8,
+and all four fresh chain differences have the same sign.
+This is a descriptive numerical screen, not a p-value, multiplicity-adjusted
+test, proof of equality or equivalence test. No post-hoc changes to rules.
+
+TARGET: nuclei
+Numerical/convergence pass: True
+Precision repair pass: True
+Fresh seeds: [[20261015, 8202, 0], [20261015, 8202, 1], [20261015, 8202, 2], [20261015, 8202, 3]]
+Weights (m, log s, log nu, log beta row, log beta column): [1.0, 0.47014612237284686, 0.9967605902903203, 0.48911466243028895, 0.4866976788393979]
+Candidate directions: []
+Maximum |QEP-GP|/MCSE: 0.647466
+Maximum weighted Rhat: 1.002080; minimum bulk/tail ESS: 1282.0/1373.1
+Mean pixel MCSE on 0-255 scale: p99=6.587737e-05; max=0.0001540816
+  mean: scaled QEP score=-2.7066024e-07; scaled MCSE=4.180299e-07; difference/MCSE=-0.647466
+    MCSE(raw,fixed,weighted)=(323.2522,0.3912694,0.3912694); weighted/raw=0.00121; weighted/fixed=1.00000
+    Four chain differences in raw-score units: [-0.9565235024191441, 0.8609218516639244, -0.5498938576469906, -0.36783931567804234]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_signal_variance: scaled QEP score=+1.8954737e-05; scaled MCSE=4.148646e-05; difference/MCSE=+0.456890
+    MCSE(raw,fixed,weighted)=(4.083743,4.846271,2.807804); weighted/raw=0.68756; weighted/fixed=0.57937
+    Four chain differences in raw-score units: [2.191144102939804, 6.583514875813935, -0.8312500976541674, -2.8119825160306515]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_noise_ratio: scaled QEP score=+4.0785115e-08; scaled MCSE=1.2558459e-06; difference/MCSE=+0.030943
+    MCSE(raw,fixed,weighted)=(1.415059,0.08339779,0.08499565); weighted/raw=0.06007; weighted/fixed=1.01916
+    Four chain differences in raw-score units: [-0.06659540702564896, -0.17443075202524128, 0.025224465268514056, 0.22632165498944765]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_beta_rows: scaled QEP score=+3.0497479e-05; scaled MCSE=0.00017992059; difference/MCSE=+0.169521
+    MCSE(raw,fixed,weighted)=(15.94501,20.91443,12.17703); weighted/raw=0.76369; weighted/fixed=0.58223
+    Four chain differences in raw-score units: [19.644299168117378, 21.925985495798145, -11.040852191701333, -22.27238442740029]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_beta_cols: scaled QEP score=+3.3359568e-05; scaled MCSE=0.00017618007; difference/MCSE=+0.189364
+    MCSE(raw,fixed,weighted)=(16.05858,21.71491,11.92387); weighted/raw=0.74252; weighted/fixed=0.54911
+    Four chain differences in raw-score units: [20.135068884219585, 21.194759225122088, -12.328927708333284, -19.969095947366917]
+    Screen crossed=False; all signs agree=False; candidate=False
+
+TARGET: whole_cell
+Numerical/convergence pass: True
+Precision repair pass: True
+Fresh seeds: [[20261015, 8212, 0], [20261015, 8212, 1], [20261015, 8212, 2], [20261015, 8212, 3]]
+Weights (m, log s, log nu, log beta row, log beta column): [0.9998983885810707, 0.09891738831200582, 0.43255778082440616, 0.02868041945222347, 0.04192467958013164]
+Candidate directions: []
+Maximum |QEP-GP|/MCSE: 0.712493
+Maximum weighted Rhat: 1.000198; minimum bulk/tail ESS: 1469.4/1489.2
+Mean pixel MCSE on 0-255 scale: p99=0.000546401; max=0.001948335
+  mean: scaled QEP score=+2.5333455e-06; scaled MCSE=3.5556057e-06; difference/MCSE=+0.712493
+    MCSE(raw,fixed,weighted)=(1363.618,0.8707563,0.878188); weighted/raw=0.00064; weighted/fixed=1.00853
+    Four chain differences in raw-score units: [-0.3568115126399707, 1.6352981041164274, 0.45525602808770543, 0.7690698823692336]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_signal_variance: scaled QEP score=+1.4332032e-05; scaled MCSE=7.8861997e-05; difference/MCSE=+0.181736
+    MCSE(raw,fixed,weighted)=(3.329891,15.83451,3.15448); weighted/raw=0.94732; weighted/fixed=0.19922
+    Four chain differences in raw-score units: [0.42982551837878075, -4.4884815435998915, 9.509126258841565, -3.157345100607594]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_noise_ratio: scaled QEP score=+1.6585363e-05; scaled MCSE=7.5899864e-05; difference/MCSE=+0.218586
+    MCSE(raw,fixed,weighted)=(3.533259,5.610028,3.035995); weighted/raw=0.85926; weighted/fixed=0.54117
+    Four chain differences in raw-score units: [3.907207693556551, -3.6620101812193444, -1.5910665204056937, 4.000376557246799]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_beta_rows: scaled QEP score=-2.0684299e-05; scaled MCSE=0.00019348318; difference/MCSE=-0.107117
+    MCSE(raw,fixed,weighted)=(8.807649,76.63799,7.739327); weighted/raw=0.87871; weighted/fixed=0.10099
+    Four chain differences in raw-score units: [-13.978472297527196, -13.688724833269534, 7.579509190069307, 16.771625577584665]
+    Screen crossed=False; all signs agree=False; candidate=False
+  log_beta_cols: scaled QEP score=+0.0001034113; scaled MCSE=0.00021181291; difference/MCSE=+0.488288
+    MCSE(raw,fixed,weighted)=(8.419447,88.48617,8.472516); weighted/raw=1.00630; weighted/fixed=0.09575
+    Four chain differences in raw-score units: [-3.968940527732773, -3.47820971294753, 9.537307324968845, 14.457947254823502]
+    Screen crossed=False; all signs agree=False; candidate=False
+
+INTERPRETATION
+Two previously used development-image first tiles, one fixed q and one GP-fitted parameter point per image. Fresh MCMC randomness is independent of calibration, but the microscopy data are not held out. An unresolved direction is not a proof of exact zero gradients or impossibility of every Fast-QEP model.
+The estimator precision repair replicated, but the declared coordinatewise
+gradient screen produced no eligible learning direction. Per the frozen
+stopping rule, do not automatically launch full QEP training, extend these
+chains, retry seeds or relax thresholds. This branch lacks support at the
+tested points and precision. Other optima or model structures were not tested.
+No new AP metrics were produced. Earlier fixed-parameter end-to-end ties remain
+unchanged. The logged nuisance ECM candidate was not applied.
+
+REPRODUCTION
+source/ contains the exact prior base execution ZIP and offline/validation ZIP.
+Extract both source ZIPs into sibling folders, then run the validation script
+with --bundle pointing to the extracted base and --run only if rerunning is wanted.
+Keep existing outputs; the runner refuses to overwrite or automatically retry.
+The raw validation output is preserved under results/fresh_validation/.
+Its summaries, all score traces, saved states, estimates and hashes are included.
+summarize_validation.py audits those outputs against the frozen calibration bundle.

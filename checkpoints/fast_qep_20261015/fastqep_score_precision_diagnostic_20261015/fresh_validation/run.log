@@ -1,0 +1,16 @@
+START nuclei/frozen_weight_validation: original tile (282, 240), q=1.5
+nuclei/frozen_weight_validation: 1000/6000, 34.9s
+nuclei/frozen_weight_validation: 2000/6000, 72.2s
+nuclei/frozen_weight_validation: 3000/6000, 112.8s
+nuclei/frozen_weight_validation: 4000/6000, 153.7s
+nuclei/frozen_weight_validation: 5000/6000, 195.2s
+nuclei/frozen_weight_validation: 6000/6000, 236.4s
+nuclei/frozen_weight_validation: PASS
+START whole_cell/frozen_weight_validation: original tile (200, 200), q=1.5
+whole_cell/frozen_weight_validation: 1000/6000, 20.4s
+whole_cell/frozen_weight_validation: 2000/6000, 40.5s
+whole_cell/frozen_weight_validation: 3000/6000, 63.1s
+whole_cell/frozen_weight_validation: 4000/6000, 84.6s
+whole_cell/frozen_weight_validation: 5000/6000, 107.0s
+whole_cell/frozen_weight_validation: 6000/6000, 130.1s
+whole_cell/frozen_weight_validation: PASS

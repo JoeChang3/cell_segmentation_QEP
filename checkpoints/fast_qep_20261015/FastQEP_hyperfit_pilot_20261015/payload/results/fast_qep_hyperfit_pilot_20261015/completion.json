@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETED",
+  "mode": "pilot",
+  "full_image_segmentation": false,
+  "qep_optimization": false,
+  "files": {
+    "REPORT.txt": "995ff2d7f2d370e4b6e1471a647e826bc276e35654a9923e446cd144a86679ff",
+    "anchor_checks.json": "f45ead9cb8dd1db43b1cca1e4792d00a6d0168b61aab70df87adda20cc4ba4a2",
+    "environment.json": "58b625aa0145c3d4e73c76ad6159f0fd8cd264d067179b17e51f9b4fa9a8fa83",
+    "nuclei/archived_R/estimates.npz": "d11e752d20ae8b429b992e177752ccd756fcc31da7ba7525b6aeb2fd4b8e9c7a",
+    "nuclei/archived_R/score_traces.npz": "368b80207af78139059312cb2d2526cd25e740c5e31856a94a2da98da281f894",
+    "nuclei/archived_R/summary.json": "ab1ead47b22d8397973942354c15b26a7c2b56c9bcc6e2d1af9d7caa2a02070a",
+    "nuclei/gp_refit.json": "80211ed20663443581fe7ba2435389e1adbb3cc442e832c3fca65d583a5e4680",
+    "nuclei/input.json": "3456e86adca3586149427ad5426ae7d0f26e041f56bb5be7bfaae21437ef4554",
+    "nuclei/refitted_GP/estimates.npz": "47caae2ede5e1b79083601a37c1b9f040700aa870f701e9d3c230d0d6403378b",
+    "nuclei/refitted_GP/score_traces.npz": "7b6d9bd530c62eeff04360dc2a1c35c241602dead8c950005bb8b78734a98881",
+    "nuclei/refitted_GP/summary.json": "acf03a36d07d4e7c253dab6989181097238c254e004f4fc8f213865f2ee3a197",
+    "pilot_summary.json": "7fd3f953a7e2d65736733de9447369e91c0812cb8ca274da8569a3761671d851",
+    "validation/integration_checks.json": "6deaeded935d45a531ca1e4b9b242e3db0c43fff8d878410a79bf9a40ff58dd9",
+    "validation/previous_math_checks.json": "5cacd55ac8a484b9c9f5ccd88263c6b88339d22f76721edc375c145534da7cf7",
+    "whole_cell/archived_R/estimates.npz": "7bd63f6a21e1bf11805e8aee1c4968bd0a9aec5e65d795120c4a1c906761d4f1",
+    "whole_cell/archived_R/score_traces.npz": "ec3eba7456cd262656bfd7d82fcb4ca608fbbcd20757b8c972e9fd25742a8d77",
+    "whole_cell/archived_R/summary.json": "bb9d6950701c11beb478841957c1341349f467e4213ad0804bceef3b671527f6",
+    "whole_cell/gp_refit.json": "b52c3ee8a5a21641666c0b2e66c54447d764f60a2596d327ac2f00d3890917dc",
+    "whole_cell/input.json": "92e0fee85d9f5265bf73def7169eef4f4b5173c36af1bea148e68cb425e60172",
+    "whole_cell/refitted_GP/estimates.npz": "54d634bbb50640a44517863174c2ae19717b0456c67e54c28913707841cd3c8f",
+    "whole_cell/refitted_GP/score_traces.npz": "3e9176375345693fc856b950f16f80a5200b59163cba6d38a48e374eadb94993",
+    "whole_cell/refitted_GP/summary.json": "ca8c6620b13c502f916d9cbe5e19675fbd7beba2b126bb5b390963f2f7a04ac9"
+  }
+}

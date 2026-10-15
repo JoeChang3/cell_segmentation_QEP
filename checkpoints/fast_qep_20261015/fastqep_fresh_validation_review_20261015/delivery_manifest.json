@@ -1,0 +1,27 @@
+{
+  "files": {
+    "README_CN.txt": "32f1548f1b8a76cd993a4b1c7406bd00322b2f4ade8db623c63e5873eff0daf2",
+    "REPORT_EN.txt": "16704a5bd712ebabb84598e79e05bdfb3a7ef929dfcdb09c15d7126717fdda75",
+    "analysis.json": "37ac43fedb473a259ab9ad81304702be0a46a8a7074ab68331e98fec70013f3a",
+    "fresh_gradient_validation.png": "c1e4a4f1cba455c4cce657a70a8896408bf923fc0084bb32eb55f01661286bed",
+    "provenance.json": "792af875f8cc8cdf328edda84966be3ce5b417082def454a61ec6d3dea2c5ef3",
+    "summarize_validation.py": "d56c32464b56f7ef6fc07706a3d76caeed60fa4173a2e0b5613d6701c5f43db8",
+    "write_report.py": "34d1472542bb909fafe80466f230b231e9301326697d06c9426c0ba575bfb7b8",
+    "source/FastQEP_hyperfit_pilot_20261015.zip": "9899b0b894e68ef65e0bd5d0ddf91c1eb6f1abd95f26c5330dd917be73400cbe",
+    "source/FastQEP_score_precision_diagnostic_20261015.zip": "f99d32bbc6cdce721b950de1ca429f4bb0c4022c43fa65ca4ed7cc16624a2c92",
+    "results/fresh_validation/environment.json": "084a4a2a94618f455bedbfb7bf3334fe20a5f3f106d2d73f64d92da85437c47a",
+    "results/fresh_validation/manifest.json": "3be7e5648bc4e3968361c2f66266c5eb0074ccf26d0862f9c73db7e245ca5ea0",
+    "results/fresh_validation/nuclei/frozen_weight_validation/estimates.npz": "390605ba7d07114357c072650d5f4f24adc5e9a2bca2ee009391247cb3c49563",
+    "results/fresh_validation/nuclei/frozen_weight_validation/score_traces.npz": "31330869344b78c76c9de1a887491ea4a26926d58e1fba8c94c92080adc94dbd",
+    "results/fresh_validation/nuclei/frozen_weight_validation/summary.json": "189fef39ad21a9f441a5cd6493eff3b245ede0157f0c1a847a41d30c76746dde",
+    "results/fresh_validation/nuclei/frozen_weight_validation/weighted_scores.npz": "eb81d258221b7e2bbdff5fd17d7edca22395b47e20d611b89c70ae1601c39932",
+    "results/fresh_validation/nuclei/frozen_weight_validation/weighted_summary.json": "6fe7d9a805a444f45934cb43c8d910287ff9b009b80dc40353790c1039aa61d0",
+    "results/fresh_validation/run.log": "4f3b2a57a24a55777f2d1dbaf364ac8cf849ba55c5a5272033d16aa1af8fcb50",
+    "results/fresh_validation/summary.json": "b37b129a3c37388ba5b718eb5db5e08ac1a53dc32c2e1c5e96a20ee8884d532b",
+    "results/fresh_validation/whole_cell/frozen_weight_validation/estimates.npz": "8c159babbeeb0882242eba7708fc702b8a2727dbfffe5cb1189870a1e7f8f6ba",
+    "results/fresh_validation/whole_cell/frozen_weight_validation/score_traces.npz": "06782f432132a3b8487beb566e57bb48f139e986ea5f8ececdda6ef22b8d692c",
+    "results/fresh_validation/whole_cell/frozen_weight_validation/summary.json": "00a1839db701014be3a0219c616c0b8016b81075388552b4e6897d48ac8ff304",
+    "results/fresh_validation/whole_cell/frozen_weight_validation/weighted_scores.npz": "9b7832b57d8e33cd83a6dd573149d896675c3688a7f7673b854fb34efe4be7f0",
+    "results/fresh_validation/whole_cell/frozen_weight_validation/weighted_summary.json": "c7d42b1b83b862b4870dccab7a09809cb87886229680a5452dd08fa094a4ede3"
+  }
+}

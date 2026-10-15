@@ -1,0 +1,12 @@
+{
+  "status": "COMPLETED",
+  "mode": "check",
+  "full_image_segmentation": false,
+  "qep_optimization": false,
+  "files": {
+    "anchor_checks.json": "f45ead9cb8dd1db43b1cca1e4792d00a6d0168b61aab70df87adda20cc4ba4a2",
+    "environment.json": "2bded7194052f6f950e6d245657b5cbab8e70d4505d99d53954e369bd337169a",
+    "validation/integration_checks.json": "b28680b4e947877b2f0d678643053d89c263b1cac50f220bf3d0ce5c0c270492",
+    "validation/previous_math_checks.json": "7ea459f9bdbfa85fa64b76bb5e2558688152b05e6132287a7747cf05b404c8b0"
+  }
+}

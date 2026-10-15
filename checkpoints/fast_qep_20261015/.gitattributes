@@ -1,0 +1,2 @@
+# Preserve frozen hashes across clones and platforms; no newline conversion.
+* -text

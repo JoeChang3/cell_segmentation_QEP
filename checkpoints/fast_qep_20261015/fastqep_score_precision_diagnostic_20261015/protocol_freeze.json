@@ -1,0 +1,8 @@
+{
+  "frozen_before_computation_utc": "2026-10-15T22:40:03.027121+00:00",
+  "files": {
+    "PROTOCOL.txt": "ac79c5a0496ac9a0da532cb67b89a9edcfda4c2efa806301de307f4ef4b37b84",
+    "diagnostics.py": "e52766af847f7c67e61ef3b581da2c2643d6c7074469deccc757a8f5c978bb45",
+    "hyperfit_core_reference.py": "7775b350289fdb8b51bb10701c2bd7646e09be8f16c7955dcca4496d0c81531e"
+  }
+}

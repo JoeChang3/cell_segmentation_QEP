@@ -1,0 +1,28 @@
+{
+  "image_path": "data/nuclear_test_images/nuclei_figure_1/original_fig.png",
+  "image_sha256": "d94445ff17fd054a4c14f903af337716192543e531209d45d059d2682b55dc0a",
+  "tile_float64_sha256": "6043b436ed708b49635bef097ee2f4b8d5388d6282140a1c212700e2f18e3e9b",
+  "shape": [
+    282,
+    240
+  ],
+  "tile_number": 1,
+  "origin": [
+    0,
+    0
+  ],
+  "original_r_parameters": {
+    "beta1": "26.0388376235267",
+    "beta2": "5679456.51832897",
+    "nugget_nu": "0.0822243107405668",
+    "theta_hat": "0.665496951937992",
+    "S_2": "321.008239513506",
+    "sigma2_hat": "0.00474302954363927",
+    "n1": "282",
+    "n2": "240",
+    "t_est_sec": "13.098",
+    "t_pred_sec": "0.302",
+    "recompute_maxdiff": "0"
+  },
+  "q2_vs_archived_R_max_error": 6.439293542825908e-15
+}

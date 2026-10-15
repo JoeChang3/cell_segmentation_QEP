@@ -1,0 +1,16 @@
+{
+  "files": {
+    "environment.json": "084a4a2a94618f455bedbfb7bf3334fe20a5f3f106d2d73f64d92da85437c47a",
+    "nuclei/frozen_weight_validation/estimates.npz": "390605ba7d07114357c072650d5f4f24adc5e9a2bca2ee009391247cb3c49563",
+    "nuclei/frozen_weight_validation/score_traces.npz": "31330869344b78c76c9de1a887491ea4a26926d58e1fba8c94c92080adc94dbd",
+    "nuclei/frozen_weight_validation/summary.json": "189fef39ad21a9f441a5cd6493eff3b245ede0157f0c1a847a41d30c76746dde",
+    "nuclei/frozen_weight_validation/weighted_scores.npz": "eb81d258221b7e2bbdff5fd17d7edca22395b47e20d611b89c70ae1601c39932",
+    "nuclei/frozen_weight_validation/weighted_summary.json": "6fe7d9a805a444f45934cb43c8d910287ff9b009b80dc40353790c1039aa61d0",
+    "summary.json": "b37b129a3c37388ba5b718eb5db5e08ac1a53dc32c2e1c5e96a20ee8884d532b",
+    "whole_cell/frozen_weight_validation/estimates.npz": "8c159babbeeb0882242eba7708fc702b8a2727dbfffe5cb1189870a1e7f8f6ba",
+    "whole_cell/frozen_weight_validation/score_traces.npz": "06782f432132a3b8487beb566e57bb48f139e986ea5f8ececdda6ef22b8d692c",
+    "whole_cell/frozen_weight_validation/summary.json": "00a1839db701014be3a0219c616c0b8016b81075388552b4e6897d48ac8ff304",
+    "whole_cell/frozen_weight_validation/weighted_scores.npz": "9b7832b57d8e33cd83a6dd573149d896675c3688a7f7673b854fb34efe4be7f0",
+    "whole_cell/frozen_weight_validation/weighted_summary.json": "c7d42b1b83b862b4870dccab7a09809cb87886229680a5452dd08fa094a4ede3"
+  }
+}

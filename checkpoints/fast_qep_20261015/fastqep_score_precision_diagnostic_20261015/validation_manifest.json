@@ -1,0 +1,12 @@
+{
+  "files": {
+    "candidate_weights.json": "6b77ba13f8d6a22e74317e0a2823294d0950935c81e6bd625adfda52f85df473",
+    "NEXT_VALIDATION_PROTOCOL.txt": "7a1ae5550c29cf1074013da5548cd8979887ff4d6ed37707cef8894b91b91740",
+    "validate_new_samples.py": "20fa1e534a38f56b06407f29756dc27f8ded90e7f7c109678c478033302803f2",
+    "diagnostics.py": "e52766af847f7c67e61ef3b581da2c2643d6c7074469deccc757a8f5c978bb45",
+    "analyze.py": "14e606c981dab5793391849d4ca76e2d76c67071e52229e83945e52abc1829d2",
+    "export_weights.py": "d2379b55e605b756949789a784559b768d8ffe90c92f0108db908c0d7b38ad6a",
+    "input_provenance.json": "c42bf87d817233459b36350067887c7ab0da91efbd0009bb871f6a3a51a9fc8b",
+    "analysis_code_freeze.json": "6c8e1172cd163249bfc28e47b952c55079afa2eea403f96398bbf2e9158caada"
+  }
+}

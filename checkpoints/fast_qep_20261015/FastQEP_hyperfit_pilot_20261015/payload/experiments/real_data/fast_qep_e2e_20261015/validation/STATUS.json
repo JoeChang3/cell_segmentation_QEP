@@ -1,0 +1,14 @@
+{
+  "status": "READY_FOR_MAC_R_PREFLIGHT",
+  "new_full_image_QEP_sampling_executed": false,
+  "new_R_downstream_executed": false,
+  "reason_R_not_run": "R and Rscript unavailable on cloud execution host",
+  "archived_anchor_rows_passed": 4,
+  "analytic_q2_tiles_checked": 25,
+  "previous_files_unchanged": true,
+  "previous_files_checked": 75,
+  "new_runner_sha256": "bffb1509db63158a7fb156ed1704763a805c89bcf33ba4216ba5ed395168ddb3",
+  "frozen_metric_loader_sha256": "84586449444dbf1457ce5cc8f0bc4fd75130a4ebe4af81fa304c571fcf13b9bf",
+  "local_checks_use_archived_R_outputs_not_new_R_execution": true,
+  "runner_checks_use_synthetic_20_coordinate_fixture": true
+}

@@ -1,0 +1,30 @@
+FIRST-TILE HYPERPARAMETER SCORE PILOT
+
+No QEP parameter optimization, whole-image reconstruction or segmentation was run.
+
+nuclei/archived_R: gates PASS
+  mean: scaled score -4.59263e-08, MCSE 2.99e-07; QEP-GP resolved=False
+  log_signal_variance: scaled score -3.69215e-05, MCSE 6.79e-05; QEP-GP resolved=False
+  log_noise_ratio: scaled score 1.3208e-06, MCSE 2.4e-06; QEP-GP resolved=False
+  log_beta_rows: scaled score -0.000192859, MCSE 0.000325; QEP-GP resolved=False
+  log_beta_cols: scaled score 0, MCSE 0; QEP-GP resolved=False
+nuclei/refitted_GP: gates PASS
+  mean: scaled score 7.17188e-07, MCSE 2.87e-07; QEP-GP resolved=False
+  log_signal_variance: scaled score -7.57804e-05, MCSE 5.41e-05; QEP-GP resolved=False
+  log_noise_ratio: scaled score 4.68498e-07, MCSE 1.04e-06; QEP-GP resolved=False
+  log_beta_rows: scaled score -0.000321226, MCSE 0.000233; QEP-GP resolved=False
+  log_beta_cols: scaled score -0.000333951, MCSE 0.000241; QEP-GP resolved=False
+whole_cell/archived_R: gates PASS
+  mean: scaled score 2.68967e-06, MCSE 2.4e-06; QEP-GP resolved=False
+  log_signal_variance: scaled score -6.93216e-05, MCSE 0.000234; QEP-GP resolved=False
+  log_noise_ratio: scaled score 2.37802e-05, MCSE 6.97e-05; QEP-GP resolved=False
+  log_beta_rows: scaled score 0, MCSE 0; QEP-GP resolved=False
+  log_beta_cols: scaled score -0.000463062, MCSE 0.00143; QEP-GP resolved=False
+whole_cell/refitted_GP: gates PASS
+  mean: scaled score 9.05071e-07, MCSE 3.86e-06; QEP-GP resolved=False
+  log_signal_variance: scaled score 3.60147e-05, MCSE 0.000317; QEP-GP resolved=False
+  log_noise_ratio: scaled score -1.7707e-05, MCSE 0.000116; QEP-GP resolved=False
+  log_beta_rows: scaled score 0.000205184, MCSE 0.00156; QEP-GP resolved=False
+  log_beta_cols: scaled score 0.000243633, MCSE 0.0018; QEP-GP resolved=False
+
+These are descriptive MC screens. Inspect GP boundary/stationarity diagnostics before interpreting them.

@@ -1,0 +1,76 @@
+{
+  "base_repository_commit": "fa746853ba007552bb1d5a43340d91f6796096b1",
+  "source_archives": [
+    {
+      "name": "FastQEP_R_pipeline_20261015.zip",
+      "sha256": "64baa638d989a9a8e3032d00d65eb75eeb2b911b0b7425c4fa78581540a50df2",
+      "bytes": 12027875
+    },
+    {
+      "name": "FastQEP_e2e_review_20261015.zip",
+      "sha256": "9ff26f51a247f3fa1c9606affd9145676a10eb398bb3b775e52b04588b09526a",
+      "bytes": 630895
+    },
+    {
+      "name": "FastQEP_fresh_gradient_validation_20261015.zip",
+      "sha256": "1febee599bb3767208305bb2fc6f17e5cb43836c3443f949f867df111d0965e0",
+      "bytes": 27357127
+    },
+    {
+      "name": "FastQEP_hyperfit_pilot_20261015.zip",
+      "sha256": "9899b0b894e68ef65e0bd5d0ddf91c1eb6f1abd95f26c5330dd917be73400cbe",
+      "bytes": 12068637
+    },
+    {
+      "name": "FastQEP_hyperfit_pilot_results_20261015.zip",
+      "sha256": "1a9d5a23213b31fa7efd4ba720999b1c8941539cef596c9ff10823dbdc20ab53",
+      "bytes": 40314918
+    },
+    {
+      "name": "FastQEP_hyperfit_review_20261015.zip",
+      "sha256": "47706a07d8a5dc8df508970f2a58c0dacf2872b02566f220ebbde25b611efdf8",
+      "bytes": 72478
+    },
+    {
+      "name": "FastQEP_score_precision_diagnostic_20261015.zip",
+      "sha256": "f99d32bbc6cdce721b950de1ca429f4bb0c4022c43fa65ca4ed7cc16624a2c92",
+      "bytes": 971130
+    }
+  ],
+  "layout": "Unpacked source and result snapshots; original bytes and internal relative paths preserved.",
+  "omitted_local_files": [
+    "FastQEP_hyperfit_pilot_20261015/payload/audits/fast_qep_prototype_20261014/__pycache__/diagnostics.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/audits/fast_qep_radial_diagnosis_20261014/__pycache__/independence_mh.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_hyperfit_20261015/__pycache__/hyperfit_core.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_hyperfit_20261015/__pycache__/math_reference.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_hyperfit_20261015/__pycache__/pilot.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_hyperfit_20261015/__pycache__/runtime.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_hyperfit_20261015/__pycache__/validate.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_joint_mh_20261015/__pycache__/joint_mh.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_joint_mh_20261015/__pycache__/run.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_radial_hmc_20261014/__pycache__/radial_hmc.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_radial_hmc_20261014/__pycache__/run.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_real_pilot_20261014/__pycache__/run_pilot.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/experiments/real_data/fast_qep_real_pilot_20261014/__pycache__/stream_hmc.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/py_core/__pycache__/__init__.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/py_core/__pycache__/dim_2_lattice.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/py_core/__pycache__/fast_qep_prototype.cpython-312.pyc",
+    "FastQEP_hyperfit_pilot_20261015/payload/results/fast_qep_hyperfit_check_20261015_review.zip",
+    "FastQEP_hyperfit_pilot_20261015/payload/results/fast_qep_hyperfit_pilot_20261015_review.zip",
+    "fastqep_hyperfit_review_20261015/.helpers/__pycache__/library_file_transfer.cpython-312.pyc",
+    "fastqep_hyperfit_review_20261015/.helpers/__pycache__/library_hosted_apps.cpython-312.pyc",
+    "fastqep_hyperfit_review_20261015/preview-1.png",
+    "fastqep_hyperfit_review_20261015/preview-2.png",
+    "fastqep_hyperfit_review_20261015/preview-3.png",
+    "fastqep_hyperfit_review_20261015/preview-4.png",
+    "fastqep_hyperfit_review_20261015/preview-5.png",
+    "fastqep_score_precision_diagnostic_20261015/__pycache__/analyze.cpython-312.pyc",
+    "fastqep_score_precision_diagnostic_20261015/__pycache__/diagnostics.cpython-312.pyc",
+    "fastqep_score_precision_diagnostic_20261015/fresh_validation_review.zip",
+    "fastqep_hyperfit_review_20261015/.helpers/library_upload.py",
+    "fastqep_hyperfit_review_20261015/.helpers/library_hosted_apps.py",
+    "fastqep_hyperfit_review_20261015/.helpers/library_file_transfer.py"
+  ],
+  "omission_reason": "Generated Python cache, duplicate review ZIPs, PDF raster previews and delivery-service helpers; unique frozen R fixture ZIP retained.",
+  "mac_scope": "Uploaded lightweight result subset only. Missing artifacts listed in mac_artifact_availability.json; no assertion of a complete Mac backup."
+}

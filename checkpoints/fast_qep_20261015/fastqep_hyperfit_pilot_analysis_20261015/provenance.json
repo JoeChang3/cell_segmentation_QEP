@@ -1,0 +1,12 @@
+{
+  "source_bundle": "FastQEP_hyperfit_pilot_20261015.zip",
+  "source_bundle_sha256": "9899b0b894e68ef65e0bd5d0ddf91c1eb6f1abd95f26c5330dd917be73400cbe",
+  "original_R_pipeline_zip_sha256": "64baa638d989a9a8e3032d00d65eb75eeb2b911b0b7425c4fa78581540a50df2",
+  "frozen_result_archive_sha256": "a6845510fcb8fbd13c5d4b38c2ef15f9d1f419109edb9c8e1310b0763e141d0c",
+  "runtime_seconds": 726.8876591249998,
+  "mode": "pilot",
+  "status": "COMPLETED",
+  "new_segmentation_run": false,
+  "qep_optimization_run": false,
+  "primary_decision_rule_changed": false
+}

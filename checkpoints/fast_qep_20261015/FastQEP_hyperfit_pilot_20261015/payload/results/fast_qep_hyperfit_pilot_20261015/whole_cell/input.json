@@ -1,0 +1,28 @@
+{
+  "image_path": "data/whole_cell_test_images/whole_cell_figure_1/original_fig.jpg",
+  "image_sha256": "4edb9dfe0868fdc29c122ebc8e5ee61db171d5283b38e503ef80fe8eb10e75af",
+  "tile_float64_sha256": "c9c57c8efa1b71cb9e28ef9f1933218b0199a401d5a715b7700b94ef62a40f77",
+  "shape": [
+    200,
+    200
+  ],
+  "tile_number": 1,
+  "origin": [
+    0,
+    0
+  ],
+  "original_r_parameters": {
+    "beta1": "38046968.0348505",
+    "beta2": "37.9923051734968",
+    "nugget_nu": "0.0022514150548799",
+    "theta_hat": "0.213070015174074",
+    "S_2": "825.876770483407",
+    "sigma2_hat": "0.0206469192620852",
+    "n1": "200",
+    "n2": "200",
+    "t_est_sec": "7.812",
+    "t_pred_sec": "0.167999999999999",
+    "recompute_maxdiff": "0"
+  },
+  "q2_vs_archived_R_max_error": 5.034861416675085e-14
+}

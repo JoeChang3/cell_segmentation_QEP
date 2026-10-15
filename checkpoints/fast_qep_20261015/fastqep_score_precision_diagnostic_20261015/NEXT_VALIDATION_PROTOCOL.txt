@@ -1,0 +1,50 @@
+PROPOSED FRESH-SAMPLE VALIDATION - NOT RUN, USER APPROVAL REQUIRED
+
+Purpose
+Validate the frozen scalar-weight correction and check whether a QEP evidence
+gradient can be resolved at the two already refitted GP points. This closes the
+known fixed-weight precision issue before considering full QEP training.
+
+Everything held fixed
+Same first nuclei/whole-cell tiles, finite-n covariance-matched qED prior plus
+independent Gaussian noise, q=1.5, exact original sampler, exact fitted GP theta,
+image normalization, spectral layout and diagnostics. No GP refit, new kernel,
+new q, QEP update, AP evaluation or downstream change.
+Use candidate_weights.json, estimated from all four OLD chains by the same
+batch-size-20 bounded scalar rule. Weights are frozen before new sampling.
+
+New randomness and budget
+Two targets only: nuclei/refitted_GP fixture 8202; whole_cell/refitted_GP 8212.
+Base seed 20261015; neither fixture was used by the prior 8102/8112 pilot targets.
+Four chains per target; 2000 warmup, 4000 retained draws; score every tenth draw.
+Original HMC/MH settings unchanged. Limit 900 seconds per target, 1800 seconds
+overall; no automatic extension, restart, seed retry, or coefficient update.
+
+Checks and reporting
+Verify the original bundle's 69 hashes and new protocol/input/weight hashes.
+Check the q=2 R anchors and that GP theta matches the recorded scores.
+Keep raw and original fixed-control traces and diagnoses. New weighted traces
+are derived from the same fresh draws, without changing the target or sampler.
+Retain all original numerical/convergence/mean-MCSE gates; additionally require
+all weighted score R-hat<1.01, bulk ESS>400 and tail ESS>400. Gate failure stops.
+On the SAME new four chains report weighted/raw and weighted/fixed MCSE ratios,
+both absolute and scaled scores, all four chain means, and GP analytic scores.
+The precision repair is supported if weighted MCSE is <=1.2 times raw for every
+coordinate, and <=0.8 times fixed for both kernel coordinates in both datasets.
+Retain any failures as failures; do not pick a different estimator afterwards.
+
+Gradient screen and decision
+Use the original descriptive screen: |QEP-GP score|>3 MCSE and scaled absolute
+difference>1e-8. This is not a p-value or a multiplicity-adjusted test.
+Any resolved direction must have the same sign in all four fresh chain means
+after subtracting the GP analytic score before it can motivate a bounded update.
+Passing this screen still does not show evidence ascent or segmentation gains.
+If precision checks and convergence pass but no direction is resolved, do not
+launch full training or automatically increase the sampling budget. Record the
+local gradient-training route as unsupported at these points and this precision.
+This does not establish exact zero gradients or rule out other QEP models/basins.
+
+Authorization
+The user authorized the offline diagnostic only. This protocol is a reviewable
+next step. The supplied runner defaults to checks and requires --run explicitly;
+fresh sampling must wait for user approval.

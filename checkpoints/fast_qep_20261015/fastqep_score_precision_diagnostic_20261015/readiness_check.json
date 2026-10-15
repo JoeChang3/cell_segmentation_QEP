@@ -1,0 +1,29 @@
+{
+  "status": "READY_NOT_RUN",
+  "source_hashes_verified": true,
+  "R_anchors_pass": true,
+  "GP_theta_and_scores_match": true,
+  "fresh_sampling_started": false,
+  "weights": [
+    {
+      "dataset": "nuclei",
+      "weights": [
+        1.0,
+        0.47014612237284686,
+        0.9967605902903203,
+        0.48911466243028895,
+        0.4866976788393979
+      ]
+    },
+    {
+      "dataset": "whole_cell",
+      "weights": [
+        0.9998983885810707,
+        0.09891738831200582,
+        0.43255778082440616,
+        0.02868041945222347,
+        0.04192467958013164
+      ]
+    }
+  ]
+}

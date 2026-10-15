@@ -1,0 +1,311 @@
+[
+  {
+    "dataset": "nuclei",
+    "method": "fastqep_q15",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": -1,
+    "delta_fg_dice": -9.818926739502132e-05,
+    "foreground_changed_pixels": 121,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "nuclei",
+    "method": "gp_eta",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": -1,
+    "delta_fg_dice": -9.818926739502132e-05,
+    "foreground_changed_pixels": 121,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "nuclei",
+    "method": "q15_chain1",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": -1,
+    "delta_fg_dice": -9.818926739502132e-05,
+    "foreground_changed_pixels": 121,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "nuclei",
+    "method": "q15_chain2",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": -1,
+    "delta_fg_dice": -9.818926739502132e-05,
+    "foreground_changed_pixels": 121,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "nuclei",
+    "method": "q15_chain3",
+    "delta_ap50": 0.0075109790751743954,
+    "delta_ap75": 0.01657753376575638,
+    "delta_merged": 1,
+    "delta_split": 0,
+    "delta_missed": -1,
+    "delta_spurious": -2,
+    "delta_fg_dice": 0.005567603879021443,
+    "foreground_changed_pixels": 5715,
+    "gained_matched": {
+      "count": 4,
+      "gt_labels": [
+        7,
+        9,
+        10,
+        67
+      ]
+    },
+    "lost_matched": {
+      "count": 3,
+      "gt_labels": [
+        54,
+        61,
+        86
+      ]
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "nuclei",
+    "method": "q15_chain4",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": -1,
+    "delta_fg_dice": -9.818926739502132e-05,
+    "foreground_changed_pixels": 121,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "fastqep_q15",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": 0,
+    "delta_fg_dice": -1.6281050829514143e-05,
+    "foreground_changed_pixels": 7,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "gp_eta",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": 0,
+    "delta_fg_dice": -6.255890375839179e-06,
+    "foreground_changed_pixels": 7,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "q15_chain1",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": 0,
+    "delta_fg_dice": -6.255890375839179e-06,
+    "foreground_changed_pixels": 7,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "q15_chain2",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": 0,
+    "delta_fg_dice": -1.6281050829514143e-05,
+    "foreground_changed_pixels": 7,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "q15_chain3",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": 0,
+    "delta_fg_dice": -1.1268448593226843e-05,
+    "foreground_changed_pixels": 8,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "q15_chain4",
+    "delta_ap50": 0.0,
+    "delta_ap75": 0.0,
+    "delta_merged": 0,
+    "delta_split": 0,
+    "delta_missed": 0,
+    "delta_spurious": 0,
+    "delta_fg_dice": -1.6281050829514143e-05,
+    "foreground_changed_pixels": 7,
+    "gained_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "lost_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "new_split_previously_matched": {
+      "count": 0,
+      "gt_labels": []
+    },
+    "descriptive_merge_route_support": false
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "files": {
+    "inputs/nuclei/archived_R/score_arrays.npz": "36389b91b190e9067d1870ef9c8ce16880a1f40818bcb2ea490b128d012792a0",
+    "inputs/nuclei/archived_R/summary.json": "ab1ead47b22d8397973942354c15b26a7c2b56c9bcc6e2d1af9d7caa2a02070a",
+    "inputs/nuclei/refitted_GP/score_arrays.npz": "b7561a48cf77a78fa95fd9438fc8acafece5cc5eb8bacf5f16ad95788b076ce1",
+    "inputs/nuclei/refitted_GP/summary.json": "acf03a36d07d4e7c253dab6989181097238c254e004f4fc8f213865f2ee3a197",
+    "inputs/whole_cell/archived_R/score_arrays.npz": "8a96b76398e8af711deeb67c17dca69f4ab54c2a514293c89b8f0eb0ba85acc5",
+    "inputs/whole_cell/archived_R/summary.json": "bb9d6950701c11beb478841957c1341349f467e4213ad0804bceef3b671527f6",
+    "inputs/whole_cell/refitted_GP/score_arrays.npz": "b576eca68bf8db4bc19028f97e76fbb46bd9ac858e36760bdff7f22e9300cee8",
+    "inputs/whole_cell/refitted_GP/summary.json": "ca8c6620b13c502f916d9cbe5e19675fbd7beba2b126bb5b390963f2f7a04ac9"
+  }
+}

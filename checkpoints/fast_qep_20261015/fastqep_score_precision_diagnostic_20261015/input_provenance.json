@@ -1,0 +1,47 @@
+{
+  "original_result_directory": "/workspace/scratch/756bc0f68837/FastQEP_hyperfit_pilot_20261015/payload/results/fast_qep_hyperfit_pilot_20261015",
+  "original_completion_sha256": "cc4a376ce8a10639410b9b4d7198599d6790ed1dd25d210eaed18266cfcacde6",
+  "prior_results_delivery_sha256": "1a9d5a23213b31fa7efd4ba720999b1c8941539cef596c9ff10823dbdc20ab53",
+  "targets": [
+    {
+      "dataset": "nuclei",
+      "parameter_source": "archived_R",
+      "original_score_traces_sha256": "368b80207af78139059312cb2d2526cd25e740c5e31856a94a2da98da281f894",
+      "array_sha256": {
+        "raw": "9c0fba37c29322b83c3ccd616255f930865564adcac6f2623398bcefd8805755",
+        "controlled": "a6c5b1fef0413077a914423bd23a6f4fd19f42a371ddf0b7c7e520f536b172d1",
+        "names": "357d6687b90a63273e46896deb22adad5a194325486f5d8e6b4f2fe6bff5e615"
+      }
+    },
+    {
+      "dataset": "nuclei",
+      "parameter_source": "refitted_GP",
+      "original_score_traces_sha256": "7b6d9bd530c62eeff04360dc2a1c35c241602dead8c950005bb8b78734a98881",
+      "array_sha256": {
+        "raw": "eb86f891d91371b1f7402ecf0287ff50d2a728ff09488feef1390e3f9f4be58c",
+        "controlled": "deea254923a19b3900d20a020727c6563e7f07763274f8326fcdf4eec49501e6",
+        "names": "357d6687b90a63273e46896deb22adad5a194325486f5d8e6b4f2fe6bff5e615"
+      }
+    },
+    {
+      "dataset": "whole_cell",
+      "parameter_source": "archived_R",
+      "original_score_traces_sha256": "ec3eba7456cd262656bfd7d82fcb4ca608fbbcd20757b8c972e9fd25742a8d77",
+      "array_sha256": {
+        "raw": "3f3b407a0bfe4be790b15fc799a686ee8cfef443e06c16f42e4442e56b083a36",
+        "controlled": "c36ed0eb38e075b445c8cc89b5f9b55c6b7175b55679db88dca4982224be3caf",
+        "names": "357d6687b90a63273e46896deb22adad5a194325486f5d8e6b4f2fe6bff5e615"
+      }
+    },
+    {
+      "dataset": "whole_cell",
+      "parameter_source": "refitted_GP",
+      "original_score_traces_sha256": "3e9176375345693fc856b950f16f80a5200b59163cba6d38a48e374eadb94993",
+      "array_sha256": {
+        "raw": "71c27316d4081d8c49cee12ee745a3ec4f089603e408d00915c643b72eb327e5",
+        "controlled": "77e2cdf4c3bf9b41fa94b463911d70eaa7f7f89cec643cfebcb7e1a00ff76950",
+        "names": "357d6687b90a63273e46896deb22adad5a194325486f5d8e6b4f2fe6bff5e615"
+      }
+    }
+  ]
+}

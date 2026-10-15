@@ -1,0 +1,206 @@
+FAST-QEP OFFLINE SCORE PRECISION DIAGNOSTIC
+2026-10-15
+
+Outcome: fixed-control overcorrection can be reduced, but no stable QEP gradient
+signal emerged from the separated-chain diagnostic.
+
+This is a post-hoc analysis of already inspected data, not fresh validation.
+Original pilot results and decisions remain unchanged. No model fitting, new
+sampling, QEP hyperparameter update, segmentation or AP evaluation was performed.
+
+METHOD
+The unchanged existing control is C=G_raw-G_fixed, with E(C)=0 under the target.
+Compare G_raw, G_fixed=G_raw-C, and G_raw-b*C.
+Fit b on centered calibration batch means (block length 20 score draws),
+using Cov(G,C)/Var(C) clipped to [0,1]. Evaluate on the other two chains.
+Report both reciprocal splits without pooling their MCSEs.
+The batch criterion is empirical; asymptotic optimality is not asserted.
+All MCSE comparisons below use the same evaluation chains.
+
+FINDINGS
+12 of 18 informative parameter/target combinations meet the fixed offline
+technical screen in both splits. Two archived kernel axes are identically zero.
+All weighted evaluation diagnostics pass the specified R-hat/ESS thresholds.
+No weighted score crosses the old descriptive 3-MCSE plus scaled-floor screen
+in either split. Maximum absolute difference/MCSE across all weighted outputs
+is 1.8966. This is not a p-value or an equivalence conclusion.
+
+The whole-cell kernel repair mostly returns precision to the raw-score level:
+weighted/raw MCSE is 0.972-0.990 for rows and 0.917-1.008 for columns at the
+refitted GP point. It does not create substantial extra information over raw scores.
+The nuclei kernel estimates improve more clearly over raw as well as fixed.
+
+WHY THE OLD CONTROL WORSENED PRECISION
+Var(G-bC)=Var(G)+b^2 Var(C)-2b Cov(G,C), also for batch means.
+A valid zero-mean control preserves the expectation but does not guarantee
+lower variance at b=1. The observed coefficient and covariance results show
+that b=1 was too large for these q=1.5 kernel scores, especially whole-cell.
+This diagnoses the estimator, not a failure of the QEP density or sampler.
+
+DETAILED EVALUATION (raw score units)
+Each block: b; MCSE(raw, fixed, weighted); weighted mean; QEP-GP / MCSE;
+and weighted convergence diagnostics. The sign is descriptive only.
+
+nuclei/archived_R/mean
+  forward: b=1; MCSE=(477.0623, 0.4093843, 0.4093843); mean=-0.2553455; difference/MCSE=-0.62373
+    MCSE/fixed=1.00000; MCSE/raw=0.00086; Rhat=0.998106; bulk/tail ESS=783.2/738.6; chain means=[0.0933248467845175, -0.6040158651060574]
+  reverse: b=1; MCSE=(497.6144, 0.3818154, 0.3818154); mean=+0.1693729; difference/MCSE=+0.44360
+    MCSE/fixed=1.00000; MCSE/raw=0.00077; Rhat=0.998937; bulk/tail ESS=800.0/800.0; chain means=[-0.12347145348052446, 0.46221721424272894]
+  Technical candidate in both splits: False
+
+nuclei/archived_R/log_signal_variance
+  forward: b=0.44251073; MCSE=(5.758739, 7.861492, 3.016184); mean=-5.720356; difference/MCSE=-1.89655
+    MCSE/fixed=0.38367; MCSE/raw=0.52376; Rhat=0.998220; bulk/tail ESS=740.3/800.0; chain means=[-4.43000821237105, -7.010703319532524]
+  reverse: b=0.47279903; MCSE=(5.937167, 10.75583, 2.863035); mean=+0.1112827; difference/MCSE=+0.03887
+    MCSE/fixed=0.26618; MCSE/raw=0.48222; Rhat=1.000431; bulk/tail ESS=800.0/763.5; chain means=[2.066548752117034, -1.8439834143284506]
+  Technical candidate in both splits: True
+
+nuclei/archived_R/log_noise_ratio
+  forward: b=0.98673261; MCSE=(2.992623, 0.2566186, 0.2789974); mean=+0.20026; difference/MCSE=+0.99807
+    MCSE/fixed=1.08721; MCSE/raw=0.09323; Rhat=0.999573; bulk/tail ESS=780.9/726.2; chain means=[0.05592620212114726, 0.3445938126961378]
+  reverse: b=1; MCSE=(3.057331, 0.2799543, 0.2799543); mean=-0.06008747; difference/MCSE=+0.06469
+    MCSE/fixed=1.00000; MCSE/raw=0.09157; Rhat=0.999569; bulk/tail ESS=800.0/765.2; chain means=[-0.3400417789773269, 0.21986684028036962]
+  Technical candidate in both splits: False
+
+nuclei/archived_R/log_beta_rows
+  forward: b=0.39569807; MCSE=(33.13042, 37.65177, 16.79427); mean=-28.62188; difference/MCSE=-1.71536
+    MCSE/fixed=0.44604; MCSE/raw=0.50691; Rhat=0.999491; bulk/tail ESS=747.9/773.8; chain means=[-11.827609613984311, -45.41614878239139]
+  reverse: b=0.39189211; MCSE=(30.12157, 50.83143, 13.92587); mean=+9.188533; difference/MCSE=+0.64644
+    MCSE/fixed=0.27396; MCSE/raw=0.46232; Rhat=1.001810; bulk/tail ESS=800.0/676.1; chain means=[10.791801636635283, 7.585264743597032]
+  Technical candidate in both splits: True
+
+nuclei/archived_R/log_beta_cols
+  Constant zero coordinate: no information; excluded from reduction counts.
+
+nuclei/refitted_GP/mean
+  forward: b=1; MCSE=(496.6953, 0.3891719, 0.3891719); mean=+0.6623734; difference/MCSE=+1.70201
+    MCSE/fixed=1.00000; MCSE/raw=0.00078; Rhat=0.999045; bulk/tail ESS=800.0/784.4; chain means=[0.4655938374322774, 0.8591529449217904]
+  reverse: b=0.99995768; MCSE=(953.6194, 0.3710234, 0.3718981); mean=+0.6925033; difference/MCSE=+1.86208
+    MCSE/fixed=1.00236; MCSE/raw=0.00039; Rhat=1.001111; bulk/tail ESS=800.0/800.0; chain means=[0.9720464781664007, 0.4129600707698341]
+  Technical candidate in both splits: False
+
+nuclei/refitted_GP/log_signal_variance
+  forward: b=0.48560274; MCSE=(5.006592, 5.359795, 2.974354); mean=+1.006377; difference/MCSE=+0.33835
+    MCSE/fixed=0.55494; MCSE/raw=0.59409; Rhat=1.001351; bulk/tail ESS=787.2/616.0; chain means=[-0.11968290985879264, 2.1324374749864017]
+  reverse: b=0.45893145; MCSE=(4.691768, 5.365275, 3.543759); mean=-0.8676509; difference/MCSE=-0.24484
+    MCSE/fixed=0.66050; MCSE/raw=0.75531; Rhat=1.000732; bulk/tail ESS=800.0/800.0; chain means=[-4.205963157999827, 2.470661313245908]
+  Technical candidate in both splits: True
+
+nuclei/refitted_GP/log_noise_ratio
+  forward: b=0.98900822; MCSE=(1.744909, 0.09872935, 0.09948814); mean=+0.08974659; difference/MCSE=+0.90077
+    MCSE/fixed=1.00769; MCSE/raw=0.05702; Rhat=1.001436; bulk/tail ESS=780.9/764.3; chain means=[0.1382010400258248, 0.04129213751071827]
+  reverse: b=1; MCSE=(2.266033, 0.108552, 0.108552); mean=+0.006815871; difference/MCSE=+0.06159
+    MCSE/fixed=1.00000; MCSE/raw=0.04790; Rhat=0.999930; bulk/tail ESS=800.0/767.6; chain means=[0.11536783584446425, -0.10173609399407268]
+  Technical candidate in both splits: False
+
+nuclei/refitted_GP/log_beta_rows
+  forward: b=0.46692759; MCSE=(22.2689, 23.03723, 13.60652); mean=-0.7919445; difference/MCSE=-0.05819
+    MCSE/fixed=0.59063; MCSE/raw=0.61101; Rhat=1.001366; bulk/tail ESS=800.0/766.8; chain means=[-13.546011910384332, 11.962122871631102]
+  reverse: b=0.50312128; MCSE=(21.52895, 23.22973, 13.42747); mean=-1.514757; difference/MCSE=-0.11280
+    MCSE/fixed=0.57803; MCSE/raw=0.62369; Rhat=1.000775; bulk/tail ESS=800.0/800.0; chain means=[-9.031444568633018, 6.001930002106452]
+  Technical candidate in both splits: True
+
+nuclei/refitted_GP/log_beta_cols
+  forward: b=0.50835749; MCSE=(22.93133, 23.9179, 13.72064); mean=-5.738348; difference/MCSE=-0.41821
+    MCSE/fixed=0.57366; MCSE/raw=0.59834; Rhat=1.000824; bulk/tail ESS=800.0/800.0; chain means=[-17.316871782695053, 5.840175369724107]
+  reverse: b=0.46969315; MCSE=(22.18935, 24.11801, 15.38108); mean=-0.7397829; difference/MCSE=-0.04809
+    MCSE/fixed=0.63774; MCSE/raw=0.69317; Rhat=1.000659; bulk/tail ESS=800.0/766.2; chain means=[-14.587926375876453, 13.108360675864827]
+  Technical candidate in both splits: True
+
+whole_cell/archived_R/mean
+  forward: b=0.99993902; MCSE=(1431.268, 0.8811736, 0.883714); mean=+0.8503889; difference/MCSE=+0.96229
+    MCSE/fixed=1.00288; MCSE/raw=0.00062; Rhat=0.999777; bulk/tail ESS=639.2/678.1; chain means=[0.8103362805315696, 0.8904414396253785]
+  reverse: b=1; MCSE=(1414.081, 0.8268313, 0.8268313); mean=+0.3975993; difference/MCSE=+0.48087
+    MCSE/fixed=1.00000; MCSE/raw=0.00058; Rhat=0.997702; bulk/tail ESS=746.5/730.0; chain means=[0.6084896415360496, 0.18670902864632924]
+  Technical candidate in both splits: False
+
+whole_cell/archived_R/log_signal_variance
+  forward: b=0.069056393; MCSE=(4.459823, 12.34945, 4.153917); mean=-2.085725; difference/MCSE=-0.50211
+    MCSE/fixed=0.33636; MCSE/raw=0.93141; Rhat=0.998686; bulk/tail ESS=800.0/653.8; chain means=[1.9859247969250435, -6.157374696512891]
+  reverse: b=0.10009278; MCSE=(4.294952, 14.27612, 4.155456); mean=+0.06627265; difference/MCSE=+0.01595
+    MCSE/fixed=0.29108; MCSE/raw=0.96752; Rhat=0.999757; bulk/tail ESS=800.0/643.5; chain means=[-1.8700746815622802, 2.002619983235399]
+  Technical candidate in both splits: True
+
+whole_cell/archived_R/log_noise_ratio
+  forward: b=0.49205154; MCSE=(4.744698, 3.641802, 2.839033); mean=-0.4970248; difference/MCSE=-0.13186
+    MCSE/fixed=0.77957; MCSE/raw=0.59836; Rhat=0.998559; bulk/tail ESS=800.0/696.9; chain means=[1.0852590791400971, -2.0793086282067477]
+  reverse: b=0.4481004; MCSE=(5.547959, 4.402427, 3.068921); mean=+1.055641; difference/MCSE=+0.38395
+    MCSE/fixed=0.69710; MCSE/raw=0.55316; Rhat=0.999747; bulk/tail ESS=687.8/764.5; chain means=[0.9678603748811713, 1.1434214116378205]
+  Technical candidate in both splits: True
+
+whole_cell/archived_R/log_beta_rows
+  Constant zero coordinate: no information; excluded from reduction counts.
+
+whole_cell/archived_R/log_beta_cols
+  forward: b=0.03702958; MCSE=(13.87216, 75.12822, 13.22335); mean=+8.239446; difference/MCSE=+0.59084
+    MCSE/fixed=0.17601; MCSE/raw=0.95323; Rhat=0.999579; bulk/tail ESS=768.8/800.0; chain means=[5.721670170599253, 10.757222002750286]
+  reverse: b=0.024876391; MCSE=(15.36293, 88.7023, 14.21665); mean=-14.81908; difference/MCSE=-1.07238
+    MCSE/fixed=0.16027; MCSE/raw=0.92539; Rhat=1.000382; bulk/tail ESS=714.3/554.7; chain means=[-20.586364103932386, -9.051802593429857]
+  Technical candidate in both splits: True
+
+whole_cell/refitted_GP/mean
+  forward: b=0.99997561; MCSE=(1710.286, 1.275684, 1.271758); mean=+0.2640261; difference/MCSE=+0.20761
+    MCSE/fixed=0.99692; MCSE/raw=0.00074; Rhat=0.999563; bulk/tail ESS=800.0/767.3; chain means=[1.23308839951099, -0.7050362508221323]
+  reverse: b=0.99982422; MCSE=(1872.915, 1.471863, 1.625685); mean=+0.3979341; difference/MCSE=+0.24478
+    MCSE/fixed=1.10451; MCSE/raw=0.00087; Rhat=0.999917; bulk/tail ESS=658.6/800.0; chain means=[0.21950186850897382, 0.5763662889524371]
+  Technical candidate in both splits: False
+
+whole_cell/refitted_GP/log_signal_variance
+  forward: b=0.046263681; MCSE=(4.473053, 17.95791, 4.150303); mean=+3.594742; difference/MCSE=+0.86614
+    MCSE/fixed=0.23111; MCSE/raw=0.92785; Rhat=0.999822; bulk/tail ESS=800.0/800.0; chain means=[7.281568146914892, -0.09208426722936223]
+  reverse: b=0.12966022; MCSE=(6.020429, 17.93442, 5.733981); mean=+1.533981; difference/MCSE=+0.26752
+    MCSE/fixed=0.31972; MCSE/raw=0.95242; Rhat=1.004555; bulk/tail ESS=761.8/760.7; chain means=[5.038760653809983, -1.9707990366724117]
+  Technical candidate in both splits: True
+
+whole_cell/refitted_GP/log_noise_ratio
+  forward: b=0.47460698; MCSE=(4.976188, 6.523865, 4.77471); mean=-1.186926; difference/MCSE=-0.24854
+    MCSE/fixed=0.73188; MCSE/raw=0.95951; Rhat=1.003101; bulk/tail ESS=800.0/800.0; chain means=[-1.0264869748440142, -1.347365999875404]
+  reverse: b=0.37967713; MCSE=(6.14102, 6.560529, 4.284989); mean=+2.123145; difference/MCSE=+0.49553
+    MCSE/fixed=0.65315; MCSE/raw=0.69777; Rhat=1.001397; bulk/tail ESS=800.0/800.0; chain means=[6.408134672200465, -2.161844318531248]
+  Technical candidate in both splits: True
+
+whole_cell/refitted_GP/log_beta_rows
+  forward: b=0.023682422; MCSE=(11.25615, 87.94212, 10.94185); mean=+16.3715; difference/MCSE=+1.49608
+    MCSE/fixed=0.12442; MCSE/raw=0.97208; Rhat=1.000640; bulk/tail ESS=793.6/800.0; chain means=[16.486087938654897, 16.256908995709896]
+  reverse: b=0.032300668; MCSE=(10.73816, 88.10699, 10.63381); mean=-10.29969; difference/MCSE=-0.96873
+    MCSE/fixed=0.12069; MCSE/raw=0.99028; Rhat=1.003999; bulk/tail ESS=800.0/800.0; chain means=[-6.0804624385055215, -14.518911847637607]
+  Technical candidate in both splits: True
+
+whole_cell/refitted_GP/log_beta_cols
+  forward: b=0.052659705; MCSE=(12.29775, 101.5275, 12.40029); mean=+20.85219; difference/MCSE=+1.68163
+    MCSE/fixed=0.12214; MCSE/raw=1.00834; Rhat=1.000968; bulk/tail ESS=762.5/800.0; chain means=[19.00976435638524, 22.694610271076918]
+  reverse: b=0.033736657; MCSE=(15.12764, 101.7347, 13.86641); mean=-9.899049; difference/MCSE=-0.71385
+    MCSE/fixed=0.13630; MCSE/raw=0.91663; Rhat=0.999712; bulk/tail ESS=800.0/708.8; chain means=[-3.679506443680416, -16.118591386207246]
+  Technical candidate in both splits: True
+
+CANDIDATE FOR FUTURE VALIDATION, NOT VALIDATED
+The following coefficients use all four OLD chains under the same scalar rule.
+They are frozen for a possible later fresh-sample check; their effectiveness
+has not been independently established. They are not re-used to claim a new
+confirmatory result on these calibration data.
+Order: mean, log s, log nu, log beta rows, log beta columns.
+nuclei: [1.0, 0.47014612237284686, 0.9967605902903203, 0.48911466243028895, 0.4866976788393979]
+whole_cell: [0.9998983885810707, 0.09891738831200582, 0.43255778082440616, 0.02868041945222347, 0.04192467958013164]
+
+NEXT STEP AND STOPPING
+A separately approved fresh run can validate the corrected estimator on only
+the two refitted GP points, with new fixed seeds, 4x4000 retained samples,
+and 30-minute overall budget. Its runner is prepared and defaults to checks.
+Read NEXT_VALIDATION_PROTOCOL.txt for exact gates and stopping rules.
+No fresh validation was started during this task.
+If precision and convergence pass but directions remain unresolved, do not
+automatically expand training or sampling. That would constrain this local
+gradient-learning route, not mathematically refute QEP or all other basins.
+
+REPRODUCTION
+python analyze.py --out regenerated_analysis
+The package includes exact score arrays, summaries, unchanged diagnostics,
+hashes, code and protocols. It excludes unnecessary original latent states.
+validate_new_samples.py requires the prior FastQEP_hyperfit_pilot_20261015
+bundle; --bundle supplies its path. Without --run it performs checks only.
+
+BACKGROUND
+Dellaportas and Kontoyiannis (2012), JRSS B 74, 133-161:
+https://www.dpmms.cam.ac.uk/~ik355/PAPERS/cvmcmcJ.pdf
+Used for general control-variate/MCMC context. Its specialized reversible
+kernel estimator and optimality results are not claimed for our composed sampler.

@@ -1,0 +1,38 @@
+[
+  {
+    "dataset": "nuclei",
+    "method": "raw",
+    "differences": {},
+    "same_foreground": true,
+    "same_partition": true,
+    "python_q2_vs_R_max_normalized": 8.247868619019203e-15,
+    "R_reconstruction_runtime_s": 5.7897566659376025
+  },
+  {
+    "dataset": "nuclei",
+    "method": "fastgp",
+    "differences": {},
+    "same_foreground": true,
+    "same_partition": true,
+    "python_q2_vs_R_max_normalized": 8.247868619019203e-15,
+    "R_reconstruction_runtime_s": 5.7897566659376025
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "raw",
+    "differences": {},
+    "same_foreground": true,
+    "same_partition": true,
+    "python_q2_vs_R_max_normalized": 1.1268371856524883e-13,
+    "R_reconstruction_runtime_s": 1.9793045418336987
+  },
+  {
+    "dataset": "whole_cell",
+    "method": "fastgp",
+    "differences": {},
+    "same_foreground": true,
+    "same_partition": true,
+    "python_q2_vs_R_max_normalized": 1.1268371856524883e-13,
+    "R_reconstruction_runtime_s": 1.9793045418336987
+  }
+]

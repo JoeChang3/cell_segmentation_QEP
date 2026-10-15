@@ -1,0 +1,128 @@
+FAST-QEP FIRST-TILE HYPERPARAMETER SCORE PILOT
+2026-10-15 | Read-only review of the frozen run
+
+Scope: one original first tile from each development image;
+analytic GP refit and q=1.5 evidence-score estimation only.
+No QEP parameter update was accepted. No full-image reconstruction,
+thresholding, watershed, AP evaluation or held-out test was run.
+The nuisance ECM candidate in each target is logged but not applied.
+
+Run status: COMPLETED
+
+GP CONTROL: nuclei
+Selected start: common_nondegenerate
+Stationarity gate: True
+Boundary hits (beta rows, beta cols, nu): [None, None, None]
+Parameters: {"mean": 0.6639409025295402, "signal_variance": 0.002405694002544691, "noise_ratio": 0.17059751737391537, "beta_rows": 35.50396888692665, "beta_cols": 23.688963404450497}
+Two-start fits (log evidence; higher is better within this GP model):
+  archived_R: 151042.711261450; success=True; projected gradient/n=1.94298e-07
+  common_nondegenerate: 163430.674617596; success=True; projected gradient/n=2.84587e-09
+
+QEP TARGET: nuclei/archived_R
+Gates passed: True; sampler seconds: 229.47
+  mean: QEP=-4.5926324e-08, GP=-5.0605963e-16, difference=-4.5926324e-08, MCSE=2.9905e-07; difference resolved=False, QEP own score resolved=False
+    Rhat=0.998892, bulk ESS=1600.0, tail ESS=1528.3; chain means=[-1.3191617184119624e-07, 4.938301424597748e-07, 9.970771525275341e-08, -6.453269837688238e-07]
+    Raw MCSE=344.62; controlled MCSE=0.279907; ratio=0.0008122194973957935
+  log_signal_variance: QEP=-3.6921486e-05, GP=-2.1501057e-16, difference=-3.6921486e-05, MCSE=6.7876e-05; difference resolved=False, QEP own score resolved=False
+    Rhat=1.003378, bulk ESS=1560.1, tail ESS=1457.9; chain means=[9.711977270888619e-05, -0.00022072390977523015, -4.478851357589614e-05, 2.0706705782906102e-05]
+    Raw MCSE=4.89905; controlled MCSE=4.59385; ratio=0.9377029826489082
+  log_noise_ratio: QEP=+1.3208031e-06, GP=-1.1554087e-06, difference=+2.4762118e-06, MCSE=2.4018e-06; difference resolved=False, QEP own score resolved=False
+    Rhat=0.999543, bulk ESS=1600.0, tail ESS=1600.0; chain means=[-5.024257963612986e-06, 3.248623526601206e-06, 1.7330003248776018e-06, 5.325846688436167e-06]
+    Raw MCSE=2.12482; controlled MCSE=0.162554; ratio=0.07650284243361385
+  log_beta_rows: QEP=-0.00019285938, GP=+2.7532631e-06, difference=-0.00019561264, MCSE=0.00032479; difference resolved=False, QEP own score resolved=False
+    Rhat=1.003012, bulk ESS=1600.0, tail ESS=1511.8; chain means=[0.0004794287140998988, -0.0010226819842747978, -0.00023457037457047433, 6.386136721206893e-06]
+    Raw MCSE=27.0916; controlled MCSE=21.9821; ratio=0.8113994200178046
+  log_beta_cols: QEP=+0, GP=+0, difference=+0, MCSE=0; difference resolved=False, QEP own score resolved=False
+    Rhat=1.000000, bulk ESS=1600.0, tail ESS=1600.0; chain means=[0.0, 0.0, 0.0, 0.0]
+    Raw MCSE=0; controlled MCSE=0; ratio=None
+  Mean MCSE (0-255 intensity): p99=0.000116822, max=0.000284847
+  QEP/GP mean absolute difference at same theta (0-255): 2.44958e-05
+
+QEP TARGET: nuclei/refitted_GP
+Gates passed: True; sampler seconds: 223.60
+  mean: QEP=+7.1718783e-07, GP=-3.7320791e-17, difference=+7.1718783e-07, MCSE=2.8715e-07; difference resolved=False, QEP own score resolved=False
+    Rhat=1.001338, bulk ESS=1600.0, tail ESS=1600.0; chain means=[1.0684974211767566e-06, 3.8490227622508287e-07, 4.974377067376643e-07, 9.179139333453266e-07]
+    Raw MCSE=411.997; controlled MCSE=0.268765; ratio=0.0006523470037679301
+  log_signal_variance: QEP=-7.5780402e-05, GP=-3.2251585e-16, difference=-7.5780402e-05, MCSE=5.4077e-05; difference resolved=False, QEP own score resolved=False
+    Rhat=0.999498, bulk ESS=1600.0, tail ESS=1459.2; chain means=[-0.00013016606703947052, 2.8382258695891596e-05, -0.00011732673744994022, -8.401106265257304e-05]
+    Raw MCSE=3.42105; controlled MCSE=3.65996; ratio=1.0698354804326837
+  log_noise_ratio: QEP=+4.6849829e-07, GP=+1.92592e-09, difference=+4.6657237e-07, MCSE=1.0437e-06; difference resolved=False, QEP own score resolved=False
+    Rhat=1.000308, bulk ESS=1600.0, tail ESS=1534.1; chain means=[1.7046075036120605e-06, -1.5031928781630124e-06, 1.4386424900846906e-06, 2.3393606216851133e-07]
+    Raw MCSE=1.69618; controlled MCSE=0.070636; ratio=0.04164424250546339
+  log_beta_rows: QEP=-0.00032122564, GP=-2.8458689e-09, difference=-0.0003212228, MCSE=0.00023256; difference resolved=False, QEP own score resolved=False
+    Rhat=0.999582, bulk ESS=1600.0, tail ESS=1447.8; chain means=[-0.0005583234487321608, 0.00012813434782979225, -0.0005024068342034148, -0.0003523066428308931]
+    Raw MCSE=15.4305; controlled MCSE=15.7394; ratio=1.0200184292130208
+  log_beta_cols: QEP=-0.00033395089, GP=-2.5940613e-09, difference=-0.00033394829, MCSE=0.00024142; difference resolved=False, QEP own score resolved=False
+    Rhat=0.999577, bulk ESS=1600.0, tail ESS=1447.8; chain means=[-0.0005793042618306561, 0.00013340299195544982, -0.0005224390277515826, -0.0003674632440188103]
+    Raw MCSE=15.8874; controlled MCSE=16.3391; ratio=1.028430102107333
+  Mean MCSE (0-255 intensity): p99=5.98756e-05, max=0.000126346
+  QEP/GP mean absolute difference at same theta (0-255): 1.46428e-05
+
+GP CONTROL: whole_cell
+Selected start: common_nondegenerate
+Stationarity gate: True
+Boundary hits (beta rows, beta cols, nu): [None, None, None]
+Parameters: {"mean": 0.21420007259036383, "signal_variance": 0.009073890463827302, "noise_ratio": 0.00195429202116194, "beta_rows": 81.01076253690454, "beta_cols": 62.336556210202396}
+Two-start fits (log evidence; higher is better within this GP model):
+  archived_R: 94055.917895350; success=True; projected gradient/n=7.11456e-09
+  common_nondegenerate: 114158.404241509; success=True; projected gradient/n=4.10906e-08
+
+QEP TARGET: whole_cell/archived_R
+Gates passed: True; sampler seconds: 131.23
+  mean: QEP=+2.6896733e-06, GP=+1.5160967e-17, difference=+2.6896733e-06, MCSE=2.4032e-06; difference resolved=False, QEP own score resolved=False
+    Rhat=0.998591, bulk ESS=1532.6, tail ESS=1442.3; chain means=[2.4636515415652053e-06, 7.55947110434779e-07, 3.4987591360733343e-06, 4.040335329618378e-06]
+    Raw MCSE=1006; controlled MCSE=0.593548; ratio=0.0005900074165768969
+  log_signal_variance: QEP=-6.9321594e-05, GP=+1.8189894e-16, difference=-6.9321594e-05, MCSE=0.00023378; difference resolved=False, QEP own score resolved=False
+    Rhat=1.001852, bulk ESS=1320.8, tail ESS=1457.1; chain means=[8.155910093281069e-05, 0.00016384338740242115, -9.667083430455767e-05, -0.00042601802983079643]
+    Raw MCSE=3.06001; controlled MCSE=9.35112; ratio=3.0559096507366923
+  log_noise_ratio: QEP=+2.3780202e-05, GP=-3.0670049e-06, difference=+2.6847207e-05, MCSE=6.9717e-05; difference resolved=False, QEP own score resolved=False
+    Rhat=1.000895, bulk ESS=1338.4, tail ESS=1529.2; chain means=[-1.8811916950551223e-06, -4.262920297563892e-05, 2.7758097155995188e-05, 0.00011187310384386386]
+    Raw MCSE=3.00835; controlled MCSE=2.78867; ratio=0.9269762144518107
+  log_beta_rows: QEP=+0, GP=+0, difference=+0, MCSE=0; difference resolved=False, QEP own score resolved=False
+    Rhat=1.000000, bulk ESS=1600.0, tail ESS=1600.0; chain means=[0.0, 0.0, 0.0, 0.0]
+    Raw MCSE=0; controlled MCSE=0; ratio=None
+  log_beta_cols: QEP=-0.00046306176, GP=+1.0662577e-05, difference=-0.00047372434, MCSE=0.0014287; difference resolved=False, QEP own score resolved=False
+    Rhat=1.001538, bulk ESS=1329.0, tail ESS=1530.4; chain means=[0.0003042681970815386, 0.000928698114843809, -0.0005784908994266071, -0.0025067224489877804]
+    Raw MCSE=9.86223; controlled MCSE=57.1462; ratio=5.7944483176043855
+  Mean MCSE (0-255 intensity): p99=0.000512639, max=0.00158723
+  QEP/GP mean absolute difference at same theta (0-255): 0.0001184
+
+QEP TARGET: whole_cell/refitted_GP
+Gates passed: True; sampler seconds: 134.61
+  mean: QEP=+9.0507131e-07, GP=-7.0888836e-17, difference=+9.0507131e-07, MCSE=3.8571e-06; difference resolved=False, QEP own score resolved=False
+    Rhat=0.998827, bulk ESS=1551.6, tail ESS=1600.0; chain means=[-1.0051724283257018e-06, 2.3822458555386374e-06, 5.005192213685003e-06, -2.76198038839387e-06]
+    Raw MCSE=1268.36; controlled MCSE=0.952656; ratio=0.0007510926277864684
+  log_signal_variance: QEP=+3.6014655e-05, GP=+0, difference=+3.6014655e-05, MCSE=0.00031716; difference resolved=False, QEP own score resolved=False
+    Rhat=1.002381, bulk ESS=1600.0, tail ESS=1421.8; chain means=[-0.00031325724304470274, 0.00035581405716475354, 0.00042408482766809983, -0.000322583022791815]
+    Raw MCSE=3.54788; controlled MCSE=12.6865; ratio=3.5757904520090316
+  log_noise_ratio: QEP=-1.7706968e-05, GP=-5.3088572e-09, difference=-1.7701659e-05, MCSE=0.00011563; difference resolved=False, QEP own score resolved=False
+    Rhat=1.003009, bulk ESS=1600.0, tail ESS=1565.8; chain means=[0.0001101708509751702, -0.00010006109843192054, -0.00016590010221155844, 8.4962477543555e-05]
+    Raw MCSE=3.95204; controlled MCSE=4.62502; ratio=1.1702871092562361
+  log_beta_rows: QEP=+0.000205184, GP=+4.1090637e-08, difference=+0.00020514291, MCSE=0.0015557; difference resolved=False, QEP own score resolved=False
+    Rhat=1.002112, bulk ESS=1600.0, tail ESS=1455.0; chain means=[-0.001540586059504538, 0.0015751609758940862, 0.0021629873644891263, -0.0013768262942056714]
+    Raw MCSE=8.26627; controlled MCSE=62.2273; ratio=7.527858212252483
+  log_beta_cols: QEP=+0.00024363251, GP=-1.4349446e-08, difference=+0.00024364686, MCSE=0.0017962; difference resolved=False, QEP own score resolved=False
+    Rhat=1.002092, bulk ESS=1600.0, tail ESS=1455.0; chain means=[-0.001765932640135097, 0.0018262914610254176, 0.00250166193352355, -0.001587490696272102]
+    Raw MCSE=10.0947; controlled MCSE=71.8462; ratio=7.11719671933426
+  Mean MCSE (0-255 intensity): p99=0.000681187, max=0.00254779
+  QEP/GP mean absolute difference at same theta (0-255): 0.000110415
+
+INTERPRETATION RULES
+All scores are divided by tile pixel count; the mean score is also multiplied by tile SD.
+Resolved means both |QEP-GP| > 3 MCSE and scaled |QEP-GP| > 1e-8, as frozen before the run.
+This is a descriptive numerical screen, not a p-value or multiplicity-adjusted test.
+Parameter scores have different scales; compare each to its own MCSE, not across coordinates.
+Positive log-beta score means a locally preferred increase in inverse length scale,
+subject to the declared feasible domain; it does not establish better cell boundaries.
+A resolved score at a GP stationary point motivates a bounded QEP learning test.
+It does not demonstrate a finite-step evidence gain, segmentation gain, or superiority to GP.
+An unresolved score cannot rule out other basins or all possible QEP models.
+The predeclared coordinatewise screen is not an equivalence test or a test of every joint direction.
+A zero-mean control is unbiased but does not guarantee lower variance at q=1.5.
+Inspect controlled/raw MCSE ratios: some controls increased rather than decreased error.
+The predeclared estimator and screen were retained; no post-hoc estimator was substituted.
+GP log-evidence differences here compare GP fits only; no QEP marginal evidence was estimated.
+A zero beta derivative on the archived identity-kernel plateau is zero information.
+Existing fixed-parameter Fast-QEP/Fast-GP AP ties remain unchanged.
+Any later superiority claim needs a refitted GP control, parameter-source controls,
+identical downstream processing and independent images after development.

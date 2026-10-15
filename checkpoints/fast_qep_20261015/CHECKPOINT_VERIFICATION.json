@@ -1,0 +1,21 @@
+{
+  "scope": "Checkpoint relocation and saved-output audit only; no new experiment",
+  "original_source_and_input_manifests": "PASS",
+  "pilot_result_manifest": "PASS (22 files)",
+  "fresh_result_manifest": "PASS (12 files)",
+  "copied_source_and_report_files_byte_identical": 241,
+  "mac_uploaded_completion_entries_verified": 72,
+  "mac_completion_entries_not_supplied": 214,
+  "saved_pilot_summary_recomputed": "PASS",
+  "saved_offline_analysis_recomputed": "PASS",
+  "saved_fresh_validation_audit_recomputed": "PASS",
+  "relocated_source_frozen_weights_gp_parameters_and_R_anchors": "PASS",
+  "new_sampling_or_model_fitting": false,
+  "new_segmentation": false,
+  "limitations": [
+    "No R executable in checkpoint assembly environment; no new R execution or Mac full-array rescoring.",
+    "Unsupplied Mac artifacts are explicitly listed.",
+    "Original preparation-state documents remain unchanged; latest completed reports take precedence for outcome."
+  ],
+  "whitespace_note": "Existing whitespace and CRLF in archived files are preserved byte for byte; new documentation and verification code have no diff-check warnings."
+}

@@ -1,0 +1,18 @@
+{
+  "identity": {
+    "signature": "342dd06ee990d25dfa4bfcdd4a720652c30fe2685e80477db61bce2e4e3e67ec",
+    "dataset": "nuclei",
+    "tile": 5,
+    "y": 0,
+    "x": 240,
+    "tile_sha256": "85c49cf717460f863d648f1797764d7420c93563d59762a052b49d800bda42ec",
+    "fixture_id": 1005
+  },
+  "status": "PASSED",
+  "sampler_runtime_s": 349.4804182499647,
+  "artifacts": {
+    "chains.npz": "5205d2070e3a63ba494f6ffbd4cbfc6cf71776d1d297627233c294c9743c9ac1",
+    "estimates.npz": "8a4256cf51f8e40e85845d9b4fe70f01c524864bdaed9bc6cc476f52542bd513",
+    "summary.json": "58c569923efaa8a78442e9f08e6546068eb06c89548e05bebd21be3957aa368d"
+  }
+}

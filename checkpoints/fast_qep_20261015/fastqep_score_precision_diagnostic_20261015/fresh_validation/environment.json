@@ -1,0 +1,8 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "numpy": "2.3.5",
+  "threads": 1,
+  "source_bundle": "/workspace/scratch/756bc0f68837/FastQEP_hyperfit_pilot_20261015",
+  "candidate_weights_sha256": "6b77ba13f8d6a22e74317e0a2823294d0950935c81e6bd625adfda52f85df473",
+  "validation_manifest_sha256": "ea0623ed4aac3839a432733375fbc81cc237d2aac77d1af743d87c4972d8d83f"
+}

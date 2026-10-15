@@ -1,0 +1,84 @@
+OFFLINE FAST-QEP SCORE PRECISION DIAGNOSTIC, 2026-10-15
+
+Scope and status
+This is a post-hoc analysis of already inspected pilot samples, authorized by
+the user after the original pilot. It is not a new preregistered experiment,
+fresh replication, new QEP fit, or segmentation comparison. Preserve the
+original pilot decisions and all original bytes. Do not sample or optimize.
+
+Inputs
+Four targets: nuclei and whole_cell, each at archived_R and refitted_GP.
+Per target: raw and controlled score arrays (4 chains, 400 scores, 5 parameters),
+and original JSON summaries. Scores were evaluated every 10 retained MCMC draws.
+Verify the original completion manifest before use. All 4 chains were previously
+seen; separating them here prevents coefficient fitting on evaluation chains,
+but does not create an independent scientific validation dataset.
+
+Controls and weights
+For each coordinate, reconstruct the existing zero-mean Stein control
+C = G_raw - G_fixed. The estimand is the same posterior expectation of G_raw.
+Compare G_raw (b=0), G_fixed (b=1), and G_raw-b*C.
+Use one control per parameter. Do not add new controls or jointly mix scores.
+Fit b using only calibration-chain centered batch means, block size 20 score
+observations (=200 retained sampler transitions). Each chain yields 20 batches.
+Center within chain; estimate pooled batch covariance and variance. Set
+b_unbounded = Cov(batch G, batch C)/Var(batch C), then b=clip(b_unbounded,0,1).
+If control variance is exactly zero, set b=0 and flag it. Save unbounded and
+bounded weights, correlations, and the variance decomposition.
+The interval includes disabling the control and the original full correction.
+Block size and interval are fixed for this diagnostic; do not tune them after
+seeing results. This finite-batch criterion is not guaranteed asymptotically
+optimal for the composed MCMC sampler.
+
+Splits
+Forward: calibration chains [0,1], evaluation chains [2,3].
+Reverse sensitivity check: calibration [2,3], evaluation [0,1].
+Both results must be reported. They reuse the same four chains and are not two
+independent replications. Do not pool them into an apparently independent
+cross-fitted MCSE, or choose the split with a favorable score.
+
+Evaluation
+Use the byte-unchanged summarize() routine from the frozen pilot, on evaluation
+chains only, for all three estimators. Report MCSE, chain means, R-hat, bulk/tail
+ESS, and raw-score units and original scaled units. Compare estimators on the
+SAME evaluation chains, never a 2-chain estimate with a 4-chain baseline.
+Also report evaluation batch-variance decomposition to diagnose overcorrection.
+Coefficients are chosen for precision, not for score magnitude or sign.
+Zero score/control coordinates are uninformative, not successful reductions.
+
+A descriptive technical candidate requires, in BOTH splits:
+- evaluation MCSE <=0.8 times original b=1 MCSE;
+- evaluation MCSE <=1.2 times raw b=0 MCSE;
+- weighted evaluation R-hat<1.01 and bulk/tail ESS>400.
+This 20% reduction screen is a post-hoc engineering criterion fixed before this
+offline calculation, not a statistical test or a claim about population MSE.
+Weights can increase evaluation error; retain such results.
+
+For context only, print QEP-GP difference/MCSE and the old scaled floor of 1e-8.
+If a 3-MCSE screen is crossed here, label it exploratory and require fresh
+validation. Do not revise the original pilot or claim QEP improvement.
+If no coordinate has useful precision gains, stop this diagnostic without new
+weight families, batch-size sweeps, new random seeds, or new sampling.
+
+Decision
+Precision improvement can justify a frozen estimator for a later, separately
+approved validation run. It does not by itself justify full hyperparameter
+training or demonstrate a QEP signal. Future weight calibration and validation
+must be separated from the current exploratory findings. Report unresolved
+gradients honestly; they do not prove exact zeros or exclude other optima.
+
+Mathematical basis
+For a fixed b, E(G-b*C)=E(G) when E(C)=0. Its variance is
+Var(G)+b^2 Var(C)-2b Cov(G,C). The same quadratic identity holds for batch means;
+MCMC mean variance depends on serial correlation, so an empirical batch fit is
+only a candidate. Under stationarity and independent calibration/evaluation
+chains, conditioning on the calibration fit preserves the evaluation estimand.
+This does not eliminate finite-run MCMC bias or validate the model itself.
+
+Background reference (not a theorem invoked for this sampler)
+Dellaportas and Kontoyiannis (2012), Control variates for estimation based on
+reversible Markov chain Monte Carlo samplers, JRSS B 74, 133-161.
+https://www.dpmms.cam.ac.uk/~ik355/PAPERS/cvmcmcJ.pdf
+The paper motivates optimal coefficients and MCMC dependence. Its specialized
+reversible-kernel estimator is not implemented here. The HMC/global-MH
+composition has not been assumed reversible.

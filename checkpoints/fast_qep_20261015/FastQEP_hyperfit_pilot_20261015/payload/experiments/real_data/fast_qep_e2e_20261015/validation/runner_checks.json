@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": {
+    "real_sampler_to_checkpoint_and_assembly": true,
+    "original_uncovered_columns_remain_zero": true,
+    "pooled_mean_matches_four_chain_mean": true,
+    "resume_without_resampling_identical": true,
+    "changed_identity_blocks_resume": true,
+    "failed_tile_cannot_be_retried": true,
+    "tampered_tile_artifact_blocks_resume": true,
+    "partition_check_ignores_only_label_names": true
+  },
+  "synthetic_fixture_only": true,
+  "real_R_executed": false,
+  "real_image_QEP_sampled": false
+}

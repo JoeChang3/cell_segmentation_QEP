@@ -1,3 +1,24 @@
+# Cell segmentation: research checkpoints
+
+The latest research checkpoint on `chatgpt-review-cellseg-20260917` is
+[Fast-QEP through 2026-10-15](checkpoints/fast_qep_20261015/README.md).
+It includes executable sources, frozen protocols, the supplied original-R
+end-to-end review, GP-refit/score diagnostics, and independent-seed validation
+of fixed control-variate weights. All numerical gates passed in the latest
+validation, but no reliable local QEP learning direction was resolved; this
+local training branch is paused. No QEP segmentation advantage is claimed.
+
+Rounds 1–10 remain at `fa746853ba007552bb1d5a43340d91f6796096b1`.
+The new checkpoint preserves those historical files and records the limits of
+the uploaded Mac review (the complete Mac output directory was not supplied).
+See its README for integrity checks, source locations and reproduction commands.
+
+The description below is historical. The early isotropic Python GP is not the
+paper Fast-GP; consult the audits before interpreting baseline or QEP claims.
+The current application focus is real cell segmentation; linear diffusion is
+historical exploratory material.
+
+---
 
 - **`nuclei_wholeCell_QEP.py`**  
   Re-implementation of the cell nuclei segmentation experiment from the paper.  

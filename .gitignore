@@ -47,3 +47,6 @@ audits/parity/r_predmean_n*.csv
 # for the 96 paired DeepQEP fits, so they are committed despite the global
 # *.log rule. Narrowly scoped to this one directory.
 !results/real_cellseg_round10_deepqep_pilot_20260918/logs/*.log
+
+# Frozen Fast-QEP checkpoint: small execution logs are scientific provenance.
+!checkpoints/fast_qep_20261015/**/*.log
