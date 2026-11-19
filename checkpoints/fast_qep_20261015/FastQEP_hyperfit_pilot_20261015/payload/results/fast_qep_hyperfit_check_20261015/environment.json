@@ -1,6 +1,6 @@
 {
   "python": "3.12.14",
-  "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+  "executable": "python",
   "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
   "packages": {
     "numpy": "2.3.5",

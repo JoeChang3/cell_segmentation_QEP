@@ -1,6 +1,6 @@
 {
   "files": {
-    "README_CN.txt": "e1e49abd9e158315c305e9c04ca7a53b745feda046068be88e767056361948ba",
+    "README.txt": "c4ae458d477cc8c1cc4d9ef26acc23e5e5a8ae0b9c8ce77d169ea1b09c0fcb16",
     "REPORT_EN.txt": "3e9492fb45324ed8ffe895c890a4a7ca73edda1ec0c3b38346031a8dc7067354",
     "analysis.json": "ebd33175b3464e578efc9c40ce660e83d0d7fec4a8a56d0294af205375ab2b3b",
     "summarize_pilot.py": "f75a6fda437f20aa7bd67e70e64a0a16b3f2906ef064aed761751e97a464c3e1",

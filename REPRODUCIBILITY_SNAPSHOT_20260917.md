@@ -9,7 +9,6 @@ results. Nothing in the installed environment was modified to create this file.
 |---|---|
 | local path | `/Users/zchan/eclipse-workspace/Cell_Seg_QEP` |
 | remote | https://github.com/JoeChang3/cell_segmentation_QEP |
-| branch | `chatgpt-review-cellseg-20260917` |
 | branched from | `main` at `1123b84` ("move legacy scripts") |
 
 ## Runtime actually used for Rounds 1–4

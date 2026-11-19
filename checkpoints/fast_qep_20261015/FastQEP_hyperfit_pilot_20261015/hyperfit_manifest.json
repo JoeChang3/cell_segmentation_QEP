@@ -16,7 +16,7 @@
     "payload/data/whole_cell_test_images/whole_cell_figure_1/original_fig.jpg": "4edb9dfe0868fdc29c122ebc8e5ee61db171d5283b38e503ef80fe8eb10e75af",
     "payload/data/whole_cell_test_images/whole_cell_figure_1/original_true_masks.png": "0fe48203bd036886f076ca2ebf78e6d27ed9e1ca31905c6bb215402c651e7219",
     "payload/experiments/real_data/fast_qep_e2e_20261015/PROTOCOL.md": "bad79a1a692293fd0ce55ae742f08a63c152d8f29e42ce9352facd8ac2d218dd",
-    "payload/experiments/real_data/fast_qep_e2e_20261015/README.md": "5771f21dbf5dcf1f2c5901efabe34792a6b647a4ee55a35a3893365066f4ea54",
+    "payload/experiments/real_data/fast_qep_e2e_20261015/README.md": "3758456df20db7b3fd8c27b3ea745464b324d2be40f7c7234d83e59eb374c21d",
     "payload/experiments/real_data/fast_qep_e2e_20261015/VALIDATION.md": "d9426e23b15606434284767c2afd49f575168e1b057bdcbcf8d6333f341f0a2c",
     "payload/experiments/real_data/fast_qep_e2e_20261015/anchors/nuclei/fastgp_P_segmentation.npz": "8c2ad884fe427fd5c6192111ad00e41ab3542e75f4305704a6804c7d88b9ffc9",
     "payload/experiments/real_data/fast_qep_e2e_20261015/anchors/nuclei/fastgp_reconstruction.npz": "2b6120a5352de4952c33c00fa65d38de00e0f5aa0a687e93ad1e5ef90569f67a",
@@ -56,7 +56,7 @@
     "payload/results/qep_downstream_4x2_completed_20260924/artifact_manifest.json": "30840c1800637c4e962cf0cec45ed340016fa9b377390177aa1d82c48ff45040",
     "payload/results/qep_downstream_4x2_completed_20260924/metrics.csv": "03737a29392eefad3b118e80b8816ab8e952b3f80640705fad2e5c723106f317",
     "payload/results/real_cellseg_round3_thresholding_20260916/image_manifest.csv": "82d05c400d719143a46ec88cc5a03b4bd6e9219c62b1f066f02f80663e460726",
-    "payload/experiments/real_data/fast_qep_e2e_20261015/bundle_manifest.json": "56936b377df077311d4a1ef176163602993fbc61728cb02505a94a6d7a884573",
+    "payload/experiments/real_data/fast_qep_e2e_20261015/bundle_manifest.json": "778ad0e9bbe016f28c99c5ed73d4d3e826a83ac82d5cb0f66d7775a2868c9dc4",
     "payload/experiments/real_data/fast_qep_hyperfit_20261015/INTEGRATION_STATUS.md": "79b1443d12070e06b8853c96b75812a9e7f357ac6209bd20d8db8a776ef101ed",
     "payload/experiments/real_data/fast_qep_hyperfit_20261015/PROTOCOL.md": "aad6a67e625aba576ae7401f2449208cfddda469ee468b5045c615b47e1a2f54",
     "payload/experiments/real_data/fast_qep_hyperfit_20261015/hyperfit_core.py": "7775b350289fdb8b51bb10701c2bd7646e09be8f16c7955dcca4496d0c81531e",
@@ -68,9 +68,9 @@
     "payload/experiments/real_data/fast_qep_hyperfit_20261015/validation/archived_R_anchor_checks.json": "f45ead9cb8dd1db43b1cca1e4792d00a6d0168b61aab70df87adda20cc4ba4a2",
     "payload/experiments/real_data/fast_qep_hyperfit_20261015/validation/integration_checks.json": "9658d3d19552bce08c8f3b70f303f4bb72329bb0434443d1064616e63774c761",
     "payload/experiments/real_data/fast_qep_hyperfit_20261015/validation/previous_math_checks.json": "6a3aceb4a69c0081c9be5a722e4d85f5cbb2602348b464bf04dd1f3bd5d26773",
-    "README.md": "8a5d6d561b5f0c58d1696516b068ec9b01fceb6223eacd116857b11c8c2d95c3",
+    "README.md": "438ae05071a4088b2317605ca67fbbe866ff6382f8c639d7af67dd287dacdb0a",
     "run.py": "6f2d691a247a8e5416b1a55c1ac4eefc5b732b1bb490fdcf77f0f2b4a649bc5f",
-    "ORIGINAL_E2E_README.md": "5771f21dbf5dcf1f2c5901efabe34792a6b647a4ee55a35a3893365066f4ea54",
+    "ORIGINAL_E2E_README.md": "3758456df20db7b3fd8c27b3ea745464b324d2be40f7c7234d83e59eb374c21d",
     "run_original_e2e.py": "b175fa06bb296af29426f3b904cb016985563f339dcdf248959e5f96adfc6b2b"
   }
 }

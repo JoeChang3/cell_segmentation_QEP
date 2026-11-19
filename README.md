@@ -1,6 +1,6 @@
 # Cell segmentation: research checkpoints
 
-The latest research checkpoint on `chatgpt-review-cellseg-20260917` is
+The [November BBBC020 validation](results/bbbc020_external_validation_20261117) follows
 [Fast-QEP through 2026-10-15](checkpoints/fast_qep_20261015/README.md).
 It includes executable sources, frozen protocols, the supplied original-R
 end-to-end review, GP-refit/score diagnostics, and independent-seed validation

@@ -4,7 +4,7 @@ Use Python 3.12 with NumPy 2.3.5, SciPy 1.17.0, pandas 2.2.3, Pillow 13, matplot
 Source images and per-cell segmentations from Roland Lang, BBBC020 v1, Broad Bioimage Benchmark Collection, Ljosa et al., Nature Methods 2012. Source images/reference masks are available under CC BY-NC-SA 3.0 at https://bbbc.broadinstitute.org/BBBC020 . Credit Roland Lang and BBBC for the source data. Included derived predicted masks are supplied with attribution for noncommercial use under the same terms. Source images and human TIFFs are retrieved from Broad by the commands below. The native RGB C1 file has identical R/G components and an empty B component. Use native R component. Each field is divided according to the R tile-size rule. Both arms optimise the same global first-tile parameters from two starts, then refit mean/variance per tile. No ground-truth input to the reconstruction, thresholds, or watershed.
 
 ```bash
-git clone --branch chatgpt-review-cellseg-20260917 https://github.com/JoeChang3/cell_segmentation_QEP.git ../independent_repo
+git clone https://github.com/JoeChang3/cell_segmentation_QEP.git ../independent_repo
 git -C ../independent_repo checkout --detach b2940767a791454f96ebad8cb35aef381ebffadc
 export CELLSEG_REPO="$(cd ../independent_repo && pwd)"
 export RSCRIPT="$(command -v Rscript)"

@@ -1,24 +1,19 @@
 # Fast-QEP checkpoint — 2026-10-15
 
 This checkpoint continues `fa746853ba007552bb1d5a43340d91f6796096b1`
-(Rounds 1–10) on `chatgpt-review-cellseg-20260917`. It archives the supplied
+(Rounds 1–10) on the research branch. It archives the supplied
 Fast-QEP execution sources, the Mac end-to-end review, and the subsequent
 hyperparameter-score work. It does not start another experiment.
 
-## 当前状态
+## Findings
 
-- 固定参数 Fast-QEP q=1.5 接原版 R 下游，主结果与 Fast-GP 的 AP50 相同：
-  nuclei 0.6481013、whole-cell 0.5838641。不能挑选单条链声称 QEP 改善。
-- 完成原始首块的解析 GP 重拟合与 QEP 边际似然梯度诊断；没有进行 QEP 参数更新。
-- 离线诊断发现固定控制变量权重可能增大方差，随后冻结修正权重并用新种子验证。
-- 新种子验证的数值、收敛及精度修复检查均通过，但仍无符合预定规则的局部学习方向。
-  两个数据集的最大 `|QEP score − GP score| / MCSE` 分别为 0.6475、0.7125，
-  均未达到 3；十个坐标的四链方向也均未一致。
-- 根据冻结停止规则，暂停这条局部梯度训练分支，不自动扩展到完整优化、延长采样或改阈值。
-  这不等于证明所有 Fast-QEP 模型无效，也不等于梯度严格为零。
+- With q=1.5 and fixed parameters, Fast-QEP and Fast-GP achieved identical AP50 through the original R pipeline (0.6481013 for nuclei and 0.5838641 for whole cells). Individual chain selection would bias the comparison.
+- The first-tile analysis refitted the analytic GP and estimated QEP marginal-likelihood gradients. No QEP parameter update was applied.
+- An offline analysis found that fixed control-variate weights could increase variance. Revised weights were frozen and tested with fresh seeds.
+- The fresh runs passed the numerical, convergence and precision checks. The maximum absolute QEP–GP score differences in MCSE units were 0.6475 and 0.7125, below the cutoff of 3. Across all ten coordinates, none had the same direction in all four chains.
+- The prespecified stopping rule paused local gradient training. The evidence leaves open other models, parameter points and joint directions. No additional optimization, longer chains or threshold changes were triggered.
 
-这些都是已使用的 development 图像。新 MCMC 种子不代表独立测试图像。
-最近三个梯度阶段没有产生新分割结果，也没有改变此前 AP。
+All comparisons used existing development images. New MCMC seeds test sampling variability on those images. The three gradient studies produced no new segmentations or AP values.
 
 ## Evidence and directory map
 
@@ -28,7 +23,7 @@ hyperparameter-score work. It does not start another experiment.
 | Hyperparameter derivation and checks | [Feasibility PDF](fastqep_hyperfit_review_20261015/FastQEP_hyperparameter_feasibility_20261015.pdf) | Mathematical/numerical checks completed; its proposed outer optimization loop was **not executed** |
 | GP refit and QEP score pilot | [Pilot report](fastqep_hyperfit_pilot_analysis_20261015/REPORT_EN.txt), [raw outputs](FastQEP_hyperfit_pilot_20261015/payload/results/fast_qep_hyperfit_pilot_20261015) | Two first tiles, archived-R and GP-refitted parameters; four targets pass; no resolved coordinate direction |
 | Offline control-variate diagnostic | [Offline report](fastqep_score_precision_diagnostic_20261015/REPORT_EN.txt) | Reused old draws; bounded scalar weights; an estimator diagnostic, not independent confirmation |
-| Frozen-weight fresh-seed validation | [Latest report](fastqep_fresh_validation_review_20261015/REPORT_EN.txt), [中文说明](fastqep_fresh_validation_review_20261015/README_CN.txt), [raw outputs](fastqep_score_precision_diagnostic_20261015/fresh_validation) | Both precision checks pass; no eligible local learning direction; frozen stopping rule applies |
+| Frozen-weight fresh-seed validation | [Latest report](fastqep_fresh_validation_review_20261015/REPORT_EN.txt), [Validation overview](fastqep_fresh_validation_review_20261015/README.txt), [raw outputs](fastqep_score_precision_diagnostic_20261015/fresh_validation) | Both precision checks pass; no eligible local learning direction; frozen stopping rule applies |
 
 ![Fresh-seed gradient validation](fastqep_fresh_validation_review_20261015/fresh_gradient_validation.png)
 
@@ -36,8 +31,7 @@ The runnable source is in
 [`FastQEP_hyperfit_pilot_20261015`](FastQEP_hyperfit_pilot_20261015).
 Its `payload/` contains the exact original Fast-QEP sampler, Fast-GP code,
 real-R downstream scripts, two input images, fixed reference anchors, and the
-new score implementation. Its original 69-file source manifest is unchanged.
-The 53 frozen payload files from the original execution package remain unchanged.
+new score implementation. The source manifests in this edition cover the translated documentation. Commit `e99acc1bd896a13179023874226639d135e8a36e` retains the original source manifests and the 53-file frozen payload.
 
 ## Model and claim boundaries
 
@@ -59,8 +53,7 @@ directions, kernels, or QEP models. No nuisance ECM candidate was applied.
 
 The source bundle, GP-refit/score pilot, offline inputs and analysis, fresh
 validation, score traces, saved initial/final states, reconstruction estimates,
-protocols, diagnostics and reports are included as unpacked files. Original
-bytes and internal relative paths are preserved; redundant delivery ZIPs,
+protocols, diagnostics and reports are included as unpacked files. The historical commit above preserves the original bytes and paths; redundant delivery ZIPs,
 Python caches and PDF preview rasters are omitted. The small R reference
 fixture ZIP is retained because it is part of the frozen execution inputs.
 
@@ -106,7 +99,7 @@ No installation or new experiment occurs during checkpoint verification.
 
 Historical `NOT_RUN`, `CANDIDATE`, approval language, absolute paths and ZIP
 layout instructions inside frozen documents record their original preparation
-state. They are retained verbatim to preserve their hashes. The current outcome
+state. This edition translates documentation and uses the Python executable basename in the environment records. Original delivery hashes are available at the historical commit above. The current outcome
 is the completed fresh validation and its latest report above; the commands in
 this README describe the unpacked Git layout. Delivery manifests referencing
 `source/*.zip` describe the earlier downloadable packages; the corresponding

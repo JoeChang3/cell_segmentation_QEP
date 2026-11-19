@@ -1,6 +1,6 @@
 {
   "user_authorized_fresh_validation": true,
-  "authorization_message": "批准",
+  "authorization_message": "Approved",
   "authorization_local_time": "2026-10-15T15:49:26-07:00",
   "run_status": "COMPLETED",
   "sources": {
