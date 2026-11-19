@@ -20,10 +20,10 @@ def _ensure_finite(arr, tag="", cap=1e6):
     bad_nan = np.isnan(arr).sum()
     bad_inf = np.isinf(arr).sum()
     print(f"[Non-finite detected] {tag}: NaN={bad_nan}, Inf={bad_inf}, shape={arr.shape}")
-    # 打印几个坏位置（可选）
+    # Optionally print a few affected indices.
     idx = np.argwhere(~np.isfinite(arr))
     print("  first bad indices:", idx[:5].tolist())
-    # 兜底修复（继续跑得起来）
+    # Apply the fallback correction to continue.
     arr = np.nan_to_num(arr, nan=0.0, posinf=cap, neginf=-cap)
     return arr
 
@@ -196,7 +196,7 @@ def fit_qep_1d(y_1d,
                device="cpu"):
     """
     y_1d: shape (T,)
-    返回：posterior mean, shape (T,)
+    Return the posterior mean with shape (T,).
     """
     torch.set_default_dtype(torch.float64)
     T = len(y_1d)
@@ -263,7 +263,7 @@ def fit_qep_1d(y_1d,
     with torch.no_grad(), gpytorch.settings.fast_pred_var():
         pred = like(model(train_x)).mean.detach().cpu().numpy()
 
-    # 反标准化
+    # Restore the original scale.
     pred = pred * y_std + y_mean
     return pred
 
