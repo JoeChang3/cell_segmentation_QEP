@@ -19,10 +19,10 @@ def _ensure_finite(arr, tag="", cap=1e6):
     bad_nan = np.isnan(arr).sum()
     bad_inf = np.isinf(arr).sum()
     print(f"[Non-finite detected] {tag}: NaN={bad_nan}, Inf={bad_inf}, shape={arr.shape}")
-    # 打印几个坏位置（可选）
+    # Optionally print a few affected indices.
     idx = np.argwhere(~np.isfinite(arr))
     print("  first bad indices:", idx[:5].tolist())
-    # 兜底修复（继续跑得起来）
+    # Apply the fallback correction so execution can continue.
     arr = np.nan_to_num(arr, nan=0.0, posinf=cap, neginf=-cap)
     return arr
 
@@ -30,7 +30,7 @@ def _ensure_finite(arr, tag="", cap=1e6):
 def choose_rank_via_criterion(output_mat):
     """
     back to randomized_svd when np.linalg.svd does not converge
-    return est_d（1..ceil(k*2/3)）。
+    return est_d (1..ceil(k*2/3)).
     """
     import numpy as np
     from math import ceil
@@ -52,11 +52,11 @@ def choose_rank_via_criterion(output_mat):
         raise ValueError("output_mat must be 2D.")
 
     A = A.astype(np.float64, copy=True)
-    # NaN → 0，Inf → bounded value
+    # NaN → 0, Inf → bounded value
     A = np.nan_to_num(A, nan=0.0, posinf=1e6, neginf=-1e6)
     # clip extreme value
     A = np.clip(A, -1e6, 1e6)
-    # decentralize（col)
+    # decentralize (col)
     A = A - A.mean(axis=0, keepdims=True)
     # make sure continuous memory
     A = np.ascontiguousarray(A)
@@ -75,7 +75,7 @@ def choose_rank_via_criterion(output_mat):
         else:
             U, s, Vt = np.linalg.svd(A, full_matrices=False)
     except Exception:
-        # 3) back：randomized SVD（only fisrt max_d）
+        # 3) back: randomized SVD (only fisrt max_d)
         if _has_rand:
             r = min(max_d, min(k, n) - 1) if min(k, n) > 1 else 1
             U, s, Vt = randomized_svd(A, n_components=r, n_iter=5, random_state=0)
@@ -120,7 +120,7 @@ def pca_reconstruct(obs, d):
 
 def dmd_reconstruct(obs, r):
     """
-    similar to the DMD_alg in r code: treat each column as a time step（match the r's cbind(output_mat[,1], in_sample_pred)）
+    similar to the DMD_alg in r code: treat each column as a time step (match the r's cbind(output_mat[,1], in_sample_pred))
     return the reconstruction with the same shape as obs
     """
     H, W = obs.shape
@@ -191,7 +191,7 @@ def fit_qep_1d(y_1d,
                device="cpu"):
     """
     y_1d: shape (T,)
-    返回：posterior mean, shape (T,)
+    Return the posterior mean with shape (T,).
     """
     torch.set_default_dtype(torch.float64)
     T = len(y_1d)
@@ -258,7 +258,7 @@ def fit_qep_1d(y_1d,
     with torch.no_grad(), gpytorch.settings.fast_pred_var():
         pred = like(model(train_x)).mean.detach().cpu().numpy()
 
-    # 反标准化
+    # Restore the original scale.
     pred = pred * y_std + y_mean
     return pred
 
@@ -271,7 +271,7 @@ def fit_qep_separable_2d(obs,
                          jitter=1e-3,
                          device="cpu"):
     """
-    1D QEP by row first，then by col，return (H,W)
+    1D QEP by row first, then by col, return (H,W)
     avoid to constructing 4e4×4e4 kernel matrix
     """
     H, W = obs.shape
@@ -305,7 +305,7 @@ def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0,
                               C_left=0.0, C_right=1.0,
                               clip_bounds=(0.0, 1.0)):
     """
-    stable 1D diffusion: Crank–Nicolson ，Dirichlet bound.
+    stable 1D diffusion: Crank–Nicolson, Dirichlet bound.
     return reality: shape (k, n), one time step each column
     """
     dx = L / k
@@ -317,7 +317,7 @@ def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0,
     off  = np.full(k - 1, -1.0, dtype=np.float64)
     Lap  = sparse.diags([off, main, off], [-1, 0, 1], shape=(k, k), format="csr")
 
-    # CN： (I - r/2 * L) u^{t+1} = (I + r/2 * L) u^{t}
+    # CN: (I - r/2 * L) u^{t+1} = (I + r/2 * L) u^{t}
     I = sparse.eye(k, format="csr", dtype=np.float64)
     A = (I - 0.5 * r * Lap).tolil()
     B = (I + 0.5 * r * Lap).tocsr()
@@ -364,12 +364,12 @@ n = 200
 sigma0_list = [0.05, 0.1, 0.3]
 num_repetition = 10
 
-# “observation mean” reality（k x n）
+# “observation mean” reality (k x n)
 reality = generate_linear_diffusion(k=k, n=n, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0)
 reality = _ensure_finite(reality, tag="reality")
 assert np.isfinite(reality).all(), "reality has non-finite values"
 
-# —— tool functions：
+# —— tool functions:
 # fmou_predictive_mean(obs, d, ...)
 # choose_rank_via_criterion(output_mat)
 # pca_reconstruct(obs, d)
@@ -402,7 +402,7 @@ for j, sigma0 in enumerate(sigma0_list):
         if it == 0:
             y_record[j] = y_obs   
 
-        # QEP-RBF（ R: lattice_exp）
+        # QEP-RBF (R: lattice_exp)
         # length_scale  0.1~0.5
         pred_rbf = fit_qep_separable_2d(
             y_obs, kernel_type="rbf", q_power=2.5,
@@ -421,7 +421,7 @@ for j, sigma0 in enumerate(sigma0_list):
         rmse_qep_rbf[it, j] = np.sqrt(np.mean((reality - pred_rbf)**2))
         if it == 0: pred_qep_rbf_record[j] = pred_rbf
 
-        # QEP-Matern（R: lattice_matern）
+        # QEP-Matern (R: lattice_matern)
         pred_mat = fit_qep_separable_2d(
             y_obs, kernel_type="matern", q_power=2.5,
             train_iters_row=50, train_iters_col=50, lr=0.05,
@@ -480,7 +480,7 @@ def _reorder(arrs):
 make_violin_plot(_reorder([rmse_qep_rbf, rmse_qep_matern, rmse_fmou, rmse_pca, rmse_dmd]),
                  method_order, sigma0_list, title="(B) Linear diffusion")
 
-# ======= Figure 6(B)：（observation mean、observation with noise、Matern estimation）=======
+# ======= Figure 6(B): (observation mean, observation with noise, Matern estimation)=======
 # sigma0=0.3, same with R code
 plot_triplet(reality, y_record[2], pred_qep_matern_record[2],
              title_left="(D) Observation mean", title_mid="(E) Noisy observation",

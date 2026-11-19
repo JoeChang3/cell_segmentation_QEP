@@ -54,7 +54,7 @@ def criterion_1(predmean_mat: np.ndarray, delta: float = 0.01, nugget: bool = Tr
     """
     R: criterion_1(predmean_mat, delta=0.01, nugget=T)
 
-    逻辑：
+    Procedure:
     - percentages = 0..1 step delta
     - pixel_counts[t] = number of pixels above percentage*max
     - diff_pixel_counts = abs(diff(pixel_counts))
@@ -136,7 +136,7 @@ def eliminate_small_areas(gp_masks: np.ndarray, size_threshold: int) -> np.ndarr
 
 def find_boundaries_4n(mask: np.ndarray) -> np.ndarray:
     """
-    R: find_boundaries(mask) 自写 4邻域边界
+    R: find_boundaries(mask) custom four-neighbor boundary detector
     """
     boundary = np.zeros_like(mask, dtype=np.uint8)
     H, W = mask.shape
@@ -215,7 +215,7 @@ def separable_gp_smooth_gpytorch(
     max_points: int = 6000,
 ) -> np.ndarray:
     """
-    use GPyTorch to fit GP，then predict posterior mean on the whole grid
+    use GPyTorch to fit GP, then predict posterior mean on the whole grid
     - img: (H,W) numpy float
     """
     H, W = img.shape
@@ -278,7 +278,7 @@ def separable_gp_smooth_qepytorch(
     jitter: float = 1e-4,
 ) -> np.ndarray:
     """
-    用 QePyTorch 拟合 QEP 并预测 mean。
+    Fit a QEP with QePyTorch and predict its mean.
     """
     H, W = img.shape
     y = img.astype(np.float64)
@@ -324,7 +324,7 @@ def separable_gp_smooth_qepytorch(
     model.eval()
     test_x = torch.from_numpy(X).float().to(device)
     with torch.no_grad():
-        pred = model(test_x).mean  # 或者 model.likelihood(model(test_x)).mean 取决于实现
+        pred = model(test_x).mean  # Use model.likelihood(model(test_x)).mean if the implementation returns a latent prediction.
     predmean = pred.detach().cpu().numpy().reshape(H, W)
     return predmean
 

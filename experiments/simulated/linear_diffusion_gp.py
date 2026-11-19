@@ -25,7 +25,7 @@ def _ensure_finite(arr, tag="", cap=1e6):
 def choose_rank_via_criterion(output_mat):
     """
     back to randomized_svd when np.linalg.svd does not converge
-    return est_d（1..ceil(k*2/3)）。
+    return est_d (1..ceil(k*2/3)).
     """
     import numpy as np
     from math import ceil
@@ -47,11 +47,11 @@ def choose_rank_via_criterion(output_mat):
         raise ValueError("output_mat must be 2D.")
 
     A = A.astype(np.float64, copy=True)
-    # NaN → 0，Inf → bounded value
+    # NaN → 0, Inf → bounded value
     A = np.nan_to_num(A, nan=0.0, posinf=1e6, neginf=-1e6)
     # clip extreme value
     A = np.clip(A, -1e6, 1e6)
-    # decentralize（col)
+    # decentralize (col)
     A = A - A.mean(axis=0, keepdims=True)
     # make sure continuous memory
     A = np.ascontiguousarray(A)
@@ -70,7 +70,7 @@ def choose_rank_via_criterion(output_mat):
         else:
             U, s, Vt = np.linalg.svd(A, full_matrices=False)
     except Exception:
-        # 3) back：randomized SVD（only fisrt max_d）
+        # 3) back: randomized SVD (only fisrt max_d)
         if _has_rand:
             r = min(max_d, min(k, n) - 1) if min(k, n) > 1 else 1
             U, s, Vt = randomized_svd(A, n_components=r, n_iter=5, random_state=0)
@@ -115,7 +115,7 @@ def pca_reconstruct(obs, d):
 
 def dmd_reconstruct(obs, r):
     """
-    similar to the DMD_alg in r code: treat each column as a time step（match the r's cbind(output_mat[,1], in_sample_pred)）
+    similar to the DMD_alg in r code: treat each column as a time step (match the r's cbind(output_mat[,1], in_sample_pred))
     return the reconstruction with the same shape as obs
     """
     H, W = obs.shape
@@ -177,11 +177,11 @@ def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mea
     plt.show()
 
 
-# ---------- 1) "observation mean" reality：same as R code :ReacTran + deSolve ----------
+# ---------- 1) "observation mean" reality: same as R code :ReacTran + deSolve ----------
 def generate_linear_diffusion(k=200, n=200, L=1.0, T=0.2, D=1.0, C_left=0.0, C_right=1.0):
     """
     1D diffusion: u_t = D * u_xx；implicited Euler
-    bound：left:Dirichlet=C_left(=0)，right: Dirichlet=C_right(=1)
+    bound: left:Dirichlet=C_left(=0), right: Dirichlet=C_right(=1)
     return: reality shape (k, n)
     """
     dx = L / k
@@ -267,14 +267,14 @@ for j, sigma0 in enumerate(sigma0_list):
         if it == 0:
             y_record[j] = y
 
-        # Lattice - exp kernel （Gaussian RBF）
+        # Lattice - exp kernel (Gaussian RBF)
         ls = max(5, min(k, n))
         pred_exp = lattice_alg_gaussian(y, kernel_type="exp",
                                         length_scale=ls, noise_var=sigma0**2)
         rmse_lattice_exp[it, j] = np.sqrt(np.mean((reality - pred_exp)**2))
         if it == 0: pred_mean_lattice_exp_record[j] = pred_exp
 
-        # Lattice - matern kernel （Gaussian Matern ν=1.5）
+        # Lattice - matern kernel (Gaussian Matern ν=1.5)
         pred_mat = lattice_alg_gaussian(y, kernel_type="matern",
                                         length_scale=ls, noise_var=sigma0**2)
         rmse_lattice_matern[it, j] = np.sqrt(np.mean((reality - pred_mat)**2))
@@ -291,12 +291,12 @@ for j, sigma0 in enumerate(sigma0_list):
         rmse_fmou[it, j] = np.sqrt(np.mean((reality - pred_fmou)**2))
         if it == 0: pred_mean_fmou_record[j] = pred_fmou
 
-        # PCA（U[:,1:d] U^T y）
+        # PCA (U[:,1:d] U^T y)
         pred_pca = pca_reconstruct(y, d_hat)
         rmse_pca[it, j] = np.sqrt(np.mean((reality - pred_pca)**2))
         if it == 0: pred_mean_pca_record[j] = pred_pca
 
-        # DMD（R: cbind(y[,1], in_sample_pred)）
+        # DMD (R: cbind(y[,1], in_sample_pred))
         pred_dmd = dmd_reconstruct(y, r=d_hat)
         pred_dmd_with_first = pred_dmd.copy()
         pred_dmd_with_first[:, 0] = y[:, 0]

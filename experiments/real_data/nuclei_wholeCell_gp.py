@@ -86,7 +86,7 @@ def pca_reconstruct(obs, d):
 
 def dmd_reconstruct(obs, r):
     """
-    similar to the DMD_alg in r code: treat each column as a time step（match the r's cbind(output_mat[,1], in_sample_pred)）
+    similar to the DMD_alg in r code: treat each column as a time step (match the r's cbind(output_mat[,1], in_sample_pred))
     return the reconstruction with the same shape as obs
     """
     H, W = obs.shape
@@ -155,7 +155,7 @@ whl_est_d = np.full((num_repetition, len(sigma0_list)), np.nan, dtype=int)
 
 
 
-# main iteration：nuclei
+# main iteration: nuclei
 # -----------------------------
 for j, sigma_0 in enumerate(sigma0_list):
     for it in range(num_repetition):
@@ -184,7 +184,7 @@ for j, sigma_0 in enumerate(sigma0_list):
         d_hat = choose_rank_via_criterion(obs)
         nuc_est_d[it, j] = d_hat
 
-        # FMOU（Python)
+        # FMOU (Python)
         fmou_out = fmou_predictive_mean(obs, d_hat, M=50, threshold=1e-4,
                                         est_U0=True, est_sigma0_2=True)
         pred_fmou = fmou_out['mean_obs']
@@ -205,7 +205,7 @@ for j, sigma_0 in enumerate(sigma0_list):
             nuc_pred_dmd_record[j] = pred_dmd
 
 
-# main iterations：whole cell
+# main iterations: whole cell
 # -----------------------------
 for j, sigma_0 in enumerate(sigma0_list):
     for it in range(num_repetition):
@@ -229,7 +229,7 @@ for j, sigma_0 in enumerate(sigma0_list):
         d_hat = choose_rank_via_criterion(obs)
         whl_est_d[it, j] = d_hat
 
-        # FMOU（Python）
+        # FMOU (Python)
         fmou_out = fmou_predictive_mean(obs, d_hat, M=50, threshold=1e-4,
                                         est_U0=True, est_sigma0_2=True)
         pred_fmou = fmou_out['mean_obs']
@@ -288,7 +288,7 @@ print("\n=== nuclei_rmse_summary ===\n", nuc_rmse_summary)
 print("\n=== wholeCell_rmse_summary ===\n", whl_rmse_summary)
 
 # -----------------------------
-# violin plot（using Matplotlib）
+# violin plot (using Matplotlib)
 # -----------------------------
 def make_violin_plot(all_rmse_arrays, method_labels, sigma_list, title):
     """
@@ -329,7 +329,7 @@ make_violin_plot(reorder([whl_rmse_exp, whl_rmse_mat, whl_rmse_fmou, whl_rmse_pc
                  method_order, sigma0_list, title="(B) Whole cell")
 
 
-# thermo diagram（nuclei/whole）
+# thermo diagram (nuclei/whole)
 # -----------------------------
 def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mean",
                  title_mid="(B) Noisy observation", title_right="(C) Predictive mean",
@@ -352,12 +352,12 @@ def plot_triplet(obs_mean, noisy_obs, pred_mean, title_left="(A) Observation mea
     plt.tight_layout()
     plt.show()
 
-# nuclei: use Matern predictive mean（sigma0_list[0] case）
+# nuclei: use Matern predictive mean (sigma0_list[0] case)
 plot_triplet(nuclei, nuc_y_record[0], nuc_pred_mat_record[0],
              title_left="(A) Observation mean", title_mid="(B) Noisy observation",
              title_right="(C) Predictive mean", suptitle="Cell nuclei")
 
-# whole: use Matern predictive mean（sigma0_list[2] case）
+# whole: use Matern predictive mean (sigma0_list[2] case)
 plot_triplet(whole, whl_y_record[2], whl_pred_mat_record[2],
              title_left="(D) Observation mean", title_mid="(E) Noisy observation",
              title_right="(F) Predictive mean", suptitle="Whole cell")
