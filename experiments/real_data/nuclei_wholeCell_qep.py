@@ -126,7 +126,7 @@ def fit_qep_on_grid(obs, kernel_type="exp", q_power=1.0,
 
     # prediction
     model.eval(); likelihood.eval()
-    with torch.no_grad(), qpytorch.settings.fast_pred_var():  # 可加速方差计算
+    with torch.no_grad(), qpytorch.settings.fast_pred_var():  # Speed up predictive variance calculations.
         test_x = train_x
         pred = likelihood(model(test_x))
         # predicted mean
