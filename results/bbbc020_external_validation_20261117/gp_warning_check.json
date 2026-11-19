@@ -1,0 +1,9 @@
+[
+  {
+    "field": "jw-24h 5_c1",
+    "independent_stationarity": true,
+    "independent_ll": 302362.8943111785,
+    "ll_difference": 1.7462298274040222e-10,
+    "gradient_per_pixel": 1.7328481340683923e-08
+  }
+]

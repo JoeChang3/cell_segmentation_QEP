@@ -1,0 +1,22 @@
+{
+  "jw-15min 1_c1": {
+    "prior_integral": 1.0000000000063036,
+    "prior_mean_S": 0.9999999999816587,
+    "max_radial_log_density_error": 1.7011049013859747e-08,
+    "checks": [],
+    "independent_IS_logevidence": 296862.5534546892,
+    "quadrature_logevidence": 296862.54882546957,
+    "independent_IS_mcse": 0.02434854743033836,
+    "standardized_difference": 0.1901230314705165
+  },
+  "jw-Kontrolle3_c1": {
+    "prior_integral": 1.0000000000063036,
+    "prior_mean_S": 0.9999999999816587,
+    "max_radial_log_density_error": 1.7011049013859747e-08,
+    "checks": [],
+    "independent_IS_logevidence": 344344.4305178472,
+    "quadrature_logevidence": 344344.47970013873,
+    "independent_IS_mcse": 0.021053952973089513,
+    "standardized_difference": -2.336012225968176
+  }
+}
