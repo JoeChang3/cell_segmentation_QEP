@@ -1,0 +1,31 @@
+R version 4.5.3 (2026-03-11)
+Platform: x86_64-conda-linux-gnu
+Running under: Debian GNU/Linux 13 (trixie)
+
+Matrix products: default
+BLAS/LAPACK: /workspace/scratch/9f9d71614b01/independent/r_env/lib/libopenblasp-r0.3.34.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+time zone: America/Los_Angeles
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] EBImage_4.52.0   RobustGaSP_0.6.8 pracma_2.4.4     magick_2.9.1    
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.39       fastmap_1.2.0       lattice_0.23-1     
+ [4] magrittr_2.0.5      abind_1.4-8         jpeg_0.1-11        
+ [7] RCurl_1.98-1.19     BiocGenerics_0.56.0 htmltools_0.5.9    
+[10] png_0.1-9           generics_0.1.4      cli_3.6.6          
+[13] bitops_1.1-0        fftwtools_0.9-11    nloptr_2.2.1       
+[16] grid_4.5.3          compiler_4.5.3      tools_4.5.3        
+[19] tiff_0.1-12         Rcpp_1.1.2          locfit_1.5-9.12    
+[22] htmlwidgets_1.6.4   rlang_1.3.0        
