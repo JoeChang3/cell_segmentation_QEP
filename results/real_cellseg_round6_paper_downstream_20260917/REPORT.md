@@ -4,7 +4,7 @@
 
 | item | value |
 |---|---|
-| Cell_Seg_QEP commit | `a48381de87bf59490f4c8a9ec09670270a45caa3` (branch `chatgpt-review-cellseg-20260917`) |
+| Cell_Seg_QEP commit | `a48381de87bf59490f4c8a9ec09670270a45caa3` |
 | reference repo path | `/Users/zchan/eclipse-workspace/cell_segmentation_original` |
 | reference repo remote | `https://github.com/UncertaintyQuantification/cell_segmentation.git` |
 | reference commit SHA | **`44714c2e0be958fe796a8fd4bdbc220dae3c23dd`** (`44714c2`, 2025-09-04) |

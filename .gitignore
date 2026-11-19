@@ -5,7 +5,7 @@ __pycache__/
 .env
 *.log
 
-# ---- added 2026-09-17 for the ChatGPT review snapshot ----
+# ---- added 2026-09-17 for the research snapshot ----
 # Large generated arrays from the 2026 real-cell-segmentation rounds.
 # Scoped to results/ only, so the already-tracked data/ assets (including
 # data/nuclear_test_images/nuclei_figure_1/original_fig_seg.npy) are unaffected.
